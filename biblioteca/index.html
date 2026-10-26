@@ -35,11 +35,11 @@
     />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
     <link rel="apple-touch-icon" href="assets/icon-192.png" />
-    <link rel="stylesheet" href="css/tokens.css?v=11" />
-    <link rel="stylesheet" href="css/base.css?v=11" />
-    <link rel="stylesheet" href="css/biblioteca.css?v=11" />
-    <script defer src="js/base.js?v=11"></script>
-    <script defer src="js/biblioteca.js?v=11"></script>
+    <link rel="stylesheet" href="css/tokens.css?v=12" />
+    <link rel="stylesheet" href="css/base.css?v=12" />
+    <link rel="stylesheet" href="css/biblioteca.css?v=12" />
+    <script defer src="js/base.js?v=12"></script>
+    <script defer src="js/biblioteca.js?v=12"></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true" focusable="false">
@@ -113,7 +113,7 @@
     </header>
 
     <main id="contenido" tabindex="-1">
-      <section id="inicio" class="hero hero--library" aria-labelledby="hero-title">
+      <section id="inicio" class="hero" aria-labelledby="hero-title">
         <div class="hero__backdrop" aria-hidden="true">
           <div class="hero__pattern"></div>
           <div class="hero__blob hero__blob--a"></div>
@@ -133,12 +133,67 @@
             </p>
             <p class="hero__lead hero__enter">
               Cada proyecto tiene su documentación completa: qué hace, cómo se usa y cómo está hecho
-              por dentro. Elige uno y ábrelo.
+              por dentro, con capturas, en claro y en oscuro. Elige uno y ábrelo.
             </p>
-            <ul class="shelf-stats hero__enter" role="list">
-              <li><strong data-stat="books">0</strong> <span data-stat-label="books">proyectos documentados</span></li>
-              <li><strong data-stat="sections">0</strong> <span data-stat-label="sections">secciones</span></li>
-            </ul>
+            <div class="hero__actions hero__enter">
+              <a class="button button--primary" href="#proyectos">
+                <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-list" /></svg>
+                Ver los proyectos
+              </a>
+              <a class="button button--secondary" href="https://github.com/RenzoRamosDEV">
+                <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-github" /></svg>
+                GitHub
+              </a>
+              <a class="button button--secondary" href="https://www.linkedin.com/in/renzoinv04/">
+                <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-linkedin" /></svg>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero-shot">
+              <img
+                class="hero-shot__img hero-shot__img--light"
+                src="assets/thumbs/agentboard-light-640.webp"
+                srcset="assets/thumbs/agentboard-light-640.webp 640w, assets/thumbs/agentboard-light-1280.webp 1280w"
+                sizes="(min-width: 60rem) 34rem, calc(100vw - 2rem)"
+                width="1280"
+                height="800"
+                decoding="async"
+                alt=""
+              />
+              <img
+                class="hero-shot__img hero-shot__img--dark"
+                src="assets/thumbs/agentboard-dark-640.webp"
+                srcset="assets/thumbs/agentboard-dark-640.webp 640w, assets/thumbs/agentboard-dark-1280.webp 1280w"
+                sizes="(min-width: 60rem) 34rem, calc(100vw - 2rem)"
+                width="1280"
+                height="800"
+                decoding="async"
+                alt=""
+              />
+            </div>
+            <div class="hero__decor">
+              <div class="shelf-card">
+                <div class="shelf-card__band">
+                  <span class="shelf-card__brand">
+                    <svg class="icon" width="18" height="18"><use href="#i-list" /></svg>
+                    En el estante
+                  </span>
+                  <span class="shelf-card__badge"><span data-stat="books">0</span> libros</span>
+                </div>
+                <ul class="shelf-card__list" data-shelf-preview role="list"></ul>
+              </div>
+              <div class="float-card float-card--top">
+                <svg class="icon" width="18" height="18"><use href="#i-layers" /></svg>
+                <span><strong data-stat="sections">0</strong> <span data-stat-label="sections">secciones</span></span>
+              </div>
+              <div class="float-card float-card--side">
+                <svg class="icon" width="18" height="18"><use href="#i-contrast" /></svg>
+                En claro y en oscuro
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -228,10 +283,6 @@
                     <a class="book__read" href="../agentboard/">
                       Leer la documentación
                       <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-arrow" /></svg>
-                    </a>
-                    <a class="book__extra" href="https://renzoramosdev.github.io/AgentBoard/">
-                      <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-globe" /></svg>
-                      Web
                     </a>
                     <a class="book__extra" href="https://github.com/RenzoRamosDEV/AgentBoard">
                       <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-github" /></svg>

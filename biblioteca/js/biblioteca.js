@@ -12,8 +12,29 @@
   var activeFilter = 'todos'
 
   function setText(selector, value) {
-    var element = document.querySelector(selector)
-    if (element) element.textContent = String(value)
+    Array.prototype.forEach.call(document.querySelectorAll(selector), function (element) {
+      element.textContent = String(value)
+    })
+  }
+
+  function renderPreview() {
+    var preview = document.querySelector('[data-shelf-preview]')
+    if (!preview) return
+    books.forEach(function (book) {
+      var title = book.querySelector('.book__link')
+      var article = book.querySelector('.book')
+      if (!title) return
+      var item = document.createElement('li')
+      item.textContent = title.textContent.trim()
+      if (article) {
+        item.style.setProperty('--accent-light', article.style.getPropertyValue('--accent-light'))
+        item.style.setProperty('--accent-dark', article.style.getPropertyValue('--accent-dark'))
+      }
+      var sections = document.createElement('span')
+      sections.textContent = (book.getAttribute('data-sections') || '0') + ' secc.'
+      item.appendChild(sections)
+      preview.appendChild(item)
+    })
   }
 
   function countShelf() {
@@ -103,5 +124,6 @@
     })
   }
 
+  renderPreview()
   if (countShelf()) render()
 })()
