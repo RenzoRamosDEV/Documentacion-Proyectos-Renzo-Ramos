@@ -7,6 +7,11 @@
   white-space: nowrap;
 }
 
+/* La biblioteca es más ancha que las documentaciones, para que quepan cuatro fichas por fila. */
+.container {
+  width: min(100% - 2rem, 88rem);
+}
+
 /* ---------- Marca ---------- */
 
 .brand__mark--logo {
@@ -256,9 +261,9 @@
 }
 
 .book__body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
-  align-content: start;
   padding: 1.25rem 1.5rem 1.5rem 1.75rem;
 }
 
@@ -348,7 +353,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1rem;
-  margin-top: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
 }
 
 .book__read {
@@ -433,6 +439,55 @@
   .shelf {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
+  }
+}
+
+/* Tres y cuatro fichas por fila, como máximo cuatro, con una ficha más compacta. */
+@media (min-width: 72rem) {
+  .shelf {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .book__cover {
+    padding: 1rem 1rem 0 1.25rem;
+  }
+
+  .book__body {
+    gap: 0.625rem;
+    padding: 1rem 1.25rem 1.25rem 1.5rem;
+  }
+
+  .book h3 {
+    font-size: 1.25rem;
+  }
+
+  .book p {
+    font-size: 0.9375rem;
+  }
+
+  .book__meta,
+  .book__extra {
+    font-size: 0.8125rem;
+  }
+
+  .book__actions {
+    gap: 0.375rem 0.75rem;
+    padding-top: 0.25rem;
+  }
+
+  .book__read {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 90rem) {
+  .shelf {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .book__actions .book__read {
+    flex-basis: 100%;
   }
 }
 
