@@ -71,12 +71,15 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 2. Carpeta `<proyecto>/` en minúsculas con su documentación como `index.html`, copiada desde el
    repo del proyecto (`git archive origin/main:landing`, renombrando `docs.html` a `index.html`).
    Quédate solo con los archivos que la página usa (estilos, scripts, fuentes, logos, capturas).
-3. Ajusta los enlaces de la copia:
-   - Los enlaces a secciones de la landing del proyecto y a su demo apuntan a su web publicada,
-     porque aquí no existen.
-   - El enlace del menú «Documentación» apunta a `./`.
-   - Añade «Biblioteca» (`../biblioteca/`) al principio del menú y un «← Volver a la biblioteca»
-     encima del título.
+3. Ajusta la cabecera y los enlaces de la copia (mira `agentboard/index.html` como referencia):
+   - Encima de la cabecera del proyecto va la franja de la biblioteca (`<nav class="library-bar">`):
+     logo y enlace «Biblioteca» (`../biblioteca/`), `›`, el nombre del proyecto y «Ver todos →»
+     (`../biblioteca/#proyectos`). Sus estilos están al principio de `css/docs.css`
+     («Franja de la biblioteca»): cópialos tal cual.
+   - La barra del proyecto queda limpia: solo enlaces del proyecto, como «Web ↗» a su web y
+     «Descargar» o «Ver demo». Nada de enlaces a secciones de su landing, ni «Biblioteca», ni
+     «Documentación» (ya estás en ella).
+   - Los enlaces del contenido a la web o a la demo del proyecto apuntan a su web publicada.
 4. Miniaturas de esa copia en claro y en oscuro (1280×800, en WebP a 1280 y 640 px de ancho):
    `biblioteca/assets/thumbs/<proyecto>-light-{640,1280}.webp` y `…-dark-…`.
 5. Ficha en el estante de `biblioteca/index.html`, copiando la de otro proyecto:
