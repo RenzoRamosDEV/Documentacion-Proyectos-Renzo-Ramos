@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      ;(function () {
+        var stored = null
+        try {
+          stored = localStorage.getItem('pokedex-docs-theme')
+        } catch (e) {}
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' &&
+            typeof matchMedia === 'function' &&
+            matchMedia('(prefers-color-scheme: dark)').matches)
+        var root = document.documentElement
+        root.classList.toggle('dark', dark)
+        root.style.colorScheme = dark ? 'dark' : 'light'
+      })()
+      document.documentElement.classList.add('js')
+    </script>
+    <title>Documentación · Pokédex Retro</title>
+    <meta
+      name="description"
+      content="Documentación completa de Pokédex Retro: la Pokédex de PokéAPI con estética Game Boy, su chat con Claude u OpenAI, el servidor MCP, la arquitectura, la seguridad y las pruebas."
+    />
+    <meta name="theme-color" content="#cc2200" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Pokédex Retro" />
+    <meta property="og:title" content="Documentación de Pokédex Retro" />
+    <meta
+      property="og:description"
+      content="Cómo funciona Pokédex Retro de punta a punta: la web, el chat con IA y el servidor MCP."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/docs.css" />
+    <link rel="stylesheet" href="css/pokedex.css" />
+    <script defer src="js/landing.js"></script>
+    <script defer src="js/docs.js"></script>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-github" viewBox="0 0 16 16">
+        <path class="filled" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z" />
+      </symbol>
+    </svg>
+
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <nav class="library-bar" aria-label="Biblioteca">
+      <div class="container library-bar__inner">
+        <a class="library-bar__home" href="../biblioteca/">
+          <img src="../biblioteca/assets/logo-132.png" alt="" width="24" height="24" />
+          Biblioteca
+        </a>
+        <span class="library-bar__sep" aria-hidden="true">›</span>
+        <span class="library-bar__current" aria-current="page">Pokédex Retro</span>
+        <a class="library-bar__all" href="../biblioteca/#proyectos">Ver todos →</a>
+      </div>
+    </nav>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="#contenido" aria-label="Pokédex Retro, ir al inicio de la documentación">
+          <span class="brand__mark" aria-hidden="true">
+            <img src="assets/logo.png" alt="" width="36" height="36" />
+          </span>
+          <span class="brand__name">Pokédex Retro</span>
+        </a>
+        <nav class="site-nav" aria-label="Secciones">
+          <a class="site-nav__demo" href="https://renzoramosdev.github.io/Pokedex-Retro/">Abrir la Pokédex</a>
+        </nav>
+        <a
+          class="icon-button"
+          href="https://github.com/RenzoRamosDEV/Pokedex-Retro"
+          aria-label="Repositorio de Pokédex Retro en GitHub"
+        >
+          <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-github" /></svg>
+        </a>
+        <button
+          type="button"
+          class="icon-button theme-toggle"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Cambiar a tema oscuro"
+        >
+          <svg class="icon theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          <svg class="icon theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section class="doc-hero" aria-labelledby="doc-title">
+        <div class="hero__backdrop" aria-hidden="true">
+          <div class="hero__pattern"></div>
+          <div class="hero__blob hero__blob--a"></div>
+          <div class="hero__blob hero__blob--b"></div>
+        </div>
+        <div class="container doc-hero__inner">
+          <p class="pill">
+            <span class="pill__dot" aria-hidden="true"></span>
+            Documentación · versión 1.4.0
+          </p>
+          <h1 id="doc-title">Pokédex Retro, <span class="text-gradient">de punta a punta</span></h1>
+          <p class="doc-hero__lead">
+            La Pokédex de PokéAPI con estética Game Boy, un chat con Claude u OpenAI y un servidor MCP.
+            Aquí está todo: cada sección de la web, cómo funciona el chat y sus agentes, las 12
+            herramientas, cómo se guardan los datos, la seguridad, las pruebas y cómo se construyó.
+          </p>
+          <ul class="chips doc-hero__meta" role="list">
+            <li>JavaScript <span>ES modules</span></li>
+            <li>PokéAPI <span>v2</span></li>
+            <li>MCP <span>12 herramientas</span></li>
+            <li>Claude · OpenAI</li>
+            <li>Licencia <span>MIT</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="container doc-layout">
+        <aside class="doc-toc" data-toc aria-label="Índice de la documentación">
+          <details open>
+            <summary>Índice</summary>
+            <div class="doc-toc__body">
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">Empezar</p>
+                <ol>
+                  <li><a href="#resumen">Qué es</a></li>
+                  <li><a href="#local">Ejecutar en local</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">La web</p>
+                <ol>
+                  <li><a href="#comun">Lo común a todas las páginas</a></li>
+                  <li><a href="#pokedex">Pokédex y ficha</a></li>
+                  <li><a href="#secciones">Las demás secciones</a></li>
+                  <li><a href="#temas">Temas</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">El chat</p>
+                <ol>
+                  <li><a href="#chat">Cómo se usa</a></li>
+                  <li><a href="#clave">Tu clave y tu privacidad</a></li>
+                  <li><a href="#modelos">Proveedores y modelos</a></li>
+                  <li><a href="#herramientas">Las 12 herramientas</a></li>
+                  <li><a href="#agentes">Agente, subagentes y skills</a></li>
+                  <li><a href="#errores-chat">Errores del chat</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">Servidor MCP</p>
+                <ol>
+                  <li><a href="#mcp">Servidor MCP</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">Por dentro</p>
+                <ol>
+                  <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#datos">PokéAPI y caché</a></li>
+                  <li><a href="#seguridad">Seguridad y accesibilidad</a></li>
+                  <li><a href="#calidad">Pruebas y calidad</a></li>
+                  <li><a href="#ci">CI y publicación</a></li>
+                  <li><a href="#versiones">Versiones</a></li>
+                  <li><a href="#adr">Decisiones de arquitectura</a></li>
+                  <li><a href="#limitaciones">Limitaciones conocidas</a></li>
+                  <li><a href="#licencia">Licencia</a></li>
+                </ol>
+              </div>
+            </div>
+          </details>
+        </aside>
+
+        <div class="doc-content">
+          <!-- ============ EMPEZAR ============ -->
+          <section id="resumen" class="doc-section" aria-labelledby="resumen-t">
+            <p class="eyebrow">Empezar</p>
+            <h2 id="resumen-t">Qué es</h2>
+            <p class="doc-lead">
+              PokéAPI tiene todos los datos de Pokémon, pero en JSON y repartidos en miles de URLs.
+              Pokédex Retro los presenta como una Pokédex de Game Boy: buscas, paginas y abres fichas
+              sin servidor propio, porque todo corre en el navegador y se publica en GitHub Pages.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/pokedex-1280.webp"
+                  srcset="assets/screenshots/pokedex-640.webp 640w, assets/screenshots/pokedex-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="La Pokédex en el tema NORMAL, con tarjetas de Pokémon con su número, sprite y tipos"
+                />
+              </div>
+              <figcaption>La Pokédex en el tema NORMAL.</figcaption>
+            </figure>
+            <ul class="doc-cards" role="list">
+              <li class="card">
+                <h4>Siete secciones</h4>
+                <p>Pokédex, movimientos, tipos, habilidades, naturalezas, objetos y bayas, con buscador y paginación en la URL.</p>
+              </li>
+              <li class="card">
+                <h4>Chat con IA</h4>
+                <p>Pregunta en lenguaje natural con tu propia clave de Claude u OpenAI, sin backend y sin cuentas.</p>
+              </li>
+              <li class="card">
+                <h4>Servidor MCP</h4>
+                <p>Claude Code o Claude Desktop consultan la Pokédex con las mismas 12 herramientas del chat.</p>
+              </li>
+              <li class="card">
+                <h4>Web bien hecha</h4>
+                <p>CSP estricta, WCAG 2.1 AA, caché en el navegador, cero dependencias en producción y Lighthouse en CI.</p>
+              </li>
+            </ul>
+            <p>
+              Es un proyecto personal de portafolio de Renzo Ramos, construido por fases con OpenSpec,
+              con TDD y pruebas de mutación. Está escrito en JavaScript con módulos ES, sin frameworks ni
+              build.
+            </p>
+            <ul>
+              <li>Web: <a href="https://renzoramosdev.github.io/Pokedex-Retro/">renzoramosdev.github.io/Pokedex-Retro</a></li>
+              <li>Código: <a href="https://github.com/RenzoRamosDEV/Pokedex-Retro">github.com/RenzoRamosDEV/Pokedex-Retro</a></li>
+            </ul>
+          </section>
+
+          <section id="local" class="doc-section" aria-labelledby="local-t">
+            <p class="eyebrow">Empezar</p>
+            <h2 id="local-t">Ejecutar en local</h2>
+            <p>Necesitas Node 22 o superior (con nvm, <code>nvm use</code>).</p>
+            <pre><code>git clone https://github.com/RenzoRamosDEV/Pokedex-Retro.git
+cd Pokedex-Retro
+npm ci                         # dependencias y hook de pre-commit
+node scripts/serve-site.mjs    # http://127.0.0.1:4173/</code></pre>
+            <p>
+              Abrir los HTML con doble clic (<code>file://</code>) no funciona, porque los módulos ES
+              necesitan HTTP. Para otro puerto: <code>PORT=4181 node scripts/serve-site.mjs</code>.
+            </p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Comando</th><th>Qué hace</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>npm test</code></td><td>Tests unitarios de la web y los scripts</td></tr>
+                  <tr><td><code>npm run e2e</code></td><td>Pruebas de extremo a extremo con Playwright (antes: <code>npx playwright install chromium</code>)</td></tr>
+                  <tr><td><code>npm run test:mutation</code></td><td>Mutación del núcleo; también <code>:chat</code> y <code>:ui</code></td></tr>
+                  <tr><td><code>npm run lint</code> / <code>format:check</code> / <code>typecheck</code></td><td>ESLint, Prettier y comprobación de tipos con JSDoc</td></tr>
+                  <tr><td><code>npm run check:html</code></td><td>Comprueba que la cabecera es igual en todas las páginas</td></tr>
+                  <tr><td><code>npm run lhci</code></td><td>Lighthouse contra la PokéAPI real (necesita red)</td></tr>
+                  <tr><td><code>npm run mcp:start</code> / <code>mcp:test</code> / <code>mcp:inspect</code></td><td>Arranca, prueba o inspecciona el servidor MCP</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ============ LA WEB ============ -->
+          <section id="comun" class="doc-section" aria-labelledby="comun-t">
+            <p class="eyebrow">La web</p>
+            <h2 id="comun-t">Lo común a todas las páginas</h2>
+            <p>
+              Ocho páginas HTML (Pokédex, movimientos, tipos, habilidades, naturalezas, objetos, bayas y
+              chat) y una página 404, todas con la misma cabecera escrita a mano:
+            </p>
+            <ul>
+              <li><strong>Menú</strong> con las ocho páginas; la actual lleva <code>aria-current="page"</code>.</li>
+              <li><strong>Selector de tema</strong>: NORMAL, DMG o MONO.</li>
+              <li><strong>Panel INFO</strong>: nombre, autor, versión, stack, origen de los datos y número de secciones.</li>
+            </ul>
+            <h3>Búsqueda y paginación</h3>
+            <ul>
+              <li>La búsqueda y la página van en la URL: <code>?q=char&amp;page=2</code>, así que se pueden compartir y recargar.</li>
+              <li>El texto se pasa a minúsculas, los espacios se cambian por guiones y se busca «el nombre contiene el texto», sobre los nombres en inglés de PokéAPI.</li>
+              <li>Hay buscador en Pokédex, movimientos, objetos, bayas y habilidades; Tipos y Naturalezas muestran todo de una vez.</li>
+              <li>Paginación «◀ ANT. · N / total · SIG. ▶», que no se pinta si solo hay una página. Una página no válida en la URL cuenta como la 1.</li>
+            </ul>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/busqueda-1280.webp"
+                  srcset="assets/screenshots/busqueda-640.webp 640w, assets/screenshots/busqueda-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Búsqueda «char» en la Pokédex con Charmander, Charmeleon, Charizard y otros resultados"
+                />
+              </div>
+              <figcaption>Buscar «char» en la Pokédex.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Sección</th><th>Recurso de PokéAPI</th><th>Por página</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Pokédex</td><td><code>pokemon</code></td><td>18</td></tr>
+                  <tr><td>Movimientos</td><td><code>move</code></td><td>16</td></tr>
+                  <tr><td>Bayas</td><td><code>berry</code></td><td>15</td></tr>
+                  <tr><td>Objetos</td><td><code>item</code></td><td>12</td></tr>
+                  <tr><td>Habilidades</td><td><code>ability</code></td><td>8</td></tr>
+                  <tr><td>Tipos</td><td><code>type</code></td><td>Sin paginar</td></tr>
+                  <tr><td>Naturalezas</td><td><code>nature</code></td><td>Sin paginar</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>Estados</h3>
+            <p>Una única región de estado anuncia lo que pasa a los lectores de pantalla:</p>
+            <ul>
+              <li>«CARGANDO...» mientras llegan los datos.</li>
+              <li>«SIN RESULTADOS» si la búsqueda no encuentra nada.</li>
+              <li>«No se pudieron cargar los datos. Inténtalo de nuevo más tarde.» si falla la lista.</li>
+              <li>«N ELEMENTOS NO SE PUDIERON CARGAR» si fallan algunos detalles: el resto se muestra igual.</li>
+              <li>Sin JavaScript: «ESTA POKÉDEX NECESITA JAVASCRIPT».</li>
+            </ul>
+            <p>
+              Al salir de la página se cancelan las peticiones en curso, y si vuelves con el botón «atrás»
+              del navegador la carga se repite.
+            </p>
+            <h3>Idioma</h3>
+            <p>
+              La interfaz está en español. Los datos de PokéAPI se muestran tal cual llegan, en inglés y en
+              mayúsculas, sin traducir; algunas etiquetas de la ficha, como HEIGHT o BASE STATS, también
+              están en inglés.
+            </p>
+          </section>
+
+          <section id="pokedex" class="doc-section" aria-labelledby="pokedex-t">
+            <p class="eyebrow">La web</p>
+            <h2 id="pokedex-t">Pokédex y ficha</h2>
+            <p>
+              Una rejilla de tarjetas, 18 por página, con el número, el sprite (o «?» si no tiene), el
+              nombre y los tipos de cada Pokémon. Al pulsar una se abre su ficha.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/ficha-1280.webp"
+                  srcset="assets/screenshots/ficha-640.webp 640w, assets/screenshots/ficha-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Ficha de Bulbasaur con su número, sprite, tipos, altura, peso, experiencia base, habilidades y estadísticas base"
+                />
+              </div>
+              <figcaption>La ficha de Bulbasaur.</figcaption>
+            </figure>
+            <h3>La ficha</h3>
+            <ul>
+              <li>Es un <code>&lt;dialog&gt;</code> nativo con el número, el nombre, el sprite y los tipos.</li>
+              <li><strong>INFO</strong>: altura en metros, peso en kilos y experiencia base.</li>
+              <li><strong>ABILITIES</strong>: sus habilidades; las ocultas llevan la etiqueta «OCULTA».</li>
+              <li><strong>BASE STATS</strong>: cada estadística con su valor y una barra del color de su tipo principal.</li>
+            </ul>
+            <h3>Abrir, cerrar y compartir</h3>
+            <ul>
+              <li>Se cierra con el botón «✕», con <kbd>Esc</kbd> o pulsando fuera; el foco vuelve a la tarjeta.</li>
+              <li>Al abrirla, la URL cambia a <code>#pokemon-&lt;id&gt;</code> sin llenar el historial, así que puedes compartirla.</li>
+              <li>Un enlace como <code>index.html?page=2#pokemon-25</code> abre la ficha al cargar, si ese Pokémon está en esa página.</li>
+            </ul>
+          </section>
+
+          <section id="secciones" class="doc-section" aria-labelledby="secciones-t">
+            <p class="eyebrow">La web</p>
+            <h2 id="secciones-t">Las demás secciones</h2>
+            <h3>Movimientos</h3>
+            <p>
+              Tarjetas con número, tipo, clase de daño (físico, especial o de estado), nombre, potencia
+              (POW), precisión (ACC), PP y prioridad (PRI), con su efecto debajo. Los valores que no
+              existen aparecen como «—».
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/movimientos-1280.webp"
+                  srcset="assets/screenshots/movimientos-640.webp 640w, assets/screenshots/movimientos-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Movimientos con tarjetas de Pound, Karate Chop y otros con su potencia, precisión y PP"
+                />
+              </div>
+              <figcaption>Movimientos.</figcaption>
+            </figure>
+            <h3>Tipos</h3>
+            <p>
+              Una tabla de efectividad de 18 tipos, atacante contra defensor, con ×2, ½, ✕ (inmune) o
+              vacío (normal), y su leyenda. Los tipos especiales <code>stellar</code>,
+              <code>unknown</code> y <code>shadow</code> quedan fuera. La tabla se puede recorrer con el
+              teclado.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/tipos-1280.webp"
+                  srcset="assets/screenshots/tipos-640.webp 640w, assets/screenshots/tipos-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Tabla de tipos con la efectividad de cada tipo atacante contra cada defensor"
+                />
+              </div>
+              <figcaption>Tabla de tipos.</figcaption>
+            </figure>
+            <h3>Habilidades</h3>
+            <p>Tarjetas con número, nombre, cuántos Pokémon la tienen y su efecto.</p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/habilidades-1280.webp"
+                  srcset="assets/screenshots/habilidades-640.webp 640w, assets/screenshots/habilidades-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Habilidades con Stench, Drizzle y otras, con el número de Pokémon que las tienen"
+                />
+              </div>
+              <figcaption>Habilidades.</figcaption>
+            </figure>
+            <h3>Naturalezas</h3>
+            <p>
+              Un acordeón con un grupo por estadística (ATK, DEF, SP.ATK, SP.DEF y SPD). Cada uno muestra
+              qué naturalezas la suben y cuál bajan, y cuáles la bajan y cuál suben. Un grupo NEUTRAL
+              reúne las que no cambian estadísticas.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/naturalezas-1280.webp"
+                  srcset="assets/screenshots/naturalezas-640.webp 640w, assets/screenshots/naturalezas-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Naturalezas agrupadas por estadística, con ATK abierto mostrando Lonely, Adamant, Naughty y Brave"
+                />
+              </div>
+              <figcaption>Naturalezas.</figcaption>
+            </figure>
+            <h3>Objetos</h3>
+            <p>
+              Una tabla con sprite, objeto, categoría, precio en ₽ y efecto. El precio sale de los precios
+              de compra de PokéAPI, porque el campo antiguo de coste ya no se rellena.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/objetos-1280.webp"
+                  srcset="assets/screenshots/objetos-640.webp 640w, assets/screenshots/objetos-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Tabla de objetos con Master Ball, Ultra Ball y otras, con su categoría, precio y efecto"
+                />
+              </div>
+              <figcaption>Objetos.</figcaption>
+            </figure>
+            <h3>Bayas</h3>
+            <p>
+              Tarjetas con el tipo de su Poder Natural, tiempo de crecimiento, cosecha, poder natural,
+              suavidad, firmeza y sus sabores con su potencia.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/bayas-1280.webp"
+                  srcset="assets/screenshots/bayas-640.webp 640w, assets/screenshots/bayas-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Bayas con Cheri, Chesto y otras, con su crecimiento, cosecha, firmeza y sabores"
+                />
+              </div>
+              <figcaption>Bayas.</figcaption>
+            </figure>
+            <h3>Página 404</h3>
+            <p>«ERROR 404 · PÁGINA NO ENCONTRADA» con un botón para volver al inicio. No carga JavaScript ni se indexa.</p>
+          </section>
+
+          <section id="temas" class="doc-section" aria-labelledby="temas-t">
+            <p class="eyebrow">La web</p>
+            <h2 id="temas-t">Temas</h2>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Tema</th><th>Cómo es</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>NORMAL</td><td>Rojo Pokédex sobre la pantalla verde oscura</td></tr>
+                  <tr><td>DMG</td><td>La paleta verde LCD de la Game Boy original (#9bbc0f, #8bac0f, #306230, #0f380f) con sprites pixelados</td></tr>
+                  <tr><td>MONO</td><td>Grises con una retícula de 8 px</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/pokedex-dmg-1280.webp"
+                  srcset="assets/screenshots/pokedex-dmg-640.webp 640w, assets/screenshots/pokedex-dmg-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="La Pokédex en el tema DMG, en verdes de Game Boy"
+                />
+              </div>
+              <figcaption>Tema DMG.</figcaption>
+            </figure>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/pokedex-mono-1280.webp"
+                  srcset="assets/screenshots/pokedex-mono-640.webp 640w, assets/screenshots/pokedex-mono-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="La Pokédex en el tema MONO, en grises"
+                />
+              </div>
+              <figcaption>Tema MONO.</figcaption>
+            </figure>
+            <ul>
+              <li>Sin elección guardada, el tema sigue al sistema: MONO si es oscuro y NORMAL si es claro.</li>
+              <li>Al elegir uno se recuerda en el navegador; si el navegador no deja guardar, se aplica igual.</li>
+              <li>Los títulos usan Press Start 2P y el texto VT323, servidas desde la propia web.</li>
+              <li>Con «movimiento reducido» activado no hay transiciones ni animaciones.</li>
+              <li>Los tres temas cumplen el contraste WCAG AA.</li>
+            </ul>
+          </section>
+
+          <!-- ============ EL CHAT ============ -->
+          <section id="chat" class="doc-section" aria-labelledby="chat-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="chat-t">Cómo se usa</h2>
+            <p>
+              En <code>chat.html</code> le preguntas a la Pokédex en lenguaje natural, por ejemplo «¿qué
+              tipos le hacen ×4 a Gyarados?», y la IA responde con datos reales de PokéAPI, no de memoria.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/chat-1280.webp"
+                  srcset="assets/screenshots/chat-640.webp 640w, assets/screenshots/chat-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Chat con el selector de proveedor y el formulario para guardar la clave"
+                />
+              </div>
+              <figcaption>El chat, antes de guardar la clave.</figcaption>
+            </figure>
+            <ol class="steps">
+              <li class="step">
+                <h3>Elige el proveedor</h3>
+                <p>Claude (Anthropic), por defecto, u OpenAI. Cambiarlo empieza una conversación nueva.</p>
+              </li>
+              <li class="step">
+                <h3>Guarda tu clave</h3>
+                <p>Se queda en tu navegador; marca «Recordar en este navegador» si quieres que dure más allá de la pestaña.</p>
+              </li>
+              <li class="step">
+                <h3>Pregunta</h3>
+                <p>Elige el modelo y escribe. <kbd>Enter</kbd> envía y <kbd>Shift</kbd> <kbd>Enter</kbd> hace un salto de línea. «DETENER» corta la respuesta.</p>
+              </li>
+            </ol>
+            <ul>
+              <li>Mientras responde, una línea de estado dice qué está haciendo: «CONSULTANDO: herramienta», «SUBAGENTE: nombre» o «SKILL: nombre».</li>
+              <li>Al terminar muestra los tokens usados: «Tokens: entrada · salida».</li>
+              <li>Las respuestas son texto plano: no se interpreta Markdown ni HTML.</li>
+              <li>«NUEVA CONVERSACIÓN» empieza de cero y «OLVIDAR CLAVE» borra la clave del proveedor elegido.</li>
+              <li>Solo responde sobre Pokémon. Ante otro tema contesta «Solo puedo responder preguntas sobre Pokémon.».</li>
+            </ul>
+          </section>
+
+          <section id="clave" class="doc-section" aria-labelledby="clave-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="clave-t">Tu clave y tu privacidad</h2>
+            <p>
+              El chat usa tu propia clave (<em>bring your own key</em>): no hay backend, ni cuentas, ni una
+              clave del autor escondida en la web.
+            </p>
+            <ul>
+              <li>Se guarda una clave por proveedor, en <code>sessionStorage</code> por defecto o en <code>localStorage</code> si marcas «Recordar».</li>
+              <li>La de Anthropic solo viaja a <code>api.anthropic.com</code>, y la de OpenAI solo a <code>api.openai.com</code>.</li>
+              <li>Nunca se escribe en la página, en la consola ni en la URL.</li>
+              <li>Las conversaciones no se guardan: viven solo en la pestaña. Con OpenAI se piden además sin almacenamiento en su servidor.</li>
+              <li>Se comprueba el formato: la de Anthropic empieza por <code>sk-ant-</code> y la de OpenAI por <code>sk-</code>. Si pegas una del otro proveedor, te lo dice.</li>
+              <li>Las conversaciones se cobran en tu cuenta del proveedor; delegar en subagentes consume tokens extra.</li>
+            </ul>
+            <div class="callout callout--warn">
+              <p class="callout__title">Sobre la seguridad de la clave</p>
+              <p>
+                Al vivir en el navegador, una extensión maliciosa podría leerla. Para reducir el riesgo,
+                la web tiene una CSP cerrada, solo inserta texto (nunca HTML) y por defecto la clave dura
+                lo que la pestaña.
+              </p>
+            </div>
+          </section>
+
+          <section id="modelos" class="doc-section" aria-labelledby="modelos-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="modelos-t">Proveedores y modelos</h2>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Proveedor</th><th>Modelo</th><th>USD por millón (entrada / salida)</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Claude</td><td>Opus 5.5 (por defecto)</td><td>4 / 20</td></tr>
+                  <tr><td>Claude</td><td>Sonnet 5.5</td><td>2 / 10</td></tr>
+                  <tr><td>Claude</td><td>Haiku 5.5</td><td>0,10 / 0,50</td></tr>
+                  <tr><td>OpenAI</td><td>GPT-6.1 Sol (por defecto)</td><td>2 / 10</td></tr>
+                  <tr><td>OpenAI</td><td>GPT-6 Astra</td><td>10 / 50</td></tr>
+                  <tr><td>OpenAI</td><td>GPT-6 Luna</td><td>0,10 / 0,50</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul>
+              <li><strong>Claude</strong> usa la Messages API en streaming, con caché de prompt y un máximo de 8000 tokens de salida.</li>
+              <li><strong>OpenAI</strong> usa la Responses API en streaming, con funciones estrictas, sin almacenamiento y un máximo de 8000 tokens de salida.</li>
+              <li>Cambiar de modelo empieza una conversación nueva.</li>
+              <li>Si la respuesta se corta por longitud, se añade «(respuesta cortada por longitud)».</li>
+            </ul>
+            <h3>El bucle</h3>
+            <ul>
+              <li>El modelo pide herramientas, la web las ejecuta en el navegador contra PokéAPI (en paralelo) y le devuelve los resultados, hasta que responde con texto.</li>
+              <li>Como mucho 8 rondas por pregunta («He alcanzado el límite de consultas para esta pregunta.»).</li>
+              <li>Reintenta hasta 2 veces si el proveedor está saturado o limita el ritmo, pero no si te has quedado sin saldo.</li>
+              <li>Las dos APIs se adaptan a un mismo formato interno, así que el resto del chat no depende del proveedor.</li>
+            </ul>
+          </section>
+
+          <section id="herramientas" class="doc-section" aria-labelledby="herramientas-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="herramientas-t">Las 12 herramientas</h2>
+            <p>
+              Son las mismas en el chat y en el servidor MCP. Las de búsqueda reciben
+              <code>consulta</code> (1–50 caracteres), <code>pagina</code> (por defecto 1) y
+              <code>tamano_pagina</code> (1–50, por defecto 10). Las de detalle reciben
+              <code>nombre_o_id</code>.
+            </p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Herramienta</th><th>Qué hace</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>buscar_pokemon</code></td><td>Busca Pokémon por nombre, paginado</td></tr>
+                  <tr><td><code>obtener_pokemon</code></td><td>Ficha completa: tipos, estadísticas, habilidades, altura, peso</td></tr>
+                  <tr><td><code>buscar_movimientos</code></td><td>Busca movimientos</td></tr>
+                  <tr><td><code>obtener_movimiento</code></td><td>Detalle de un movimiento</td></tr>
+                  <tr><td><code>buscar_habilidades</code></td><td>Busca habilidades</td></tr>
+                  <tr><td><code>obtener_habilidad</code></td><td>Detalle de una habilidad</td></tr>
+                  <tr><td><code>buscar_objetos</code></td><td>Busca objetos</td></tr>
+                  <tr><td><code>obtener_objeto</code></td><td>Detalle de un objeto, con su precio</td></tr>
+                  <tr><td><code>buscar_bayas</code></td><td>Busca bayas</td></tr>
+                  <tr><td><code>obtener_baya</code></td><td>Detalle de una baya</td></tr>
+                  <tr><td><code>efectividad_tipos</code></td><td>Multiplicador de un tipo atacante contra 1 o 2 defensores, o contra los 18 tipos</td></tr>
+                  <tr><td><code>naturalezas</code></td><td>Las naturalezas, opcionalmente solo las que suben o bajan una estadística</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Cada resultado lleva un resumen de una línea más los datos. Por ejemplo,
+              <code>efectividad_tipos</code> con <code>electric</code> contra <code>water/flying</code>
+              devuelve «electric contra water/flying: ×4.».
+            </p>
+            <p>Los errores vuelven al modelo como texto útil, sin cortar la conversación:</p>
+            <ul>
+              <li>«No existe el Pokémon "x". Usa buscar_pokemon para encontrar el nombre exacto.»</li>
+              <li>«El tipo "x" no existe. Tipos válidos: …»</li>
+              <li>«La página N no existe; hay M páginas.»</li>
+              <li>«PokéAPI no responde; inténtalo en unos minutos.»</li>
+            </ul>
+          </section>
+
+          <section id="agentes" class="doc-section" aria-labelledby="agentes-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="agentes-t">Agente, subagentes y skills</h2>
+            <p>
+              El chat se organiza como un pequeño equipo, definido en el propio repositorio. Las
+              instrucciones son las mismas con Claude y con OpenAI.
+            </p>
+            <h3>El profesor</h3>
+            <p>
+              Es el agente principal. Tiene las 12 herramientas y dos más:
+              <code>delegar_subagente</code>, para encargar una tarea a un especialista, y
+              <code>usar_skill</code>, para cargar las instrucciones de una skill. Responde en español,
+              en texto plano, y siempre consultando las herramientas.
+            </p>
+            <h3>Los tres subagentes</h3>
+            <dl>
+              <dt>estratega-tipos</dt>
+              <dd>Debilidades, resistencias y cobertura de movimientos de un Pokémon o de un tipo.</dd>
+              <dt>entrenador-equipos</dt>
+              <dd>Equipos de Pokémon con sus habilidades y naturalezas para un objetivo concreto.</dd>
+              <dt>investigador-pokedex</dt>
+              <dd>Búsquedas y fichas de Pokémon, movimientos, habilidades, objetos y bayas.</dd>
+            </dl>
+            <ul>
+              <li>Cada uno tiene solo las herramientas de su especialidad y hasta 6 rondas.</li>
+              <li>Recibe únicamente la tarea, y su respuesta vuelve al profesor, no al chat. Sus tokens se suman a los de la pregunta.</li>
+              <li>No pueden delegar ni cargar skills: la delegación tiene un único nivel.</li>
+            </ul>
+            <h3>Las cuatro skills</h3>
+            <dl>
+              <dt>comparar-pokemon</dt>
+              <dd>Compara dos Pokémon por tipos, estadísticas base y habilidades.</dd>
+              <dt>equipo-contra-tipo</dt>
+              <dd>Propone un equipo de 6 Pokémon para enfrentarse a rivales de un tipo.</dd>
+              <dt>analizar-debilidades</dt>
+              <dd>Debilidades y resistencias de un Pokémon, agrupadas en ×4, ×2, ×½, ×¼ y ×0.</dd>
+              <dt>recomendar-naturaleza</dt>
+              <dd>Recomienda una naturaleza según las estadísticas base de un Pokémon.</dd>
+            </dl>
+            <p>
+              Las skills se cargan bajo demanda: el profesor solo conoce su nombre y su descripción hasta
+              que decide usar una.
+            </p>
+          </section>
+
+          <section id="errores-chat" class="doc-section" aria-labelledby="errores-chat-t">
+            <p class="eyebrow">El chat</p>
+            <h2 id="errores-chat-t">Errores del chat</h2>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Mensaje</th><th>Qué significa</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Clave no válida</td><td>La clave está mal o caducada; revísala en la consola de tu proveedor.</td></tr>
+                  <tr><td>Tu cuenta de OpenAI no tiene saldo</td><td>Sin crédito; no se reintenta.</td></tr>
+                  <tr><td>OpenAI rechazó la petición</td><td>Revisa el saldo y los límites en platform.openai.com.</td></tr>
+                  <tr><td>Límite de uso alcanzado</td><td>Demasiadas peticiones seguidas; espera un momento.</td></tr>
+                  <tr><td>Claude / OpenAI está saturado</td><td>El proveedor está sobrecargado; prueba en unos minutos.</td></tr>
+                  <tr><td>La conversación es demasiado larga</td><td>Empieza una nueva.</td></tr>
+                  <tr><td>Sin conexión</td><td>No se pudo llegar al proveedor.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Cuando OpenAI devuelve un error, el navegador no puede leerlo por CORS. Para saber qué pasó,
+              el chat hace una comprobación con tu clave contra la lista de modelos: así distingue una clave
+              no válida de una petición rechazada o de un fallo de conexión.
+            </p>
+          </section>
+
+          <!-- ============ MCP ============ -->
+          <section id="mcp" class="doc-section" aria-labelledby="mcp-t">
+            <p class="eyebrow">Servidor MCP</p>
+            <h2 id="mcp-t">Servidor MCP</h2>
+            <p>
+              Un servidor del Model Context Protocol para que Claude Code o Claude Desktop consulten la
+              Pokédex en mitad de una conversación. Reutiliza la misma lógica que la web y se ejecuta desde
+              el repositorio clonado.
+            </p>
+            <pre><code>npm ci --prefix mcp
+
+# Claude Code
+claude mcp add pokedex-retro -- node /ruta/a/Pokedex-Retro/mcp/bin/pokedex-mcp.js
+
+# Claude Desktop (claude_desktop_config.json)
+{ "mcpServers": { "pokedex-retro": {
+    "command": "node",
+    "args": ["/ruta/absoluta/Pokedex-Retro/mcp/bin/pokedex-mcp.js"] } } }</code></pre>
+            <ul>
+              <li><strong>Transporte:</strong> stdio. Por la salida estándar solo va JSON-RPC; los registros van a stderr.</li>
+              <li><strong>12 herramientas:</strong> las <a href="#herramientas">mismas del chat</a>, con esquemas de entrada y de salida.</li>
+              <li><strong>2 recursos:</strong> <code>pokedex://tipos/tabla</code> (la tabla de efectividad de los 18 tipos) y <code>pokedex://secciones</code> (las secciones de la web con su tamaño de página).</li>
+              <li><strong>2 prompts:</strong> <code>comparar_pokemon</code> (dos Pokémon, <code>a</code> y <code>b</code>) y <code>equipo_contra_tipo</code> (un equipo de 6 contra un <code>tipo</code>).</li>
+              <li>Pide a PokéAPI como mucho 4 cosas a la vez, con 10 s de plazo y 2 reintentos, y una caché en memoria de 24 h.</li>
+              <li>Se cierra limpio al cerrar el cliente o con <kbd>Ctrl</kbd> <kbd>C</kbd>, en menos de 2 s.</li>
+            </ul>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Variable</th><th>Para qué</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>POKEDEX_MCP_LOG</code></td><td><code>error</code> (por defecto), <code>info</code> (arranque, parada y cada llamada) o <code>debug</code> (también cada URL y acierto de caché)</td></tr>
+                  <tr><td><code>POKEDEX_MCP_DISK_CACHE=1</code></td><td>Caché en disco de 24 h en <code>~/.cache/pokedex-mcp/</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              <code>npm run mcp:inspect</code> lo abre en el inspector oficial de MCP. El chat de la web no
+              usa este servidor (un navegador no puede lanzar procesos), pero comparte con él todo el código
+              de las herramientas.
+            </p>
+          </section>
+
+          <!-- ============ POR DENTRO ============ -->
+          <section id="arquitectura" class="doc-section" aria-labelledby="arquitectura-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="arquitectura-t">Arquitectura</h2>
+            <p class="doc-lead">
+              Tres entradas (la web, el chat y el servidor MCP) que comparten la misma lógica. JavaScript
+              con módulos ES y tipos en JSDoc comprobados con <code>tsc</code>, sin build.
+            </p>
+            <dl>
+              <dt><code>site/js/core</code></dt>
+              <dd>Lógica pura: URL, búsqueda, paginación, carga de secciones, límite de peticiones, tabla de tipos y las herramientas.</dd>
+              <dt><code>site/js/api</code></dt>
+              <dd>Cliente HTTP con plazo, reintentos y cancelación, y la caché.</dd>
+              <dt><code>site/js/mappers</code></dt>
+              <dd>Convierten la respuesta de PokéAPI en datos para la vista, probados con respuestas reales.</dd>
+              <dt><code>site/js/ui</code></dt>
+              <dd>Arranque, pintado de cada sección, ficha, desplegables, temas y textos.</dd>
+              <dt><code>site/js/chat</code></dt>
+              <dd>Bucle, streaming, clave, modelos, errores, los dos proveedores y los agentes.</dd>
+              <dt><code>mcp/</code></dt>
+              <dd>El servidor MCP: adaptadores finos sobre <code>site/js/core</code>.</dd>
+            </dl>
+            <p>
+              <code>core</code> y los mappers no tocan el DOM ni la red: reciben lo que necesitan
+              inyectado. Un test comprueba que se pueden importar sin navegador.
+            </p>
+            <h3>De la URL a la pantalla</h3>
+            <ol>
+              <li>Se leen <code>q</code> y <code>page</code> de la URL.</li>
+              <li>Se pide la página de la lista, o la lista completa (de la caché) para filtrar.</li>
+              <li>Se piden los detalles, como mucho 6 a la vez; si alguno falla, el resto sigue.</li>
+              <li>El mapper de la sección prepara los datos y se ordenan por número.</li>
+              <li>Se pinta la sección y se actualiza el estado.</li>
+            </ol>
+          </section>
+
+          <section id="datos" class="doc-section" aria-labelledby="datos-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="datos-t">PokéAPI y caché</h2>
+            <ul>
+              <li>Todos los datos salen de <code>https://pokeapi.co/api/v2</code>; los sprites, de <code>raw.githubusercontent.com</code>.</li>
+              <li>Sin búsqueda se pide solo la página; con búsqueda, la lista completa del recurso, que se filtra en el navegador.</li>
+              <li>Cada petición tiene 10 s de plazo y hasta 2 reintentos (500 ms, 1 s) ante fallos de red, 429 o 5xx, respetando <code>Retry-After</code>.</li>
+              <li>Toda la web, chat incluido, comparte un límite de 6 peticiones simultáneas a PokéAPI.</li>
+            </ul>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Qué</th><th>Dónde</th><th>Cuánto dura</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Listas completas</td><td><code>localStorage</code></td><td>24 horas</td></tr>
+                  <tr><td>Páginas y detalles</td><td>Memoria y <code>sessionStorage</code></td><td>La sesión</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Si el almacenamiento no está disponible, está lleno o tiene datos corruptos, se pide a la red.
+              Se descartaron un Service Worker e IndexedDB por complejidad.
+            </p>
+          </section>
+
+          <section id="seguridad" class="doc-section" aria-labelledby="seguridad-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="seguridad-t">Seguridad y accesibilidad</h2>
+            <h3>Content Security Policy</h3>
+            <p>Va en una etiqueta <code>&lt;meta&gt;</code>, porque GitHub Pages no permite cabeceras, y es la misma en todas las páginas:</p>
+            <pre><code>default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self';
+img-src 'self' https://raw.githubusercontent.com;
+connect-src https://pokeapi.co https://api.anthropic.com https://api.openai.com;
+manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'</code></pre>
+            <ul>
+              <li>Sin <code>'unsafe-inline'</code> ni <code>'unsafe-eval'</code>: no hay estilos, scripts ni manejadores en línea, y unos tests lo comprueban.</li>
+              <li>Todo lo que viene de fuera se escapa antes de pintarse; el chat solo inserta texto.</li>
+              <li>Las fuentes se sirven desde la propia web, sin Google Fonts.</li>
+            </ul>
+            <h3>Accesibilidad (WCAG 2.1 AA)</h3>
+            <ul>
+              <li>Enlace «Saltar al contenido», región de estado y aviso sin JavaScript.</li>
+              <li>Menú y desplegables operables con <kbd>Enter</kbd>, <kbd>Espacio</kbd> y <kbd>Esc</kbd>; solo uno abierto a la vez.</li>
+              <li>La ficha gestiona el foco al abrirse y al cerrarse.</li>
+              <li>Las tablas de tipos y objetos se alcanzan con el teclado.</li>
+              <li>Respeta el movimiento reducido y el tema del sistema, con contraste AA en los tres temas.</li>
+              <li>axe revisa cada página en cada tema, también con la ficha abierta y en el chat, sin fallos graves ni críticos.</li>
+            </ul>
+            <h3>SEO y rendimiento</h3>
+            <ul>
+              <li>Descripción, Open Graph, <code>robots.txt</code>, <code>sitemap.xml</code> con las 8 páginas y un manifest para instalarla.</li>
+              <li>Imágenes con tamaño fijo, carga diferida y decodificación asíncrona.</li>
+              <li>Cero dependencias en producción y sin build.</li>
+            </ul>
+          </section>
+
+          <section id="calidad" class="doc-section" aria-labelledby="calidad-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="calidad-t">Pruebas y calidad</h2>
+            <ul>
+              <li><strong>Tests unitarios</strong> con <code>node --test</code>, sin red y con respuestas reales guardadas: unos 775 en la web y unos 100 en el servidor MCP.</li>
+              <li><strong>Playwright</strong> con PokéAPI, Claude y OpenAI simulados. Cada prueba falla si hay peticiones externas o violaciones de la CSP.</li>
+              <li><strong>Pruebas de la web</strong>: cada página, búsqueda, paginación, temas, la ficha con teclado y enlace directo, desplegables, la tabla de tipos y axe en cada página y tema.</li>
+              <li><strong>Pruebas del chat</strong>: clave, streaming, herramientas, errores, DETENER, OLVIDAR, los dos proveedores, delegación en subagentes, skills y preguntas fuera de tema.</li>
+              <li><strong>Mutación con Stryker</strong> en nueve configuraciones: un 95 % mínimo para el núcleo y el chat, y un 85 % para la interfaz y el MCP. Las últimas puntuaciones registradas superan el 99 %.</li>
+              <li><strong>ESLint, Prettier y <code>tsc</code></strong> con JSDoc, y un hook de pre-commit que formatea lo que cambias.</li>
+              <li><strong>Lighthouse</strong> en cada pull request: accesibilidad, buenas prácticas y SEO deben llegar a 95. Rendimiento solo avisa, por la latencia de PokéAPI.</li>
+            </ul>
+          </section>
+
+          <section id="ci" class="doc-section" aria-labelledby="ci-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="ci-t">CI y publicación</h2>
+            <dl>
+              <dt>CI</dt>
+              <dd>En cada pull request y en cada push a <code>main</code>, con Node 22 y 24: lint, formato, tipos, cabeceras, tests de la web y del MCP. En Node 24 también las pruebas de mutación y Playwright, y en los pull requests, Lighthouse.</dd>
+              <dt>Publicación</dt>
+              <dd>Cuando CI termina bien en <code>main</code>, se publica la carpeta <code>site/</code> tal cual en GitHub Pages, sin build.</dd>
+              <dt>Dependabot</dt>
+              <dd>Revisa cada semana las dependencias de la web, del MCP y de los workflows.</dd>
+            </dl>
+            <p>
+              Cada versión se anota en el CHANGELOG y se sincroniza en <code>package.json</code>, el MCP, su
+              <code>server.json</code> y el panel INFO; un test falla si alguna no coincide.
+            </p>
+          </section>
+
+          <section id="versiones" class="doc-section" aria-labelledby="versiones-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="versiones-t">Versiones</h2>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Versión</th><th>Fecha</th><th>Qué trajo</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1.0.0-RC.0</td><td>23/10/2026</td><td>La Pokédex estática: 7 secciones, buscador, paginación, ficha, 3 temas y despliegue en Pages.</td></tr>
+                  <tr><td>1.1.0</td><td>24/10/2026</td><td>Las seis fases: CI, cliente HTTP robusto, caché, 404, SEO, ficha en diálogo, accesibilidad, Lighthouse, servidor MCP y CSP.</td></tr>
+                  <tr><td>1.1.1</td><td>24/10/2026</td><td>Fuera el tipo stellar, precios de objetos arreglados.</td></tr>
+                  <tr><td>1.2.0</td><td>24/10/2026</td><td>El chat con Claude, en streaming, con las 12 herramientas en el navegador.</td></tr>
+                  <tr><td>1.3.0</td><td>24/10/2026</td><td>OpenAI como segundo proveedor, con una clave por proveedor.</td></tr>
+                  <tr><td>1.4.0</td><td>25/10/2026</td><td>El profesor, tres subagentes y cuatro skills; solo responde sobre Pokémon.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              El proyecto se construyó en seis fases con OpenSpec: herramientas de calidad, arquitectura
+              web, rendimiento y seguridad, accesibilidad, servidor MCP y documentación. Después llegaron
+              el chat y sus agentes. Hoy hay 14 capacidades especificadas.
+            </p>
+          </section>
+
+          <section id="adr" class="doc-section" aria-labelledby="adr-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="adr-t">Decisiones de arquitectura</h2>
+            <ul class="doc-cards" role="list">
+              <li class="card"><h4>0001 · Cabecera estática</h4><p>Escrita a mano en cada página y comprobada en CI, en vez de inyectarla con JavaScript.</p></li>
+              <li class="card"><h4>0002 · Caché</h4><p>localStorage para listas y sessionStorage para detalles, sin Service Worker ni IndexedDB.</p></li>
+              <li class="card"><h4>0003 · MCP por stdio</h4><p>Para Claude Code y Desktop en local; sin HTTP ni SSE.</p></li>
+              <li class="card"><h4>0004 · JSDoc</h4><p>Tipos con <code>@ts-check</code> en lugar de TypeScript, para no tener build.</p></li>
+              <li class="card"><h4>0005 · Chat BYOK</h4><p>La clave del visitante con <code>fetch</code> directo: sin SDK, sin backend y sin clave embebida.</p></li>
+              <li class="card"><h4>0006 · Multiproveedor</h4><p>OpenAI detrás de un puerto común de proveedor.</p></li>
+              <li class="card"><h4>0007 · Agentes</h4><p>Profesor, subagentes y skills, solo sobre Pokémon y sin clasificador en el cliente.</p></li>
+            </ul>
+          </section>
+
+          <section id="limitaciones" class="doc-section" aria-labelledby="limitaciones-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="limitaciones-t">Limitaciones conocidas</h2>
+            <ul>
+              <li><strong>Chat:</strong> «solo Pokémon» se basa en instrucciones, así que es de mejor esfuerzo. Delegar en subagentes añade latencia y tokens.</li>
+              <li><strong>OpenAI:</strong> el razonamiento puede agotar los 8000 tokens antes del texto, y la respuesta sale cortada. A veces no se puede distinguir la falta de saldo de otros errores.</li>
+              <li><strong>Datos:</strong> pueden ir hasta 24 h por detrás de PokéAPI por la caché, y están en inglés.</li>
+              <li><strong>Web:</strong> no funciona con <code>file://</code>. La 404 solo se ve bien bajo <code>/Pokedex-Retro/</code>. La CSP en <code>&lt;meta&gt;</code> no puede impedir que la web se incruste en un iframe.</li>
+              <li><strong>MCP:</strong> se ejecuta desde el repositorio clonado (no está publicado en npm) y solo funciona en local.</li>
+            </ul>
+          </section>
+
+          <section id="licencia" class="doc-section" aria-labelledby="licencia-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="licencia-t">Licencia</h2>
+            <p>
+              Pokédex Retro es código abierto con licencia MIT, de Renzo Ramos
+              (<a href="https://github.com/RenzoRamosDEV">RenzoRamosDEV</a>). Las fuentes Press Start 2P y
+              VT323 tienen licencia SIL OFL 1.1. Los datos son de <a href="https://pokeapi.co/">PokéAPI</a>.
+            </p>
+            <a class="doc-top" href="#contenido">↑ Volver arriba</a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <h2 class="site-footer__title">
+            <span class="brand__mark" aria-hidden="true">
+              <img src="assets/logo.png" alt="" width="36" height="36" />
+            </span>
+            Pokédex Retro
+          </h2>
+          <p>
+            Hecho por Renzo Ramos (<a href="https://github.com/RenzoRamosDEV">RenzoRamosDEV</a>).
+            Licencia MIT.
+          </p>
+        </div>
+        <a class="button button--secondary" href="https://github.com/RenzoRamosDEV/Pokedex-Retro">
+          <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-github" /></svg>
+          RenzoRamosDEV/Pokedex-Retro
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
