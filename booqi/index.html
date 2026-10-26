@@ -64,13 +64,8 @@
         </a>
         <nav class="site-nav" aria-label="Secciones">
           <a href="../biblioteca/">Biblioteca</a>
-          <a href="https://renzoramosdev.github.io/Booqui-TFG/#que-es">Qué es</a>
-          <a href="https://renzoramosdev.github.io/Booqui-TFG/#capturas">Capturas</a>
-          <a href="https://renzoramosdev.github.io/Booqui-TFG/#arquitectura">Arquitectura</a>
-          <a href="https://renzoramosdev.github.io/Booqui-TFG/#stack">Stack</a>
-          <a href="https://renzoramosdev.github.io/Booqui-TFG/#ejecutar">Ejecutar</a>
           <a href="./" aria-current="page">Documentación</a>
-          <a class="site-nav__demo" href="https://renzoramosdev.github.io/Booqui-TFG/demo/">Ver demo</a>
+          <a class="site-nav__demo" href="https://renzoramosdev.github.io/Booqui-TFG/">Ver demo</a>
         </nav>
         <a
           class="icon-button"
@@ -215,7 +210,7 @@
             <h3>Enlaces</h3>
             <ul>
               <li>Código: <a href="https://github.com/RenzoRamosDEV/Booqui-TFG">github.com/RenzoRamosDEV/Booqui-TFG</a></li>
-              <li>Demo sin backend: <a href="https://renzoramosdev.github.io/Booqui-TFG/demo/">renzoramosdev.github.io/Booqui-TFG/demo/</a></li>
+              <li>Demo sin backend: <a href="https://renzoramosdev.github.io/Booqui-TFG/">renzoramosdev.github.io/Booqui-TFG</a></li>
               <li>Repositorio original del grupo: <a href="https://gitlab.com/booqui">gitlab.com/booqui</a></li>
             </ul>
           </section>
@@ -224,7 +219,7 @@
             <p class="eyebrow">Empezar</p>
             <h2 id="demo-t">Probar la demo</h2>
             <p>
-              La <a href="https://renzoramosdev.github.io/Booqui-TFG/demo/">demo publicada</a> es la misma aplicación React, pero sin servidor: un
+              La <a href="https://renzoramosdev.github.io/Booqui-TFG/">demo publicada</a> es la misma aplicación React, pero sin servidor: un
               backend simulado en el navegador responde a todas las llamadas a la API con 250 ms de
               latencia. Funciona igual que la real: errores con el mismo formato, aprobación del pago por
               el último dígito de la tarjeta, control de stock y administración completa.
@@ -645,7 +640,7 @@ make up                            # construye y levanta el stack</code></pre>
               <li><strong>Una base de datos por servicio:</strong> cada servicio es dueño de su esquema y nadie más lo toca.</li>
               <li>Los servicios se llaman entre sí por HTTP: reservas consulta a usuarios y eventos; pagos descuenta stock en eventos y confirma o cancela en reservas.</li>
               <li>Todos siguen la misma estructura de capas: <code>controller</code> → <code>service</code> → <code>repository</code>, con DTO como records y MapStruct para convertir entidades.</li>
-              <li>Monorepo: <code>services/</code>, <code>frontend/</code>, <code>landing/</code>, <code>infra/</code> y <code>docs/</code>, con un <code>Makefile</code> en la raíz.</li>
+              <li>Monorepo: <code>services/</code>, <code>frontend/</code>, <code>infra/</code> y <code>docs/</code>, con un <code>Makefile</code> en la raíz.</li>
             </ul>
             <h3>Común a los cuatro servicios</h3>
             <ul>
@@ -1022,10 +1017,9 @@ make up                            # construye y levanta el stack</code></pre>
             <h3>Frontend</h3>
             <ul>
               <li>Más de <strong>1000 pruebas</strong> con Vitest y Testing Library.</li>
-              <li><strong>Playwright</strong>: 30 pruebas de extremo a extremo con la API simulada, 31 contra el stack real y pruebas de la landing.</li>
+              <li><strong>Playwright</strong>: 30 pruebas de extremo a extremo con la API simulada, 31 contra el stack real y pruebas de la demo tal como se publica en GitHub Pages.</li>
               <li>Pruebas de mutación con <strong>Stryker 10.1.1</strong>, con un mínimo del 95 %; la última ejecución dio un 99,77 %.</li>
               <li>ESLint y Prettier.</li>
-              <li><strong>Lighthouse</strong>: la landing debe sacar 95 o más en las cuatro categorías en móvil.</li>
             </ul>
           </section>
 
@@ -1042,8 +1036,9 @@ make up                            # construye y levanta el stack</code></pre>
               <dd>Comprueba que la configuración de Docker Compose es válida.</dd>
             </dl>
             <p>
-              Cada cambio en <code>main</code> publica en GitHub Pages esta web en la raíz y la demo en
-              <code>/demo/</code>.
+              Cada cambio en <code>main</code> publica en GitHub Pages la demo, en la raíz de
+              <a href="https://renzoramosdev.github.io/Booqui-TFG/">renzoramosdev.github.io/Booqui-TFG</a>. La antigua
+              dirección <code>/demo/</code> redirige a ella.
             </p>
           </section>
 
@@ -1072,7 +1067,7 @@ make up                            # construye y levanta el stack</code></pre>
               <li>Frontend: <code>cd frontend &amp;&amp; npm ci &amp;&amp; npm run dev</code>; Vite reenvía la API a los puertos 8080–8083.</li>
               <li>Pruebas: <code>npm test</code>, <code>npm run test:e2e</code> y <code>npm run test:e2e:real</code> (contra el stack levantado).</li>
               <li>Mutación en un servicio: <code>./mvnw test-compile org.pitest:pitest-maven:mutationCoverage</code>.</li>
-              <li>Landing: <code>npm run serve:landing</code> la sirve con la demo en <code>http://localhost:4190/Booqui-TFG/</code>.</li>
+              <li>Demo publicada: tras <code>npm run build:demo</code>, <code>npm run serve:pages</code> la sirve como en GitHub Pages en <code>http://localhost:4190/Booqui-TFG/</code>, y <code>npm run test:pages</code> la prueba.</li>
             </ul>
             <p>Los cambios se gestionan con OpenSpec: hay 19 capacidades especificadas en <code>openspec/specs</code>.</p>
           </section>
