@@ -443,7 +443,7 @@
 }
 
 /* Tres y cuatro fichas por fila, como máximo cuatro, con una ficha más compacta. */
-@media (min-width: 72rem) {
+@media (min-width: 64rem) {
   .shelf {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
@@ -481,7 +481,7 @@
   }
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 80rem) {
   .shelf {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
