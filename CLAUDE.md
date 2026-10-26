@@ -12,6 +12,7 @@ https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/
   `biblioteca/assets/thumbs/`. La ficha enlaza a `../<proyecto>/`.
 - `.github/workflows/pages.yml`: publica el sitio en GitHub Pages.
 - `CLAUDE.md`: estas instrucciones.
+- `.gitignore`: lo que nunca se sube (por ejemplo `.serena/`).
 
 ## Reglas de commits
 
@@ -26,16 +27,17 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
      | `biblioteca/` | `Biblioteca` |
      | `.github/` | `GitHub` |
      | `CLAUDE.md` | `Claude` |
+     | `.gitignore` | `Git` |
 
    - `<N>` es un contador propio de cada nombre: empieza en `0` y sube de uno en uno.
-   - Ejemplos: `Biblioteca 0`, `AgentBoard 0`, `Biblioteca 1`, `Claude 0`, `GitHub 0`.
+   - Ejemplos: `Biblioteca 0`, `AgentBoard 0`, `Biblioteca 1`, `Claude 0`, `GitHub 0`, `Git 0`.
 2. **Para saber el siguiente número**, mira el último commit con ese nombre en todo el historial
    y súmale uno; si no hay ninguno, es `0`:
    ```bash
    git log --all --format=%s | grep -E '^AgentBoard [0-9]+$' | awk '{print $2}' | sort -n | tail -1
    ```
 3. **Un commit por carpeta y por cambio.** Cada commit solo toca lo de su `<Nombre>`: la carpeta
-   de su proyecto, `biblioteca/`, `.github/` o `CLAUDE.md`. Nunca se mezclan en un mismo commit.
+   de su proyecto, `biblioteca/`, `.github/`, `CLAUDE.md` o `.gitignore`. Nunca se mezclan en un mismo commit.
 4. **Todo el cambio de una carpeta va en un solo commit.** Si mientras se trabaja salen varios
    commits de la misma carpeta, se juntan en uno antes de subir.
 5. **Orden:** cuando se añade o actualiza un proyecto, primero va el commit del proyecto
@@ -46,7 +48,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 ## Ramas y subida
 
 - Se trabaja en una rama con el `<Nombre>` del cambio: `AgentBoard`, `Booqi`, `Biblioteca`,
-  `GitHub`, `Claude`…
+  `GitHub`, `Claude`, `Git`…
 - Antes de subir, comprueba que cada commit solo toca lo suyo:
   ```bash
   git diff-tree --no-commit-id --name-only -r <commit> | cut -d/ -f1 | sort -u
