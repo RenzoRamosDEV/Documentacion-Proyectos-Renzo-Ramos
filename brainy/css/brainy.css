@@ -1,0 +1,23 @@
+/* Ajustes de la documentación de Brainy: títulos en Lilita One, como la app. */
+
+.brand__name,
+.doc-hero h1,
+.doc-section h2,
+.doc-section h3,
+.doc-section h4,
+.doc-toc summary,
+.site-footer__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+.brand__mark {
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand__mark img {
+  width: 100%;
+  height: auto;
+}

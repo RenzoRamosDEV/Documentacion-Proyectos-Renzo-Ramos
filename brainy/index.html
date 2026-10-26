@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      ;(function () {
+        var stored = null
+        try {
+          stored = localStorage.getItem('brainy-docs-theme')
+        } catch (e) {}
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' &&
+            typeof matchMedia === 'function' &&
+            matchMedia('(prefers-color-scheme: dark)').matches)
+        var root = document.documentElement
+        root.classList.toggle('dark', dark)
+        root.style.colorScheme = dark ? 'dark' : 'light'
+      })()
+      document.documentElement.classList.add('js')
+    </script>
+    <title>Documentación · Brainy</title>
+    <meta
+      name="description"
+      content="Documentación completa de Brainy, la web gratuita y en español para aprender de forma interactiva: asignaturas, explicaciones, quizzes, taller de ortografía, puntos, ranking, PokeBrainy y cómo está construida."
+    />
+    <meta name="theme-color" content="#0e0f2e" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Brainy" />
+    <meta property="og:title" content="Documentación de Brainy" />
+    <meta
+      property="og:description"
+      content="Cómo funciona Brainy de punta a punta: la app, sus juegos, sus puntos y cómo está construida."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/docs.css" />
+    <link rel="stylesheet" href="css/brainy.css" />
+    <script defer src="js/landing.js"></script>
+    <script defer src="js/docs.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <nav class="library-bar" aria-label="Biblioteca">
+      <div class="container library-bar__inner">
+        <a class="library-bar__home" href="../biblioteca/">
+          <img src="../biblioteca/assets/logo-132.png" alt="" width="24" height="24" />
+          Biblioteca
+        </a>
+        <span class="library-bar__sep" aria-hidden="true">›</span>
+        <span class="library-bar__current" aria-current="page">Brainy</span>
+        <a class="library-bar__all" href="../biblioteca/#proyectos">Ver todos →</a>
+      </div>
+    </nav>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="#contenido" aria-label="Brainy, ir al inicio de la documentación">
+          <span class="brand__mark" aria-hidden="true">
+            <img src="assets/logo.png" alt="" width="36" height="36" />
+          </span>
+          <span class="brand__name">Brainy</span>
+        </a>
+        <nav class="site-nav" aria-label="Secciones">
+          <a class="site-nav__demo" href="https://renzoramosdev.github.io/Brainy-Site/">Abrir Brainy</a>
+        </nav>
+        <button
+          type="button"
+          class="icon-button theme-toggle"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Cambiar a tema oscuro"
+        >
+          <svg class="icon theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          <svg class="icon theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section class="doc-hero" aria-labelledby="doc-title">
+        <div class="hero__backdrop" aria-hidden="true">
+          <div class="hero__pattern"></div>
+          <div class="hero__blob hero__blob--a"></div>
+          <div class="hero__blob hero__blob--b"></div>
+        </div>
+        <div class="container doc-hero__inner">
+          <p class="pill">
+            <span class="pill__dot" aria-hidden="true"></span>
+            Documentación
+          </p>
+          <h1 id="doc-title">Brainy, <span class="text-gradient">de punta a punta</span></h1>
+          <p class="doc-hero__lead">
+            Una web gratuita y en español para aprender de forma interactiva, con explicaciones
+            visuales, quizzes, un taller de ortografía, puntos, ranking y una colección de Pokémon. Aquí
+            está todo: cada pantalla, cada juego, cómo se ganan los puntos y cómo está construida.
+          </p>
+          <ul class="chips doc-hero__meta" role="list">
+            <li>React <span>19</span></li>
+            <li>TypeScript</li>
+            <li>Vite <span>8</span></li>
+            <li>Tailwind <span>v4</span></li>
+            <li>Supabase</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="container doc-layout">
+        <aside class="doc-toc" data-toc aria-label="Índice de la documentación">
+          <details open>
+            <summary>Índice</summary>
+            <div class="doc-toc__body">
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">Empezar</p>
+                <ol>
+                  <li><a href="#resumen">Qué es Brainy</a></li>
+                  <li><a href="#acceso">Con cuenta o sin cuenta</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">La app</p>
+                <ol>
+                  <li><a href="#inicio">Inicio</a></li>
+                  <li><a href="#mundos">Mundos y lecciones</a></li>
+                  <li><a href="#explicaciones">Explicaciones visuales</a></li>
+                  <li><a href="#quiz">El quiz</a></li>
+                  <li><a href="#preguntas">Tipos de pregunta</a></li>
+                  <li><a href="#taller">Taller de ortografía</a></li>
+                  <li><a href="#puntos">Puntos y estrellas</a></li>
+                  <li><a href="#ranking">Ranking</a></li>
+                  <li><a href="#pokebrainy">PokeBrainy</a></li>
+                  <li><a href="#temario">Qué se puede aprender</a></li>
+                </ol>
+              </div>
+              <div class="doc-toc__group">
+                <p class="doc-toc__title">Por dentro</p>
+                <ol>
+                  <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#contenido-json">Cómo se escribe el contenido</a></li>
+                  <li><a href="#progreso">Progreso y cuentas</a></li>
+                  <li><a href="#privacidad">Privacidad</a></li>
+                  <li><a href="#diseno">Diseño</a></li>
+                  <li><a href="#accesibilidad">Accesibilidad, rendimiento y SEO</a></li>
+                  <li><a href="#calidad">Pruebas y calidad</a></li>
+                  <li><a href="#publicacion">Publicación</a></li>
+                  <li><a href="#historia">Cómo se construyó</a></li>
+                  <li><a href="#limitaciones">Limitaciones conocidas</a></li>
+                  <li><a href="#creditos">Créditos</a></li>
+                </ol>
+              </div>
+            </div>
+          </details>
+        </aside>
+
+        <div class="doc-content">
+          <!-- ============ EMPEZAR ============ -->
+          <section id="resumen" class="doc-section" aria-labelledby="resumen-t">
+            <p class="eyebrow">Empezar</p>
+            <h2 id="resumen-t">Qué es Brainy</h2>
+            <p class="doc-lead">
+              Brainy es una aplicación web gratuita y en español para aprender jugando: lecciones con
+              explicaciones paso a paso, quizzes con puntos y estrellas, un taller de ortografía con
+              dictado y una colección de Pokémon que se desbloquea estudiando.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/inicio-1280.webp"
+                  srcset="assets/screenshots/inicio-640.webp 640w, assets/screenshots/inicio-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Inicio de Brainy con el saludo de la mascota, el nivel, los puntos y los mundos de Matemáticas y Lengua"
+                />
+              </div>
+              <figcaption>El inicio, con la mascota Brainy.</figcaption>
+            </figure>
+            <ul class="doc-cards" role="list">
+              <li class="card">
+                <h4>Cinco asignaturas</h4>
+                <p>Matemáticas, Lengua, Natural Science, Social Science e English, con más de 1.500 preguntas.</p>
+              </li>
+              <li class="card">
+                <h4>Aprender, luego practicar</h4>
+                <p>Cada tema tiene una explicación visual animada y niveles de 10 preguntas.</p>
+              </li>
+              <li class="card">
+                <h4>Puntos con sentido</h4>
+                <p>Cada nivel da puntos una vez al día, para repartir el estudio en vez de repetir lo mismo.</p>
+              </li>
+              <li class="card">
+                <h4>Sin datos personales</h4>
+                <p>Cuenta opcional sin correo, sin cookies ni analítica. También se puede jugar sin cuenta.</p>
+              </li>
+            </ul>
+            <p>
+              Nació como una alternativa gratuita y en español a plataformas que solo están en inglés, sin
+              coste de alojamiento. Está hecha por Renzo Ramos.
+            </p>
+            <ul>
+              <li>Web: <a href="https://renzoramosdev.github.io/Brainy-Site/">renzoramosdev.github.io/Brainy-Site</a></li>
+              <li>El código es privado; la web es pública.</li>
+            </ul>
+          </section>
+
+          <section id="acceso" class="doc-section" aria-labelledby="acceso-t">
+            <p class="eyebrow">Empezar</p>
+            <h2 id="acceso-t">Con cuenta o sin cuenta</h2>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/acceso-1280.webp"
+                  srcset="assets/screenshots/acceso-640.webp 640w, assets/screenshots/acceso-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Pantalla de acceso de Brainy con usuario, contraseña, Entrar, Crear cuenta y Jugar sin cuenta"
+                />
+              </div>
+              <figcaption>La pantalla de acceso.</figcaption>
+            </figure>
+            <p>Al abrir Brainy aparece una tarjeta con tres caminos:</p>
+            <dl>
+              <dt>Entrar</dt>
+              <dd>Con usuario y contraseña.</dd>
+              <dt>Crear cuenta</dt>
+              <dd>Usuario (3 a 20 letras minúsculas, números, punto o guion bajo), cómo quieres que te llamen y contraseña (8 a 72 caracteres). No se pide correo.</dd>
+              <dt>Jugar sin cuenta</dt>
+              <dd>Entras al momento y el progreso se guarda solo en ese navegador. La elección se recuerda.</dd>
+            </dl>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th></th><th>Con cuenta</th><th>Sin cuenta</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Dónde se guarda el progreso</td><td>En tu cuenta, en cualquier dispositivo</td><td>Solo en ese navegador</td></tr>
+                  <tr><td>Puntos diarios</td><td>Sí, con el día que marca el servidor</td><td>Sí, con el reloj del dispositivo</td></tr>
+                  <tr><td>Tope diario</td><td>1.000 puntos</td><td>Sin tope</td></tr>
+                  <tr><td>Ranking</td><td>Sí</td><td>No</td></tr>
+                  <tr><td>PokeBrainy</td><td>Sí</td><td>No</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Si ya has jugado sin cuenta y luego creas una, Brainy te ofrece «Llevar mi progreso actual»:
+              tus estrellas y tus puntos pasan a la cuenta una sola vez (como mucho 5.000 puntos). La copia
+              local solo se borra cuando la cuenta confirma que la ha recibido.
+            </p>
+            <p>No hay recuperación de contraseña: si la olvidas, la restablece el responsable de la web.</p>
+          </section>
+
+          <!-- ============ LA APP ============ -->
+          <section id="inicio" class="doc-section" aria-labelledby="inicio-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="inicio-t">Inicio</h2>
+            <ul>
+              <li>La mascota te saluda («¡Hola de nuevo!» o «¡Hola, &lt;tu apodo&gt;!»).</li>
+              <li><strong>Nivel</strong> con su barra de experiencia: subes un nivel cada 100 puntos.</li>
+              <li><strong>Puntos</strong> que tienes para gastar, con el enlace «¿Cómo gano puntos?».</li>
+              <li>«¡Sobre disponible!» si tienes cuenta y 300 puntos o más.</li>
+              <li>Niveles completados (3 estrellas), en curso (1–2) y pendientes.</li>
+              <li>Tu puesto en el ranking, si tienes cuenta.</li>
+              <li><strong>Elige tu mundo:</strong> una tarjeta por asignatura con su color y el porcentaje explorado.</li>
+              <li><strong>Mis lecciones:</strong> cada lección con su progreso y un botón «Empezar».</li>
+            </ul>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/inicio-oscuro-1280.webp"
+                  srcset="assets/screenshots/inicio-oscuro-640.webp 640w, assets/screenshots/inicio-oscuro-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Inicio de Brainy en el tema oscuro, azul noche con acentos de colores"
+                />
+              </div>
+              <figcaption>El inicio en el tema oscuro.</figcaption>
+            </figure>
+            <p>
+              La barra superior lleva a Inicio, Ranking y PokeBrainy, cambia el tema y permite entrar o
+              salir. En pantallas estrechas todo eso se agrupa en un menú. Si algo no se guarda, aparece
+              «No se pudo guardar tu progreso. Revisa tu conexión.».
+            </p>
+          </section>
+
+          <section id="mundos" class="doc-section" aria-labelledby="mundos-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="mundos-t">Mundos y lecciones</h2>
+            <p>
+              Cada asignatura es un «mundo» con su color. Dentro hay lecciones, cada lección tiene temas y
+              cada tema tiene niveles.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/asignatura-1280.webp"
+                  srcset="assets/screenshots/asignatura-640.webp 640w, assets/screenshots/asignatura-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Lección 1 de Matemáticas con el mapa de zonas y los niveles de Descomposición numérica"
+                />
+              </div>
+              <figcaption>Una lección de Matemáticas.</figcaption>
+            </figure>
+            <ul>
+              <li>Cada lección muestra sus estrellas conseguidas y un anillo de progreso.</li>
+              <li>Un índice rápido salta a cada tema.</li>
+              <li>Cada tema tiene «Tutorial · Ver explicación» y sus niveles, con las mejores estrellas y el estado del día: «Disponible» o «✓ Hoy: N pts».</li>
+              <li>En Lengua, una banda «Etapa bonus» lleva al <a href="#taller">Taller de ortografía</a>.</li>
+            </ul>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--dark">
+                <img
+                  src="assets/screenshots/asignatura-oscuro-1280.webp"
+                  srcset="assets/screenshots/asignatura-oscuro-640.webp 640w, assets/screenshots/asignatura-oscuro-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="El mundo de Lengua en el tema oscuro con la etapa bonus del Taller de ortografía y la Lección 1"
+                />
+              </div>
+              <figcaption>El mundo de Lengua, con la etapa bonus.</figcaption>
+            </figure>
+          </section>
+
+          <section id="explicaciones" class="doc-section" aria-labelledby="explicaciones-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="explicaciones-t">Explicaciones visuales</h2>
+            <p>
+              Antes de practicar, cada tema se puede aprender paso a paso: «Paso n de total», un dibujo
+              animado y el texto de la mascota («Brainy dice»). El último paso lleva a «¡A practicar!».
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/explicacion-1280.webp"
+                  srcset="assets/screenshots/explicacion-640.webp 640w, assets/screenshots/explicacion-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Explicación de números romanos con las fichas X, V, I y XVI y la regla de la suma"
+                />
+              </div>
+              <figcaption>Paso 2 de la explicación de los números romanos.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Visual</th><th>Para qué sirve</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Cuadrículas</td><td>Decimales y centésimas en cuadros de 10×10</td></tr>
+                  <tr><td>Fichas</td><td>Símbolos con su valor, como los números romanos</td></tr>
+                  <tr><td>Palabras</td><td>Morfemas en bloques de colores con su nombre</td></tr>
+                  <tr><td>Sílabas</td><td>La sílaba tónica resaltada</td></tr>
+                  <tr><td>Tarjetas</td><td>Pista y respuesta que se giran al pulsarlas</td></tr>
+                  <tr><td>Cadena</td><td>Pasos encadenados con flechas</td></tr>
+                  <tr><td>Diagramas</td><td>13 dibujos interactivos: ojo, oído, nariz, lengua, piel, neurona, sistema nervioso, células y niveles de organización</td></tr>
+                  <tr><td>Multiplicación y división</td><td>Las cuentas en columna o en galera, animadas cifra a cifra</td></tr>
+                  <tr><td>Área</td><td>Rectángulos de cuadraditos para la propiedad distributiva</td></tr>
+                  <tr><td>Reescritura</td><td>Una operación resuelta línea a línea</td></tr>
+                  <tr><td>Oración</td><td>Cada palabra con su categoría gramatical</td></tr>
+                  <tr><td>Esquema</td><td>Un resumen con llaves al final de cada tema de Lengua</td></tr>
+                  <tr><td>Foto</td><td>Fotos y mapas, sobre todo en Social Science</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Las animaciones de cuentas y oraciones tienen «🔁 Repetir animación». En los diagramas cada
+              parte es un botón que muestra su información; el ojo hasta tiene «🌙 Apagar la luz» para ver
+              cómo se dilata la pupila.
+            </p>
+          </section>
+
+          <section id="quiz" class="doc-section" aria-labelledby="quiz-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="quiz-t">El quiz</h2>
+            <p>Cada nivel es una partida de 10 preguntas elegidas del banco del nivel.</p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/quiz-aviso-1280.webp"
+                  srcset="assets/screenshots/quiz-aviso-640.webp 640w, assets/screenshots/quiz-aviso-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Aviso antes de empezar un nivel: si empiezas, contará como jugado hoy"
+                />
+              </div>
+              <figcaption>Antes de empezar.</figcaption>
+            </figure>
+            <ol class="steps">
+              <li class="step">
+                <h3>¿Listo?</h3>
+                <p>Si el nivel aún da puntos hoy, avisa: «Si empiezas, este nivel contará como jugado hoy». Si ya los dio, puedes «Practicar» sin puntos.</p>
+              </li>
+              <li class="step">
+                <h3>Responde</h3>
+                <p>Un solo intento por pregunta. Al momento ves «¡Correcto!» (+10) o «Incorrecto» con la respuesta buena, y siempre la explicación.</p>
+              </li>
+              <li class="step">
+                <h3>Resultado</h3>
+                <p>«¡Nivel superado!» o «¡Sigue intentándolo!», con las estrellas, los aciertos, la precisión y los puntos.</p>
+              </li>
+            </ol>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/quiz-1280.webp"
+                  srcset="assets/screenshots/quiz-640.webp 640w, assets/screenshots/quiz-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Pregunta 1 de 10: qué número es DCLXVI, con el campo para escribir la respuesta"
+                />
+              </div>
+              <figcaption>Una pregunta del quiz.</figcaption>
+            </figure>
+            <ul>
+              <li>Un panel muestra «Pregunta k de 10», los puntos y la racha de aciertos seguidos.</li>
+              <li>Las preguntas y sus opciones se barajan cada vez, y se priorizan las que aún no has visto.</li>
+              <li>Durante una partida con puntos no hay barra de navegación: se juega hasta el final.</li>
+              <li>Las preguntas no se pueden seleccionar ni copiar.</li>
+            </ul>
+          </section>
+
+          <section id="preguntas" class="doc-section" aria-labelledby="preguntas-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="preguntas-t">Tipos de pregunta</h2>
+            <dl>
+              <dt>Opción múltiple</dt>
+              <dd>De 2 a 4 opciones, una correcta.</dd>
+              <dt>Numérica</dt>
+              <dd>Escribes el número; vale coma o punto decimal («3,5» o «3.5»).</dd>
+              <dt>Varias correctas</dt>
+              <dd>«Elige todas las respuestas correctas» y «Comprobar».</dd>
+              <dt>Clasificar</dt>
+              <dd>Repartes elementos en categorías.</dd>
+            </dl>
+            <p>Algunas preguntas llevan además:</p>
+            <ul>
+              <li><strong>Una galera vacía</strong> para resolver la división como en el cuaderno.</li>
+              <li><strong>Un texto de lectura</strong> (comprensión lectora).</li>
+              <li><strong>Una audición en inglés</strong>: «🔊 Escuchar» la lee con voces británicas distintas para cada persona del diálogo, y al responder se muestra el texto. Sin voz inglesa en el dispositivo, aparece «Ver texto».</li>
+            </ul>
+          </section>
+
+          <section id="taller" class="doc-section" aria-labelledby="taller-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="taller-t">Taller de ortografía</h2>
+            <p>
+              «Aprende la regla, escucha, escribe y comprueba. Las palabras que falles volverán al final de
+              la ronda.» Se entra desde la etapa bonus de Lengua.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/taller-1280.webp"
+                  srcset="assets/screenshots/taller-640.webp 640w, assets/screenshots/taller-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Taller de ortografía con las reglas m/n, b/v, g/j, h, ll/y y c/z/qu"
+                />
+              </div>
+              <figcaption>El índice del Taller.</figcaption>
+            </figure>
+            <p>
+              Tiene 9 reglas: <strong>m/n</strong>, <strong>b/v</strong>, <strong>g/j</strong>,
+              <strong>h</strong>, <strong>ll/y</strong>, <strong>c/z/qu</strong>,
+              <strong>r/rr</strong>, <strong>tildes</strong> y <strong>palabras clave</strong>, con 117
+              palabras en total. Cada regla explica sus puntos, da un truco y tres ejemplos.
+            </p>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/taller-regla-1280.webp"
+                  srcset="assets/screenshots/taller-regla-640.webp 640w, assets/screenshots/taller-regla-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Regla b/v con sus cinco puntos, el truco y los ejemplos brazo, blanco y cantaba"
+                />
+              </div>
+              <figcaption>La regla b/v.</figcaption>
+            </figure>
+            <dl>
+              <dt>Elige la letra</dt>
+              <dd>La palabra aparece con un hueco y eliges la letra que falta (atajos de teclado 1 a 3).</dd>
+              <dt>Dictado</dt>
+              <dd>Brainy dice la palabra y luego una frase con ella; la escribes con un teclado de tildes en pantalla (á é í ó ú ü ñ). Sin voz española aparece «👀 Ver palabra».</dd>
+            </dl>
+            <ul>
+              <li>Cada ronda son 10 palabras al azar; las que fallas vuelven al final, sin puntuar.</li>
+              <li>Da puntos y estrellas igual que el quiz, una vez al día por modo y regla.</li>
+              <li>Un panel de ayuda explica cómo instalar una voz en español en tu sistema si la voz suena en inglés.</li>
+            </ul>
+          </section>
+
+          <section id="puntos" class="doc-section" aria-labelledby="puntos-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="puntos-t">Puntos y estrellas</h2>
+            <figure class="shot">
+              <div class="shot__frame shot__frame--light">
+                <img
+                  src="assets/screenshots/puntos-1280.webp"
+                  srcset="assets/screenshots/puntos-640.webp 640w, assets/screenshots/puntos-1280.webp 1280w"
+                  sizes="(min-width: 60rem) 50rem, 100vw"
+                  width="1280"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Página ¿Cómo gano puntos? con los apartados Juega un nivel y Cada nivel da puntos una vez al día"
+                />
+              </div>
+              <figcaption>La página «¿Cómo gano puntos?».</figcaption>
+            </figure>
+            <ul>
+              <li><strong>10 puntos por acierto</strong>: un nivel perfecto da 100.</li>
+              <li><strong>Una vez al día por nivel.</strong> Repetirlo el mismo día es práctica: 0 puntos, pero puedes mejorar tus estrellas. A medianoche (hora de Madrid) vuelve a dar puntos.</li>
+              <li><strong>Empezar cuenta como jugado</strong>: si lo dejas a medias, conservas lo ganado.</li>
+              <li><strong>Tope de 1.000 puntos al día</strong> con cuenta: «Hoy ya llegaste al máximo de 1.000 puntos. ¡Mañana más!».</li>
+            </ul>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Aciertos</th><th>Estrellas</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>90 % o más</td><td>★★★</td></tr>
+                  <tr><td>70 % o más</td><td>★★</td></tr>
+                  <tr><td>50 % o más</td><td>★</td></tr>
+                  <tr><td>Menos del 50 %</td><td>Ninguna</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Con cuenta, es el servidor quien decide el día, los puntos y las estrellas, no el navegador.
+              Los puntos sirven para subir de nivel (uno cada 100), para el ranking y para abrir sobres en
+              PokeBrainy. Gastarlos no te baja de nivel ni de puesto.
+            </p>
+          </section>
+
+          <section id="ranking" class="doc-section" aria-labelledby="ranking-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="ranking-t">Ranking</h2>
+            <ul>
+              <li>Los 20 mejores por puntos y, si no estás entre ellos, una fila más con «Tu posición».</li>
+              <li>Los empates comparten puesto (1, 2, 2, 4).</li>
+              <li>De cada jugador solo se ve su avatar, su apodo y su nivel: ni sus puntos ni su usuario.</li>
+              <li>Solo con cuenta, y se actualiza en cada visita.</li>
+            </ul>
+          </section>
+
+          <section id="pokebrainy" class="doc-section" aria-labelledby="pokebrainy-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="pokebrainy-t">PokeBrainy</h2>
+            <p>Una colección de Pokémon que se llena estudiando. Solo con cuenta.</p>
+            <ul>
+              <li><strong>Un sobre cuesta 300 puntos</strong> e incluye 3 Pokémon al azar entre 1.351 posibles, con la misma probabilidad cada uno.</li>
+              <li>Hay una carta rara, «Brainy» graduado, con una probabilidad de 1 entre 2.000 por casilla.</li>
+              <li>El sobre destella y gira antes de mostrar las cartas; las que no tenías llevan «¡Nuevo!».</li>
+              <li>La colección muestra cada Pokémon con cuántas veces lo tienes, «Has descubierto X de 1351» y un buscador por nombre.</li>
+              <li>Los nombres e imágenes vienen de PokéAPI; si no cargan, se ven el número y la mascota.</li>
+            </ul>
+          </section>
+
+          <section id="temario" class="doc-section" aria-labelledby="temario-t">
+            <p class="eyebrow">La app</p>
+            <h2 id="temario-t">Qué se puede aprender</h2>
+            <p>54 temas, 110 niveles y más de 1.500 preguntas, más las 117 palabras del Taller.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Asignatura</th><th>Temas</th><th>Niveles</th><th>Preguntas</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Matemáticas</td><td>Números grandes, aproximaciones, romanos, decimales, porcentajes, distributiva, multiplicaciones, potencias, operaciones combinadas, estimaciones, divisiones, problemas, múltiplos y divisores</td><td>34</td><td>396</td></tr>
+                  <tr><td>Lengua</td><td>Sinónimos y antónimos, mayúsculas, clases de palabras, acentuación, determinantes, artículo, sílabas, ortografía, morfemas, análisis morfológico y la noticia</td><td>28</td><td>342</td></tr>
+                  <tr><td>Natural Science</td><td>Life processes, cells, levels of organisation, the five kingdoms, the five senses and the nervous system</td><td>22</td><td>352</td></tr>
+                  <tr><td>Social Science</td><td>Relief, archipelagos, coasts, rivers and protected areas of Spain</td><td>10</td><td>160</td></tr>
+                  <tr><td>English</td><td>Clothes, materials, comparatives, present simple, feelings, history of clothes, reading and listening</td><td>16</td><td>288</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Natural Science, Social Science e English están en inglés: el navegador no las traduce y
+              los lectores de pantalla las leen con pronunciación inglesa. Sus explicaciones usan imágenes,
+              trucos de memoria, un paso final de autoevaluación («Test yourself») y repaso en el segundo
+              nivel.
+            </p>
+          </section>
+
+          <!-- ============ POR DENTRO ============ -->
+          <section id="arquitectura" class="doc-section" aria-labelledby="arquitectura-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="arquitectura-t">Arquitectura</h2>
+            <p class="doc-lead">
+              Una aplicación de una sola página (SPA) estática hecha con React 19, TypeScript, Vite y
+              Tailwind CSS v4. Las cuentas, el progreso y el ranking viven en Supabase.
+            </p>
+            <ul class="chips" role="list">
+              <li>React <span>19.3</span></li>
+              <li>TypeScript <span>5.9</span></li>
+              <li>Vite <span>8.3</span></li>
+              <li>Tailwind <span>4.3</span></li>
+              <li>shadcn/ui</li>
+              <li>Motion <span>14</span></li>
+              <li>Phosphor Icons</li>
+              <li>supabase-js <span>2</span></li>
+              <li>Vitest <span>4</span></li>
+              <li>Stryker <span>10</span></li>
+            </ul>
+            <ul>
+              <li><strong>Rutas con <code>#</code></strong> (<code>#/subject/math</code>, <code>#/quiz/…</code>, <code>#/taller</code>…), para que funcione en GitHub Pages sin servidor.</li>
+              <li><strong>Puertos y adaptadores:</strong> la autenticación, el progreso, las partidas, el ranking y PokeBrainy tienen cada uno una interfaz, un adaptador de Supabase y una versión falsa para los tests.</li>
+              <li><strong>Sin librería de estado global:</strong> hooks de React, y la puntuación del quiz es una función pura.</li>
+              <li><strong>Carpetas por dominio:</strong> <code>app</code>, <code>auth</code>, <code>content</code>, <code>quiz</code>, <code>taller</code>, <code>progress</code>, <code>leaderboard</code>, <code>pokebrainy</code>, <code>screens</code>…, con cada test junto a su módulo.</li>
+              <li><strong>Carga bajo demanda:</strong> cada pantalla y el cliente de Supabase van en su propio fragmento de código.</li>
+            </ul>
+          </section>
+
+          <section id="contenido-json" class="doc-section" aria-labelledby="contenido-json-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="contenido-json-t">Cómo se escribe el contenido</h2>
+            <p>
+              Todo el temario son ficheros JSON en <code>public/content/</code>: uno por asignatura, el del
+              Taller y un índice. Para cambiar preguntas basta con editar el JSON; no hace falta tocar
+              código.
+            </p>
+            <pre><code>asignatura
+└── lessons
+    └── topics          (con su explicación paso a paso)
+        └── levels      (un nivel = un quiz de 10 preguntas)
+            └── questions   (id, type, prompt, explanation)</code></pre>
+            <ul>
+              <li>Una asignatura con <code>"available": false</code> se muestra como «Próximamente».</li>
+              <li>Un fichero con <code>"lang": "en"</code> marca su contenido en inglés para los lectores de pantalla.</li>
+              <li>Cada explicación tiene de 1 a 12 pasos, cada uno con su texto y un visual. Si algo no es válido, la explicación se ignora, en vez de romper la página.</li>
+              <li>Las preguntas no válidas se omiten; los tipos de pregunta son un registro al que se pueden añadir tipos nuevos sin tocar el motor del quiz.</li>
+              <li>El <code>id</code> de un nivel o de una palabra publicados nunca se cambia, porque el progreso lo usa. Cada nivel nuevo se da de alta también en el catálogo de la base de datos, y un test comprueba que coinciden.</li>
+              <li>Hay tests del propio contenido: por ejemplo, que las audiciones en inglés empiecen por «Listen.» o que las sílabas marcadas coincidan con la tónica.</li>
+            </ul>
+          </section>
+
+          <section id="progreso" class="doc-section" aria-labelledby="progreso-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="progreso-t">Progreso y cuentas</h2>
+            <dl>
+              <dt>Con cuenta</dt>
+              <dd>Cada partida pasa por el servidor: se abre, cada respuesta se registra y se cierra. El servidor decide si da puntos, el día, los puntos y las estrellas. Si una respuesta no llega por la red, se reintenta en orden sin duplicarse.</dd>
+              <dt>Sin cuenta</dt>
+              <dd>El progreso, los premios del día y el historial de preguntas vistas se guardan en el navegador y nunca se envían a ningún sitio.</dd>
+            </dl>
+            <p>En la cuenta se guarda:</p>
+            <ul>
+              <li>Tu perfil: usuario, apodo, puntos ganados y gastados, y avatar.</li>
+              <li>Tus mejores estrellas por nivel.</li>
+              <li>Tus partidas y respuestas (acierto o fallo, sin el texto).</li>
+              <li>Tu colección de PokeBrainy.</li>
+            </ul>
+            <p>
+              Cada tabla tiene seguridad por filas: cada persona solo puede leer lo suyo, nadie sin sesión
+              puede leer nada, y los puntos, las partidas y la colección solo los escribe el servidor.
+              Las cuentas las crea una función del servidor que valida los datos.
+            </p>
+          </section>
+
+          <section id="privacidad" class="doc-section" aria-labelledby="privacidad-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="privacidad-t">Privacidad</h2>
+            <ul>
+              <li><strong>Sin cookies ni analítica.</strong></li>
+              <li><strong>Sin correo ni datos personales:</strong> solo usuario, apodo y contraseña. La base de datos rechaza cualquier correo real.</li>
+              <li>Las contraseñas las guarda Supabase cifradas; la app nunca las ve guardadas.</li>
+              <li>La web solo habla con su propio origen y con Supabase. PokéAPI solo se usa en PokeBrainy, con sesión, sin credenciales.</li>
+              <li>Las fuentes van incluidas en la app: no se carga nada de Google.</li>
+              <li>Sin cuenta, nada sale del navegador.</li>
+            </ul>
+          </section>
+
+          <section id="diseno" class="doc-section" aria-labelledby="diseno-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="diseno-t">Diseño</h2>
+            <p>
+              Un estilo «Arcade» de videojuego: botones gruesos que se hunden al pulsarlos, contadores tipo
+              marcador y un mundo de color por asignatura, con un modo día y un modo noche.
+            </p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Mundo</th><th>Color</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Matemáticas</td><td>Cian</td></tr>
+                  <tr><td>Lengua</td><td>Magenta</td></tr>
+                  <tr><td>Natural Science</td><td>Lima</td></tr>
+                  <tr><td>Social Science</td><td>Oro</td></tr>
+                  <tr><td>English</td><td>Violeta</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul>
+              <li>Títulos en Lilita One y texto en Rubik, servidas desde la propia app.</li>
+              <li>Iconos de Phosphor y componentes de shadcn/ui; los emojis solo aparecen en el contenido.</li>
+              <li>El tema sigue al sistema hasta que eliges uno, y se aplica antes de pintar para que no parpadee.</li>
+              <li>Animaciones con Motion y CSS, siempre respetando «movimiento reducido».</li>
+              <li>Brainy, la mascota, aparece en el inicio, en las explicaciones y en los resultados.</li>
+            </ul>
+          </section>
+
+          <section id="accesibilidad" class="doc-section" aria-labelledby="accesibilidad-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="accesibilidad-t">Accesibilidad, rendimiento y SEO</h2>
+            <h3>Accesibilidad</h3>
+            <ul>
+              <li>Contraste WCAG AA (4,5:1) en los dos temas, comprobado con tests.</li>
+              <li>El color nunca es la única pista: siempre va acompañado de texto o de un icono.</li>
+              <li>Foco visible, áreas táctiles de al menos 44×44 px y avisos que leen los lectores de pantalla.</li>
+              <li>El contenido en inglés se marca como tal para que se pronuncie bien.</li>
+              <li>Sin scroll horizontal desde 320 px de ancho.</li>
+            </ul>
+            <h3>Rendimiento</h3>
+            <ul>
+              <li>Cada pantalla se descarga al abrirla. Antes, todo iba en un único archivo de 556 KB.</li>
+              <li>Un presupuesto limita el JavaScript total comprimido.</li>
+              <li>Tras publicar una versión nueva, si falla la carga de un fragmento antiguo, la página se recarga sola una vez.</li>
+            </ul>
+            <h3>SEO</h3>
+            <ul>
+              <li>Título «Brainy · Estudia de forma interactiva», descripción, Open Graph con imagen para redes y datos estructurados.</li>
+              <li>Cada pantalla cambia el título de la pestaña («Quiz · Matemáticas · Brainy»…).</li>
+              <li><code>robots.txt</code> y <code>sitemap.xml</code> generados en el build; se indexa la portada.</li>
+            </ul>
+          </section>
+
+          <section id="calidad" class="doc-section" aria-labelledby="calidad-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="calidad-t">Pruebas y calidad</h2>
+            <ul>
+              <li><strong>Unos 2.000 tests</strong> con Vitest y Testing Library, en 125 ficheros, junto al código que prueban.</li>
+              <li><strong>Golden files</strong> de los diagramas, del contenido y de algunas pantallas, que nunca se regeneran solos.</li>
+              <li><strong>Tests del contenido</strong>: bancos de preguntas, lecciones y que el catálogo de niveles coincida con la base de datos.</li>
+              <li><strong>Pruebas de mutación</strong> con Stryker sobre lo que se cambia, con un objetivo de más del 95 %.</li>
+              <li><strong>TypeScript estricto</strong>, y el build no sale si los tipos fallan.</li>
+              <li><strong>TDD obligatorio</strong>: ningún código sin un test que falle antes.</li>
+            </ul>
+          </section>
+
+          <section id="publicacion" class="doc-section" aria-labelledby="publicacion-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="publicacion-t">Publicación</h2>
+            <p>
+              El código vive en un repositorio privado y la web se publica en otro público, Brainy-Site,
+              con GitHub Pages. Así la web es pública y se puede indexar, pero el código, los tests y el
+              historial siguen privados.
+            </p>
+            <ol class="steps">
+              <li class="step">
+                <h3>Push a main</h3>
+                <p>Cada cambio que llega a <code>main</code> lanza el despliegue.</p>
+              </li>
+              <li class="step">
+                <h3>Tests y build</h3>
+                <p>Comprueba la configuración, pasa todos los tests y construye la app. Si algo falla, no se publica nada.</p>
+              </li>
+              <li class="step">
+                <h3>Publicar</h3>
+                <p>Sube solo la carpeta construida al repositorio del sitio, que la sirve con GitHub Pages.</p>
+              </li>
+            </ol>
+          </section>
+
+          <section id="historia" class="doc-section" aria-labelledby="historia-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="historia-t">Cómo se construyó</h2>
+            <p>
+              Con especificaciones de OpenSpec: 72 cambios propuestos, implementados y archivados entre el
+              4 y el 21 de octubre de 2026, y 37 especificaciones vigentes con unos 550 requisitos.
+            </p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>Fecha</th><th>Qué llegó</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>4 oct</td><td>Primera versión sin servidor: explicaciones visuales, números romanos, morfemas, sílabas y tilde, y modo oscuro</td></tr>
+                  <tr><td>5–7 oct</td><td>Los cinco sentidos y sus diagramas, operaciones, gramática, el Taller de ortografía y la voz en español</td></tr>
+                  <tr><td>11–12 oct</td><td>Nuevos tipos de pregunta y el rediseño completo con la mascota y el nombre Brainy</td></tr>
+                  <tr><td>16–17 oct</td><td>División en galera y la identidad visual «Arcade»</td></tr>
+                  <tr><td>18 oct</td><td>Cuentas, progreso sincronizado, modo sin cuenta, ranking, English y Social Science</td></tr>
+                  <tr><td>19 oct</td><td>PokeBrainy y los avatares</td></tr>
+                  <tr><td>20–21 oct</td><td>Más temas de Matemáticas y Ciencias, y los puntos diarios decididos por el servidor</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="limitaciones" class="doc-section" aria-labelledby="limitaciones-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="limitaciones-t">Limitaciones conocidas</h2>
+            <ul>
+              <li>No hay recuperación de contraseña desde la app.</li>
+              <li>No se puede ocultar uno del ranking, y los avatares los asigna el responsable.</li>
+              <li>Sin cuenta, el progreso se pierde al borrar los datos del navegador, y el día depende del reloj del dispositivo.</li>
+              <li>El dictado y las audiciones dependen de que el sistema tenga voces en español o inglés; si no, se ofrece leer el texto.</li>
+              <li>Las respuestas numéricas no admiten separador de miles.</li>
+              <li>No funciona sin conexión.</li>
+              <li>Solo se indexa la portada: las pantallas con <code>#</code> no aparecen en buscadores.</li>
+              <li>No hay pruebas de extremo a extremo ni linter.</li>
+            </ul>
+          </section>
+
+          <section id="creditos" class="doc-section" aria-labelledby="creditos-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="creditos-t">Créditos</h2>
+            <p>
+              Brainy está hecha por Renzo Ramos (<a href="https://github.com/RenzoRamosDEV">RenzoRamosDEV</a>).
+              Los datos de Pokémon de PokeBrainy son de <a href="https://pokeapi.co/">PokéAPI</a>. Las fuentes
+              Lilita One y Rubik tienen licencia SIL OFL 1.1.
+            </p>
+            <a class="doc-top" href="#contenido">↑ Volver arriba</a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <h2 class="site-footer__title">
+            <span class="brand__mark" aria-hidden="true">
+              <img src="assets/logo.png" alt="" width="36" height="36" />
+            </span>
+            Brainy
+          </h2>
+          <p>Hecho por Renzo Ramos (<a href="https://github.com/RenzoRamosDEV">RenzoRamosDEV</a>).</p>
+        </div>
+        <a class="button button--secondary" href="https://renzoramosdev.github.io/Brainy-Site/">Abrir Brainy</a>
+      </div>
+    </footer>
+  </body>
+</html>
