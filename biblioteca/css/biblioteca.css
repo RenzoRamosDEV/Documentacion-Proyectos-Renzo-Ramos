@@ -7,7 +7,7 @@
   white-space: nowrap;
 }
 
-/* La biblioteca es más ancha que las documentaciones, para que quepan cuatro fichas por fila. */
+/* La biblioteca es más ancha que las documentaciones, para que las tres fichas por fila luzcan. */
 .container {
   width: min(100% - 2rem, 88rem);
 }
@@ -442,7 +442,7 @@
   }
 }
 
-/* Tres y cuatro fichas por fila, como máximo cuatro, con una ficha más compacta. */
+/* Como máximo tres fichas por fila, para que la miniatura se vea bien, con una ficha más compacta. */
 @media (min-width: 64rem) {
   .shelf {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -478,16 +478,6 @@
 
   .book__read {
     font-size: 0.9375rem;
-  }
-}
-
-@media (min-width: 80rem) {
-  .shelf {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .book__actions .book__read {
-    flex-basis: 100%;
   }
 }
 
