@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      ;(function () {
+        var stored = null
+        try {
+          stored = localStorage.getItem('biblioteca-theme')
+        } catch (e) {}
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' &&
+            typeof matchMedia === 'function' &&
+            matchMedia('(prefers-color-scheme: dark)').matches)
+        var root = document.documentElement
+        root.classList.toggle('dark', dark)
+        root.style.colorScheme = dark ? 'dark' : 'light'
+      })()
+      document.documentElement.classList.add('js')
+    </script>
+    <title>Biblioteca · Documentación de los proyectos de Renzo Ramos</title>
+    <meta
+      name="description"
+      content="La biblioteca de documentación de los proyectos de Renzo Ramos: cada proyecto con su documentación completa, en un mismo sitio."
+    />
+    <meta name="theme-color" content="#dc2626" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Biblioteca" />
+    <meta property="og:title" content="Biblioteca · Documentación de mis proyectos" />
+    <meta
+      property="og:description"
+      content="Toda la documentación de mis proyectos, en un mismo estante."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/biblioteca.css" />
+    <script defer src="js/base.js"></script>
+    <script defer src="js/biblioteca.js"></script>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </symbol>
+      <symbol id="i-list" viewBox="0 0 24 24">
+        <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path d="m12 2 10 5-10 5L2 7l10-5Z" />
+        <path d="m2 17 10 5 10-5M2 12l10 5 10-5" />
+      </symbol>
+      <symbol id="i-contrast" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 2a10 10 0 0 1 0 20Z" />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 16 16">
+        <path class="filled" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z" />
+      </symbol>
+    </svg>
+
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="#inicio" aria-label="Biblioteca, ir al inicio">
+          <span class="brand__mark brand__mark--logo" aria-hidden="true">
+            <img src="assets/logo-132.png" srcset="assets/logo-132.png 1x, assets/logo-264.png 2x" alt="" width="36" height="36" />
+          </span>
+          <span class="brand__name">Biblioteca</span>
+        </a>
+        <a class="icon-button" href="https://github.com/RenzoRamosDEV" aria-label="Perfil de Renzo Ramos en GitHub">
+          <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-github" /></svg>
+        </a>
+        <button
+          type="button"
+          class="icon-button theme-toggle"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Cambiar a tema oscuro"
+        >
+          <svg class="icon theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          <svg class="icon theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section id="inicio" class="hero hero--library" aria-labelledby="hero-title">
+        <div class="hero__backdrop" aria-hidden="true">
+          <div class="hero__pattern"></div>
+          <div class="hero__blob hero__blob--a"></div>
+          <div class="hero__blob hero__blob--b"></div>
+          <div class="hero__blob hero__blob--c"></div>
+        </div>
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <p class="pill hero__enter">
+              <span class="pill__dot" aria-hidden="true"></span>
+              Documentación de mis proyectos
+            </p>
+            <h1 id="hero-title" class="hero__title hero__enter">Biblioteca</h1>
+            <p class="hero__claim hero__enter">
+              Toda la documentación de mis proyectos,
+              <span class="text-gradient">en un mismo estante.</span>
+            </p>
+            <p class="hero__lead hero__enter">
+              Cada proyecto tiene su documentación completa: qué hace, cómo se usa y cómo está hecho
+              por dentro. Elige uno y ábrelo.
+            </p>
+            <ul class="shelf-stats hero__enter" role="list">
+              <li><strong data-stat="books">0</strong> proyectos documentados</li>
+              <li><strong data-stat="sections">0</strong> secciones</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyectos" class="section" aria-labelledby="proyectos-title">
+        <div class="container">
+          <header class="section__header">
+            <p class="eyebrow">El estante</p>
+            <h2 id="proyectos-title">Proyectos</h2>
+          </header>
+
+          <div class="toolbar" data-toolbar hidden>
+            <label class="search">
+              <span class="sr-only">Buscar un proyecto</span>
+              <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-search" /></svg>
+              <input
+                type="search"
+                data-search
+                placeholder="Busca por nombre o tecnología"
+                aria-label="Buscar un proyecto por nombre o tecnología"
+                autocomplete="off"
+              />
+            </label>
+            <fieldset class="filters">
+              <legend class="sr-only">Filtrar por tipo</legend>
+              <button type="button" class="filter" data-filter="todos" aria-pressed="true">
+                Todos <span class="filter__count" data-count="todos">0</span>
+              </button>
+              <button type="button" class="filter" data-filter="escritorio" aria-pressed="false">
+                Escritorio <span class="filter__count" data-count="escritorio">0</span>
+              </button>
+              <button type="button" class="filter" data-filter="web" aria-pressed="false">
+                Web <span class="filter__count" data-count="web">0</span>
+              </button>
+            </fieldset>
+            <p class="results" data-results aria-live="polite">Ningún proyecto</p>
+          </div>
+
+          <ul class="shelf" data-shelf role="list"></ul>
+
+          <div class="empty" data-empty-shelf>
+            <span class="feature__icon" aria-hidden="true">
+              <svg class="icon" width="24" height="24"><use href="#i-list" /></svg>
+            </span>
+            <h3>El estante todavía está vacío</h3>
+            <p>Aquí aparecerá la documentación de cada proyecto en cuanto la añada.</p>
+          </div>
+
+          <div class="empty" data-empty hidden>
+            <span class="feature__icon" aria-hidden="true">
+              <svg class="icon" width="24" height="24"><use href="#i-search" /></svg>
+            </span>
+            <h3>Nada en el estante</h3>
+            <p>Ningún proyecto coincide con <span data-empty-query>ese filtro</span>.</p>
+            <button type="button" class="button button--secondary" data-reset>Ver todos los proyectos</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="como-son" class="section section--tinted" aria-labelledby="como-son-title">
+        <div class="container">
+          <header class="section__header reveal">
+            <p class="eyebrow">Cómo son</p>
+            <h2 id="como-son-title">Todas siguen el mismo orden</h2>
+            <p class="section__lead">
+              Cada documentación vive junto a su proyecto y se lee igual: de lo que hace a cómo está
+              hecho.
+            </p>
+          </header>
+          <ul class="features" role="list">
+            <li class="card feature reveal">
+              <span class="feature__icon"><svg class="icon" width="22" height="22" aria-hidden="true"><use href="#i-list" /></svg></span>
+              <h3>Índice por secciones</h3>
+              <p>Un índice lateral que te acompaña al bajar y marca dónde estás; en el móvil, plegable.</p>
+            </li>
+            <li class="card feature reveal" style="--reveal-delay: 60ms">
+              <span class="feature__icon"><svg class="icon" width="22" height="22" aria-hidden="true"><use href="#i-layers" /></svg></span>
+              <h3>Del uso al código</h3>
+              <p>Empieza por qué es y cómo se usa, y baja hasta la arquitectura, los datos y las pruebas.</p>
+            </li>
+            <li class="card feature reveal" style="--reveal-delay: 120ms">
+              <span class="feature__icon"><svg class="icon" width="22" height="22" aria-hidden="true"><use href="#i-contrast" /></svg></span>
+              <h3>Clara y oscura</h3>
+              <p>Respeta el tema de tu sistema y puedes cambiarlo en cualquier momento.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <h2 class="site-footer__title">
+            <span class="brand__mark brand__mark--logo" aria-hidden="true">
+              <img src="assets/logo-132.png" srcset="assets/logo-132.png 1x, assets/logo-264.png 2x" alt="" width="36" height="36" />
+            </span>
+            Biblioteca
+          </h2>
+          <p>
+            La documentación de los proyectos de Renzo Ramos
+            (<a href="https://github.com/RenzoRamosDEV">RenzoRamosDEV</a>).
+          </p>
+        </div>
+        <a class="button button--secondary" href="https://github.com/RenzoRamosDEV">
+          <svg class="icon" width="20" height="20" aria-hidden="true"><use href="#i-github" /></svg>
+          RenzoRamosDEV
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

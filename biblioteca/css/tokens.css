@@ -1,0 +1,76 @@
+:root {
+  --brand-50: #fef2f2;
+  --brand-100: #fee2e2;
+  --brand-200: #fecaca;
+  --brand-300: #fca5a5;
+  --brand-400: #f87171;
+  --brand-500: #ef4444;
+  --brand-600: #dc2626;
+  --brand-700: #b91c1c;
+  --brand-800: #991b1b;
+  --brand-900: #7f1d1d;
+  --brand-950: #450a0a;
+
+  --bg: #ffffff;
+  --bg-elevated: #fdf8f8;
+  --surface: #ffffff;
+  --fg: #1f1416;
+  --fg-muted: #6b5c5f;
+  --border: #f0e2e3;
+  --primary: var(--brand-600);
+  --primary-fg: #ffffff;
+  --ring: var(--brand-500);
+
+  --danger: #dc2626;
+  --danger-fg: #ffffff;
+  --success: #15803d;
+  --warning: #b45309;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 2px rgb(127 29 29 / 0.06), 0 1px 3px rgb(127 29 29 / 0.08);
+  --shadow-md: 0 4px 12px -2px rgb(127 29 29 / 0.1), 0 2px 6px -2px rgb(127 29 29 / 0.08);
+  --shadow-lg: 0 18px 40px -12px rgb(127 29 29 / 0.22), 0 6px 16px -8px rgb(127 29 29 / 0.12);
+
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(220 38 38 / 0.12);
+  --gradient-brand: linear-gradient(135deg, var(--brand-600) 0%, #e11d48 55%, #f43f5e 100%);
+  --gradient-soft:
+    radial-gradient(1200px 600px at 10% -10%, rgb(239 68 68 / 0.1), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgb(244 63 94 / 0.07), transparent 60%);
+  --blob-a: rgb(239 68 68 / 0.24);
+  --blob-b: rgb(244 63 94 / 0.16);
+  --pattern-dot: rgb(220 38 38 / 0.1);
+}
+
+.dark {
+  --bg: #161214;
+  --bg-elevated: #1d181a;
+  --surface: #241e20;
+  --fg: #f5eff0;
+  --fg-muted: #b3a5a8;
+  --border: #33292c;
+  --primary: var(--brand-400);
+  --primary-fg: #161214;
+
+  --danger: #f87171;
+  --danger-fg: #161214;
+  --success: #4ade80;
+  --warning: #fbbf24;
+
+  --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.04);
+  --shadow-md: 0 0 0 1px rgb(255 255 255 / 0.05), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.7);
+
+  --gradient-brand: linear-gradient(135deg, var(--brand-300) 0%, var(--brand-400) 50%, #fb7185 100%);
+  --glass: rgb(29 24 26 / 0.7);
+  --glass-border: rgb(255 255 255 / 0.08);
+  --gradient-soft:
+    radial-gradient(1200px 600px at 10% -10%, rgb(239 68 68 / 0.14), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgb(244 63 94 / 0.08), transparent 60%);
+  --blob-a: rgb(239 68 68 / 0.18);
+  --blob-b: rgb(244 63 94 / 0.1);
+  --pattern-dot: rgb(255 255 255 / 0.05);
+}
