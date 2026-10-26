@@ -125,7 +125,8 @@ main:focus {
 }
 
 .icon .filled,
-#i-github .filled {
+#i-github .filled,
+#i-linkedin .filled {
   fill: currentColor;
   stroke: none;
 }
