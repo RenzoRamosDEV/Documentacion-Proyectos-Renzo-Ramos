@@ -87,7 +87,16 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 5. Ficha en el estante de `biblioteca/index.html`, copiando la de otro proyecto:
    - `data-kind` (`escritorio` o `web`), `data-sections` (número de secciones de su
      documentación) y `data-keywords` (palabras para el buscador).
-   - `--accent-light` y `--accent-dark`: el color de su documentación en cada tema.
+   - `--accent-light` y `--accent-dark`: el color que **domina** su documentación en cada tema
+     (el del fondo o la marca que se ve en la miniatura), no un color de acento puntual. Es el
+     color del lomo de la ficha y del punto de su etiqueta. Por ejemplo:
+
+     | Proyecto | Claro | Oscuro |
+     |---|---|---|
+     | AgentBoard | azul `#0b8ac9` | naranja `#f2a33a` |
+     | Booqi | morado `#7c3aed` | morado `#a78bfa` |
+     | Pokédex Retro | rojo `#cc2200` | verde Game Boy `#00aa44` |
+     | Brainy | violeta `#6d3fc4` | violeta `#b48cff` |
    - Tipo, descripción, tecnologías y enlaces (documentación `../<proyecto>/`, web y código).
    - Los contadores, los filtros y las estadísticas se calculan solos con JavaScript.
 6. Prueba en local sirviendo la raíz del repo (`python3 -m http.server`) y abre
