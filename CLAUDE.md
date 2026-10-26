@@ -62,6 +62,9 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
   «GitHub Actions»).
 - Se publican todas las carpetas visibles de la raíz, así que una carpeta de proyecto nueva sale
   sola, sin tocar el workflow. `CLAUDE.md` y las carpetas ocultas no se publican.
+- Los estilos y scripts de `biblioteca/index.html` llevan `?v=<N>` (por ejemplo `css/biblioteca.css?v=10`)
+  para que el navegador no use una versión vieja de su caché. Cada vez que cambies un CSS o JS de
+  la biblioteca, pon en todos ellos el `N` del commit `Biblioteca N` que lo sube.
 - La raíz del sitio no tiene página propia: el workflow genera un `index.html` que redirige a
   `biblioteca/`.
 - Después de subir, comprueba que el despliegue terminó bien (`gh run list --workflow pages.yml`)
