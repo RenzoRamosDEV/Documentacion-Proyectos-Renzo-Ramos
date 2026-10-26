@@ -47,6 +47,13 @@
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.3-4.3" />
       </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" />
+      </symbol>
       <symbol id="i-list" viewBox="0 0 24 24">
         <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
       </symbol>
@@ -120,8 +127,8 @@
               por dentro. Elige uno y ábrelo.
             </p>
             <ul class="shelf-stats hero__enter" role="list">
-              <li><strong data-stat="books">0</strong> proyectos documentados</li>
-              <li><strong data-stat="sections">0</strong> secciones</li>
+              <li><strong data-stat="books">0</strong> <span data-stat-label="books">proyectos documentados</span></li>
+              <li><strong data-stat="sections">0</strong> <span data-stat-label="sections">secciones</span></li>
             </ul>
           </div>
         </div>
@@ -161,7 +168,71 @@
             <p class="results" data-results aria-live="polite">Ningún proyecto</p>
           </div>
 
-          <ul class="shelf" data-shelf role="list"></ul>
+          <ul class="shelf" data-shelf role="list">
+            <li data-book data-kind="escritorio" data-sections="25" data-keywords="coste agentes claude codex copilot cursor gemini opencode mcp">
+              <article class="card book reveal" style="--accent-light: #0b8ac9; --accent-dark: #f2a33a">
+                <div class="book__cover" aria-hidden="true">
+                  <div class="book__frame">
+                    <img
+                      class="book__thumb--light"
+                      src="assets/thumbs/agentboard-light-640.webp"
+                      srcset="assets/thumbs/agentboard-light-640.webp 640w, assets/thumbs/agentboard-light-1280.webp 1280w"
+                      sizes="(min-width: 52rem) 34rem, 100vw"
+                      width="1280"
+                      height="800"
+                      loading="lazy"
+                      decoding="async"
+                      alt=""
+                    />
+                    <img
+                      class="book__thumb--dark"
+                      src="assets/thumbs/agentboard-dark-640.webp"
+                      srcset="assets/thumbs/agentboard-dark-640.webp 640w, assets/thumbs/agentboard-dark-1280.webp 1280w"
+                      sizes="(min-width: 52rem) 34rem, 100vw"
+                      width="1280"
+                      height="800"
+                      loading="lazy"
+                      decoding="async"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="book__body">
+                  <p class="book__meta">
+                    <span class="badge">App de escritorio</span>
+                    <span>25 secciones</span>
+                  </p>
+                  <h3>
+                    <a class="book__link" href="../agentboard/">AgentBoard</a>
+                  </h3>
+                  <p>
+                    El coste y la actividad de tus agentes de código (Claude Code, Codex, Copilot, Cursor,
+                    Gemini y OpenCode) en un panel local, con servidor MCP.
+                  </p>
+                  <ul class="chips" role="list">
+                    <li>Tauri 2</li>
+                    <li>Rust</li>
+                    <li>React 19</li>
+                    <li>SQLite</li>
+                  </ul>
+                  <div class="book__actions">
+                    <a class="book__read" href="../agentboard/">
+                      Leer la documentación
+                      <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-arrow" /></svg>
+                    </a>
+                    <a class="book__extra" href="https://renzoramosdev.github.io/AgentBoard/">
+                      <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-globe" /></svg>
+                      Web
+                    </a>
+                    <a class="book__extra" href="https://github.com/RenzoRamosDEV/AgentBoard">
+                      <svg class="icon" width="18" height="18" aria-hidden="true"><use href="#i-github" /></svg>
+                      Código
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </li>
+          </ul>
 
           <div class="empty" data-empty-shelf>
             <span class="feature__icon" aria-hidden="true">

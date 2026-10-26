@@ -25,10 +25,14 @@
       sections += Number(book.getAttribute('data-sections')) || 0
     })
     setText('[data-stat="books"]', books.length)
+    setText('[data-stat-label="books"]', books.length === 1 ? 'proyecto documentado' : 'proyectos documentados')
     setText('[data-stat="sections"]', sections)
+    setText('[data-stat-label="sections"]', sections === 1 ? 'sección' : 'secciones')
     filters.forEach(function (button) {
       var kind = button.getAttribute('data-filter')
-      setText('[data-count="' + kind + '"]', perKind[kind] || 0)
+      var count = perKind[kind] || 0
+      setText('[data-count="' + kind + '"]', count)
+      button.hidden = kind !== 'todos' && count === 0
     })
     var hasBooks = books.length > 0
     var toolbar = document.querySelector('[data-toolbar]')

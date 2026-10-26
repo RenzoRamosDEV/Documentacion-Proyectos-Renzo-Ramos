@@ -145,6 +145,10 @@
     border-color 150ms ease;
 }
 
+.filter[hidden] {
+  display: none;
+}
+
 .filter:hover {
   color: var(--fg);
 }
