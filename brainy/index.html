@@ -147,6 +147,7 @@
                 <p class="doc-toc__title">Por dentro</p>
                 <ol>
                   <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#stack">Stack tecnológico</a></li>
                   <li><a href="#contenido-json">Cómo se escribe el contenido</a></li>
                   <li><a href="#progreso">Progreso y cuentas</a></li>
                   <li><a href="#privacidad">Privacidad</a></li>
@@ -632,24 +633,80 @@
               Una aplicación de una sola página (SPA) estática hecha con React 19, TypeScript, Vite y
               Tailwind CSS v4. Las cuentas, el progreso y el ranking viven en Supabase.
             </p>
-            <ul class="chips" role="list">
-              <li>React <span>19.3</span></li>
-              <li>TypeScript <span>5.9</span></li>
-              <li>Vite <span>8.3</span></li>
-              <li>Tailwind <span>4.3</span></li>
-              <li>shadcn/ui</li>
-              <li>Motion <span>14</span></li>
-              <li>Phosphor Icons</li>
-              <li>supabase-js <span>2</span></li>
-              <li>Vitest <span>4</span></li>
-              <li>Stryker <span>10</span></li>
-            </ul>
             <ul>
               <li><strong>Rutas con <code>#</code></strong> (<code>#/subject/math</code>, <code>#/quiz/…</code>, <code>#/taller</code>…), para que funcione en GitHub Pages sin servidor.</li>
               <li><strong>Puertos y adaptadores:</strong> la autenticación, el progreso, las partidas, el ranking y PokeBrainy tienen cada uno una interfaz, un adaptador de Supabase y una versión falsa para los tests.</li>
               <li><strong>Sin librería de estado global:</strong> hooks de React, y la puntuación del quiz es una función pura.</li>
               <li><strong>Carpetas por dominio:</strong> <code>app</code>, <code>auth</code>, <code>content</code>, <code>quiz</code>, <code>taller</code>, <code>progress</code>, <code>leaderboard</code>, <code>pokebrainy</code>, <code>screens</code>…, con cada test junto a su módulo.</li>
               <li><strong>Carga bajo demanda:</strong> cada pantalla y el cliente de Supabase van en su propio fragmento de código.</li>
+            </ul>
+          </section>
+
+          <section id="stack" class="doc-section" aria-labelledby="stack-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="stack-t">Stack tecnológico</h2>
+            <p class="doc-lead">Todas las herramientas del proyecto, agrupadas por capa.</p>
+            <h3>Frontend</h3>
+            <ul class="chips" role="list">
+              <li>React <span>19.3</span></li>
+              <li>TypeScript <span>5.9</span></li>
+              <li>Vite <span>8.3</span></li>
+              <li>Tailwind CSS <span>4.3</span></li>
+              <li>shadcn/ui (radix-nova)</li>
+              <li>Radix UI</li>
+              <li>class-variance-authority</li>
+              <li>clsx · tailwind-merge</li>
+              <li>tw-animate-css</li>
+              <li>Motion <span>14</span></li>
+              <li>Phosphor Icons</li>
+              <li>Rubik · Lilita One</li>
+              <li>Rutas por hash</li>
+              <li>Web Speech API (dictado y audiciones)</li>
+              <li>Web App Manifest</li>
+            </ul>
+            <h3>Backend y datos</h3>
+            <ul class="chips" role="list">
+              <li>Supabase Auth</li>
+              <li>Supabase (Postgres)</li>
+              <li>Row Level Security</li>
+              <li>supabase-js <span>2.118</span></li>
+              <li>Funciones SQL (RPC, security definer)</li>
+              <li>13 migraciones SQL</li>
+              <li>Edge Functions (Deno)</li>
+              <li>Contenido en JSON</li>
+              <li>localStorage (modo invitado)</li>
+            </ul>
+            <h3>APIs externas</h3>
+            <ul class="chips" role="list">
+              <li>PokéAPI (PokeBrainy)</li>
+              <li>Sprites de PokéAPI</li>
+            </ul>
+            <h3>SEO</h3>
+            <ul class="chips" role="list">
+              <li>Plugin propio de Vite</li>
+              <li>Open Graph</li>
+              <li>JSON-LD</li>
+              <li>robots.txt · sitemap.xml</li>
+            </ul>
+            <h3>Pruebas y calidad</h3>
+            <ul class="chips" role="list">
+              <li>Vitest <span>4.1</span></li>
+              <li>jsdom <span>29</span></li>
+              <li>Testing Library (dom · react · jest-dom)</li>
+              <li>Golden files</li>
+              <li>Stryker <span>10</span></li>
+              <li>tsc (strict)</li>
+              <li>Tests de contraste WCAG AA</li>
+              <li>Tests de contenido</li>
+            </ul>
+            <h3>CI y método</h3>
+            <ul class="chips" role="list">
+              <li>GitHub Actions</li>
+              <li>GitHub Pages (repo del sitio, deploy key)</li>
+              <li>Supabase CLI</li>
+              <li>OpenSpec (37 capacidades)</li>
+              <li>Conventional Commits</li>
+              <li>TDD</li>
             </ul>
           </section>
 
