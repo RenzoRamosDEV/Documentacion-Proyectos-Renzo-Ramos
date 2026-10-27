@@ -177,7 +177,7 @@ que la biblioteca está en orden y, si no, dice exactamente qué falla:
   en el `<title>` (≤ 65 caracteres) y en la meta description (≤ 155), `canonical` absoluto, JSON-LD
   válido con el mismo nodo `Person` (`@id …/#renzo`, con `alternateName`, `jobTitle`, `url`,
   `sameAs` y `knowsAbout`); la biblioteca con su `ProfilePage`, `llms.txt`, manifest, `rel="sitemap"`
-  y la sección «Sobre el autor»; cada documentación con la línea de autor bajo el h1, la franja
+  y los enlaces `rel="me"` del hero (web, GitHub, LinkedIn); cada documentación con la línea de autor bajo el h1, la franja
   «Biblioteca de Renzo Ramos», el `<link rel="alternate" type="text/markdown">`, el preload de
   su fuente y el bloque «Otros proyectos de Renzo Ramos» enlazando a todos los demás.
 
