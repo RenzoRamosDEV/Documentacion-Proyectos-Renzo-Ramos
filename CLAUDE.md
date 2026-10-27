@@ -87,13 +87,21 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
      «Descargar» o «Ver demo». Nada de enlaces a secciones de su landing, ni «Biblioteca», ni
      «Documentación» (ya estás en ella).
    - Los enlaces del contenido a la web o a la demo del proyecto apuntan a su web publicada.
+   - La documentación lleva una sección `id="stack"` «Stack tecnológico» (en el índice, justo
+     después de «Arquitectura») con **todas** las herramientas del proyecto en listas `.chips`
+     agrupadas por capa (backend, frontend, datos, pruebas y calidad, CI y método…). Sácalas de sus
+     manifiestos (`package.json`, `Cargo.toml`, `pom.xml`…), de sus workflows y de su
+     infraestructura, no solo de su README; con versión cuando la haya (`<li>Vite <span>8.3</span></li>`).
 4. Miniaturas de esa copia en claro y en oscuro (1280×800, en WebP a 1280 y 640 px de ancho):
    `biblioteca/assets/thumbs/<proyecto>-light-{640,1280}.webp` y `…-dark-…`.
 5. Ficha en el estante de `biblioteca/index.html`, copiando la de otro proyecto:
    - `data-kind` (`escritorio` o `web`), `data-sections` (número de secciones de su
-     documentación), `data-captures` (número de capturas, `<figure class="shot">`) y
-     `data-keywords` (palabras para el buscador).
-   - Sus tecnologías (`.chips`) también alimentan el marcador y la tira de tecnologías del inicio.
+     documentación), `data-captures` (número de capturas, `<figure class="shot">`),
+     `data-keywords` (palabras para el buscador) y `data-techs` (todas sus herramientas, separadas
+     por comas, con los mismos nombres de la sección «Stack tecnológico» y sin versiones).
+   - La ficha **no muestra tags de tecnologías**: `data-techs` alimenta el buscador, el contador
+     de tecnologías y la tira del inicio. Usa los mismos nombres que los demás proyectos
+     (`React`, `TypeScript`, `Vitest`, `GitHub Actions`…) para que no se cuenten dos veces.
    - `--accent-light` y `--accent-dark`: el color que **domina** su documentación en cada tema
      (el del fondo o la marca que se ve en la miniatura), no un color de acento puntual. Es el
      color del lomo de la ficha y del punto de su etiqueta. Por ejemplo:
@@ -104,7 +112,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
      | Booqi | morado `#7c3aed` | morado `#a78bfa` |
      | Pokédex Retro | rojo `#cc2200` | verde Game Boy `#00aa44` |
      | Brainy | violeta `#6d3fc4` | violeta `#b48cff` |
-   - Tipo, descripción, tecnologías y enlaces (documentación `../<proyecto>/`, web y código).
+   - Tipo, descripción y enlaces (documentación `../<proyecto>/`, web y código).
    - Los contadores, los filtros y las estadísticas se calculan solos con JavaScript.
    - Copia 3 o 4 capturas suyas (a 640 px) a `biblioteca/assets/mosaic/<proyecto>-<nombre>.webp` y
      añádelas al mosaico del inicio (`[data-mosaic]`), intercaladas con las de los demás proyectos.
