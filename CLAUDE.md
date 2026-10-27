@@ -34,7 +34,7 @@ Lee este fichero entero antes de tocar nada. Lo importante, en orden:
 - `vercel.json`: la configuración de Vercel (build con `.github/scripts/build-site.mjs`, salida
   `_site/`, redirección de la raíz a `biblioteca/`).
 - `.github/scripts/build-site.mjs`: monta el sitio publicable en `_site/` (carpetas, portada,
-  `sitemap.xml` y el Markdown). Lo usan Vercel y el workflow de GitHub Pages: es el único build.
+  `robots.txt`, `sitemap.xml` y el Markdown). Lo usan Vercel y el workflow de GitHub Pages: es el único build.
 
 ## 2. La ficha de cada proyecto es la única fuente de datos
 
@@ -151,7 +151,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 - La raíz del sitio no tiene página propia: el workflow genera un `index.html` con `noindex` que
   redirige a `biblioteca/`. Es el único `noindex` del sitio: no se bloquea a ningún bot (ni
   `noindex`, ni `noai`, ni robots).
-- El workflow genera también `sitemap.xml` (una URL por carpeta, con `lastmod` del último commit
+- El build genera también `robots.txt` (todo permitido, con la ruta del sitemap) y `sitemap.xml` (una URL por carpeta, con `lastmod` del último commit
   de esa carpeta: por eso hace checkout con `fetch-depth: 0`), `biblioteca/llms-full.txt` y
   `biblioteca/md/<proyecto>.md` con `.github/scripts/build-llms.mjs`.
 - Después de subir, comprueba que el despliegue terminó bien (`gh run list --workflow pages.yml`)
