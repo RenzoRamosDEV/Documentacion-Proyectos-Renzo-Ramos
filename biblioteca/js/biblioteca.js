@@ -17,18 +17,98 @@
     })
   }
 
+  var reduceMotion =
+    typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  function plural(count, one, many) {
+    return count === 1 ? one : many
+  }
+
+  function techsOf(list) {
+    var seen = []
+    list.forEach(function (book) {
+      Array.prototype.forEach.call(book.querySelectorAll('.chips li'), function (chip) {
+        var name = chip.textContent.trim()
+        if (seen.indexOf(name) === -1) seen.push(name)
+      })
+    })
+    return seen
+  }
+
+  function countUp(element, target) {
+    if (reduceMotion || target === 0) {
+      element.textContent = String(target)
+      return
+    }
+    var startedAt = null
+    function frame(now) {
+      if (startedAt === null) startedAt = now
+      var progress = Math.min((now - startedAt) / 1400, 1)
+      element.textContent = String(Math.round(target * (1 - Math.pow(1 - progress, 3))))
+      if (progress < 1) requestAnimationFrame(frame)
+    }
+    requestAnimationFrame(frame)
+  }
+
+  function renderScores(stats) {
+    var scores = document.querySelector('[data-scores]')
+    Object.keys(stats).forEach(function (key) {
+      setText('[data-stat-label="' + key + '"]', plural(stats[key][0], stats[key][1], stats[key][2]))
+    })
+    function start() {
+      Object.keys(stats).forEach(function (key) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-stat="' + key + '"]'), function (el) {
+          countUp(el, stats[key][0])
+        })
+      })
+    }
+    if (!scores || !('IntersectionObserver' in window)) return start()
+    var observer = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return
+      observer.disconnect()
+      start()
+    }, { threshold: 0.4 })
+    observer.observe(scores)
+  }
+
+  function renderMarquee(techs) {
+    var track = document.querySelector('[data-marquee]')
+    if (!track || techs.length === 0) return
+    // Dos copias seguidas: la animación se desplaza media pista y empalma sin salto
+    techs.concat(techs).forEach(function (name) {
+      var chip = document.createElement('span')
+      chip.textContent = name
+      track.appendChild(chip)
+    })
+  }
+
+  function renderMosaic() {
+    var grid = document.querySelector('[data-mosaic]')
+    if (!grid) return
+    // Se duplica para que el desplazamiento vertical no tenga final
+    Array.prototype.slice.call(grid.children).forEach(function (img) {
+      grid.appendChild(img.cloneNode())
+    })
+  }
+
   function countShelf() {
     var sections = 0
+    var captures = 0
     var perKind = { todos: books.length }
     books.forEach(function (book) {
       var kind = book.getAttribute('data-kind')
       perKind[kind] = (perKind[kind] || 0) + 1
       sections += Number(book.getAttribute('data-sections')) || 0
+      captures += Number(book.getAttribute('data-captures')) || 0
     })
-    setText('[data-stat="books"]', books.length)
-    setText('[data-stat-label="books"]', books.length === 1 ? 'proyecto documentado' : 'proyectos documentados')
-    setText('[data-stat="sections"]', sections)
-    setText('[data-stat-label="sections"]', sections === 1 ? 'sección' : 'secciones')
+    var techs = techsOf(books)
+    renderScores({
+      books: [books.length, 'proyecto', 'proyectos'],
+      sections: [sections, 'sección', 'secciones'],
+      captures: [captures, 'captura', 'capturas'],
+      techs: [techs.length, 'tecnología', 'tecnologías'],
+    })
+    renderMarquee(techs)
     filters.forEach(function (button) {
       var kind = button.getAttribute('data-filter')
       var count = perKind[kind] || 0
@@ -104,5 +184,6 @@
     })
   }
 
+  renderMosaic()
   if (countShelf()) render()
 })()
