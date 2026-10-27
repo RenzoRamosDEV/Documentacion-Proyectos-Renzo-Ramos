@@ -27,49 +27,8 @@ jobs:
       - name: Comprobar la biblioteca
         run: node .github/scripts/comprobar-biblioteca.mjs
 
-      - name: Assemble the site
-        run: |
-          mkdir -p _site
-          for dir in */; do
-            [ "$dir" = "_site/" ] && continue
-            cp -R "$dir" _site/
-          done
-          cat > _site/index.html <<'HTML'
-          <!doctype html>
-          <html lang="es">
-            <head>
-              <meta charset="utf-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <title>Biblioteca · Documentación de los proyectos de Renzo Ramos</title>
-              <meta name="robots" content="noindex" />
-              <meta http-equiv="refresh" content="0; url=biblioteca/" />
-              <link rel="canonical" href="https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/" />
-            </head>
-            <body>
-              <p><a href="biblioteca/">Ir a la biblioteca</a></p>
-            </body>
-          </html>
-          HTML
-
-      - name: Build the Markdown for search engines and AIs (llms-full.txt, md/)
-        run: node .github/scripts/build-llms.mjs _site/biblioteca
-
-      - name: Build the sitemap
-        run: |
-          site="https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos"
-          {
-            echo '<?xml version="1.0" encoding="UTF-8"?>'
-            echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-            for dir in */; do
-              [ "$dir" = "_site/" ] && continue
-              name="${dir%/}"
-              lastmod="$(git log -1 --format=%cI -- "$dir")"
-              priority="0.8"; [ "$name" = "biblioteca" ] && priority="1.0"
-              echo "  <url><loc>${site}/${name}/</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>"
-            done
-            echo '</urlset>'
-          } > _site/sitemap.xml
-          cat _site/sitemap.xml
+      - name: "Build the site (_site/ con carpetas, portada, sitemap.xml, llms-full.txt y md/)"
+        run: node .github/scripts/build-site.mjs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

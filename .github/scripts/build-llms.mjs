@@ -7,7 +7,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const SITE = 'https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/'
+const SITE = 'https://biblioteca-renzo-ramos.vercel.app/'
 const PAGES = [
   { dir: 'biblioteca', title: 'Biblioteca de Renzo Ramos' },
   { dir: 'agentboard', title: 'AgentBoard' },
@@ -156,6 +156,6 @@ for (const page of PAGES) {
   parts.push(md)
   console.log(`${page.dir}: ${md.length} caracteres`)
 }
-const full = `# Biblioteca de Renzo Ramos · contenido completo\n\n> Las cinco páginas de https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/ en Markdown: la biblioteca y la documentación de AgentBoard, Booqi, Pokédex Retro y Brainy, proyectos de Renzo Ramos (https://portafolio-renzoramos.com/).\n\n---\n\n${parts.join('\n\n---\n\n')}`
+const full = `# Biblioteca de Renzo Ramos · contenido completo\n\n> Las cinco páginas de https://biblioteca-renzo-ramos.vercel.app/ en Markdown: la biblioteca y la documentación de AgentBoard, Booqi, Pokédex Retro y Brainy, proyectos de Renzo Ramos (https://portafolio-renzoramos.com/).\n\n---\n\n${parts.join('\n\n---\n\n')}`
 writeFileSync(join(out, 'llms-full.txt'), full)
 console.log(`llms-full.txt: ${full.length} caracteres`)
