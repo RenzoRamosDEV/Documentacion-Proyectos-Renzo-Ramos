@@ -1,2 +1,5 @@
 # Carpeta local de Serena: nunca se sube
 .serena/
+
+# Salida del workflow de Pages y de los scripts (nunca se sube)
+_site/
