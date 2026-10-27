@@ -1,0 +1,26 @@
+# Biblioteca de Renzo Ramos
+
+> La documentación completa de los proyectos de Renzo Ramos (RenzoRamosDEV), desarrollador de software y Junior AI Engineer: qué hace cada proyecto, cómo se usa y cómo está hecho por dentro.
+
+Renzo Ramos construye aplicaciones completas, de la interfaz al backend, y herramientas para trabajar con agentes de código e inteligencia artificial. Trabaja sobre todo con React y TypeScript, Java y Spring Boot, Rust y Tauri, Supabase y PostgreSQL, y con las APIs de Claude y OpenAI y el Model Context Protocol (MCP). Desarrolla cada proyecto con especificaciones (OpenSpec), TDD y pruebas de mutación, y lo documenta en esta biblioteca de punta a punta. Cada documentación tiene su versión en Markdown en `biblioteca/md/<proyecto>.md` y todo el contenido junto está en `llms-full.txt`.
+
+## Proyectos
+
+- [AgentBoard](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/agentboard/): app de escritorio (Tauri 2, Rust, React) con el coste y la actividad de tus agentes de código (Claude Code, Codex, Copilot, Cursor, Gemini y OpenCode), en local, con caché SQLite y un servidor MCP de 22 herramientas.
+- [Booqi](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/booqi/): reserva de entradas para eventos con cuatro microservicios Spring Boot (Java 17), MySQL y un frontend React 19; pagos simulados, entradas en PDF con QR y panel de administración. Trabajo de fin de grado.
+- [Pokédex Retro](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/pokedex-retro/): la Pokédex de PokéAPI con estética Game Boy, un chat con Claude u OpenAI con tu propia clave (12 herramientas, agente con subagentes y skills) y un servidor MCP; JavaScript sin frameworks ni build.
+- [Brainy](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/brainy/): web gratuita y en español para aprender jugando (React, TypeScript, Tailwind, Supabase): explicaciones visuales, quizzes, taller de ortografía con dictado, puntos diarios, ranking y una colección de Pokémon.
+
+## Documentación en Markdown
+
+- [Todo el contenido](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/llms-full.txt): las cinco páginas completas en Markdown.
+- [AgentBoard.md](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/md/agentboard.md)
+- [Booqi.md](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/md/booqi.md)
+- [Pokédex Retro.md](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/md/pokedex-retro.md)
+- [Brainy.md](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/md/brainy.md)
+
+## Autor
+
+- [Portafolio de Renzo Ramos](https://portafolio-renzoramos.com/)
+- [GitHub: RenzoRamosDEV](https://github.com/RenzoRamosDEV)
+- [LinkedIn](https://www.linkedin.com/in/renzoinv04/)

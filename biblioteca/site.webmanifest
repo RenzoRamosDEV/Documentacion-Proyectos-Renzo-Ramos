@@ -1,0 +1,16 @@
+{
+  "name": "Biblioteca · Renzo Ramos",
+  "short_name": "Biblioteca",
+  "description": "La documentación de los proyectos de Renzo Ramos.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": [
+    { "src": "assets/logo-132.png", "sizes": "132x132", "type": "image/png" },
+    { "src": "assets/logo-264.png", "sizes": "264x264", "type": "image/png" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

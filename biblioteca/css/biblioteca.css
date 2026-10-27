@@ -194,6 +194,29 @@
   }
 }
 
+/* ---------- Sobre el autor ---------- */
+
+.author {
+  display: grid;
+  gap: 1rem;
+  padding: 1.75rem;
+}
+
+.author p {
+  color: var(--fg-muted);
+}
+
+.author strong {
+  color: var(--fg);
+}
+
+.author__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
 /* ---------- Buscador y filtros ---------- */
 
 .toolbar {
