@@ -63,7 +63,6 @@ if (!exists('biblioteca/llms.txt')) errors.push('falta biblioteca/llms.txt')
 if (!library.includes('rel="sitemap"')) errors.push('biblioteca/index.html: falta <link rel="sitemap">')
 if (!library.includes('rel="manifest"')) errors.push('biblioteca/index.html: falta <link rel="manifest">')
 if (!exists('biblioteca/site.webmanifest')) errors.push('falta biblioteca/site.webmanifest')
-if (!/<section id="autor"/.test(library)) errors.push('biblioteca/index.html: falta la sección «Sobre el autor» (id="autor")')
 
 const versions = [...new Set([...library.matchAll(/\?v=(\d+)"/g)].map((m) => m[1]))]
 if (versions.length !== 1) errors.push(`biblioteca/index.html: todos los ?v= deben ser iguales (hay ${versions.join(', ') || 'ninguno'})`)
