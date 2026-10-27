@@ -171,6 +171,7 @@
                 <p class="doc-toc__title">Por dentro</p>
                 <ol>
                   <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#stack">Stack tecnológico</a></li>
                   <li><a href="#datos">PokéAPI y caché</a></li>
                   <li><a href="#seguridad">Seguridad y accesibilidad</a></li>
                   <li><a href="#calidad">Pruebas y calidad</a></li>
@@ -857,6 +858,71 @@ claude mcp add pokedex-retro -- node /ruta/a/Pokedex-Retro/mcp/bin/pokedex-mcp.j
               <li>El mapper de la sección prepara los datos y se ordenan por número.</li>
               <li>Se pinta la sección y se actualiza el estado.</li>
             </ol>
+          </section>
+
+          <section id="stack" class="doc-section" aria-labelledby="stack-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="stack-t">Stack tecnológico</h2>
+            <p class="doc-lead">Todas las herramientas del proyecto, agrupadas por capa. Cero dependencias en producción: la web es HTML, CSS y JavaScript sin build.</p>
+            <h3>Web</h3>
+            <ul class="chips" role="list">
+              <li>JavaScript (ES modules)</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JSDoc · @ts-check</li>
+              <li><code>&lt;dialog&gt;</code> nativo</li>
+              <li>Web Speech API (voz)</li>
+              <li>localStorage · sessionStorage</li>
+              <li>IntersectionObserver</li>
+              <li>Press Start 2P · VT323 (OFL)</li>
+              <li>Web App Manifest</li>
+              <li>Content Security Policy</li>
+            </ul>
+            <h3>Datos y APIs</h3>
+            <ul class="chips" role="list">
+              <li>PokéAPI <span>v2</span></li>
+              <li>Sprites de PokéAPI</li>
+              <li>Anthropic Messages API (Claude 5.5)</li>
+              <li>OpenAI Responses API (GPT-6)</li>
+              <li>Server-Sent Events (streaming)</li>
+            </ul>
+            <h3>Servidor MCP</h3>
+            <ul class="chips" role="list">
+              <li>Node.js <span>22+</span></li>
+              <li>@modelcontextprotocol/sdk <span>1.32.2</span></li>
+              <li>Zod <span>4.6.7</span></li>
+              <li>stdio · JSON-RPC 2.0</li>
+              <li>MCP Inspector <span>2.12</span></li>
+              <li>server.json (registro MCP)</li>
+            </ul>
+            <h3>Pruebas y calidad</h3>
+            <ul class="chips" role="list">
+              <li>node --test</li>
+              <li>Playwright <span>1.64</span></li>
+              <li>axe-core <span>4.14</span></li>
+              <li>WCAG 2.1 AA</li>
+              <li>Stryker <span>10.1.1</span></li>
+              <li>Lighthouse CI <span>0.15</span></li>
+              <li>ESLint <span>10</span></li>
+              <li>eslint-config-prettier</li>
+              <li>Prettier <span>3.9</span></li>
+              <li>TypeScript <span>7.0</span></li>
+              <li>check:html</li>
+              <li>lint-staged · simple-git-hooks</li>
+              <li>EditorConfig</li>
+            </ul>
+            <h3>CI y método</h3>
+            <ul class="chips" role="list">
+              <li>GitHub Actions (Node 22 y 24)</li>
+              <li>GitHub Pages</li>
+              <li>Dependabot</li>
+              <li>OpenSpec (14 capacidades)</li>
+              <li>ADRs</li>
+              <li>Keep a Changelog · SemVer</li>
+              <li>Conventional Commits</li>
+              <li>nvm (.nvmrc)</li>
+              <li>TDD</li>
+            </ul>
           </section>
 
           <section id="datos" class="doc-section" aria-labelledby="datos-t">
