@@ -2,6 +2,7 @@
 //   - copia cada carpeta visible de la raíz (biblioteca/ y una por proyecto)
 //   - genera la portada raíz (noindex, redirige a biblioteca/)
 //   - genera sitemap.xml con la fecha del último commit de cada carpeta (o la de hoy si no hay git)
+//   - genera robots.txt (todo permitido, con la ruta del sitemap)
 //   - genera biblioteca/llms-full.txt y biblioteca/md/<proyecto>.md con build-llms.mjs
 // Uso: node .github/scripts/build-site.mjs   (desde la raíz del repo; SITE_URL sobrescribe la URL pública)
 import { cpSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
@@ -43,8 +44,9 @@ function lastmod(dir) {
   return date || new Date().toISOString()
 }
 const urls = dirs.map((dir) => `  <url><loc>${SITE}/${dir}/</loc><lastmod>${lastmod(dir)}</lastmod><priority>${dir === 'biblioteca' ? '1.0' : '0.8'}</priority></url>`)
+writeFileSync(join(out, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`)
 writeFileSync(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`)
 
 execFileSync(process.execPath, [join(root, '.github/scripts/build-llms.mjs'), join(out, 'biblioteca')], { stdio: 'inherit' })
 
-console.log(`Sitio montado en _site/ para ${SITE}: ${dirs.join(', ')} + index.html + sitemap.xml`)
+console.log(`Sitio montado en _site/ para ${SITE}: ${dirs.join(', ')} + index.html + robots.txt + sitemap.xml`)
