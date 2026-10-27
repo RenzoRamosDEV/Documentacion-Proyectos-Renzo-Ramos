@@ -91,7 +91,9 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
    `biblioteca/assets/thumbs/<proyecto>-light-{640,1280}.webp` y `…-dark-…`.
 5. Ficha en el estante de `biblioteca/index.html`, copiando la de otro proyecto:
    - `data-kind` (`escritorio` o `web`), `data-sections` (número de secciones de su
-     documentación) y `data-keywords` (palabras para el buscador).
+     documentación), `data-captures` (número de capturas, `<figure class="shot">`) y
+     `data-keywords` (palabras para el buscador).
+   - Sus tecnologías (`.chips`) también alimentan el marcador y la tira de tecnologías del inicio.
    - `--accent-light` y `--accent-dark`: el color que **domina** su documentación en cada tema
      (el del fondo o la marca que se ve en la miniatura), no un color de acento puntual. Es el
      color del lomo de la ficha y del punto de su etiqueta. Por ejemplo:
@@ -104,6 +106,8 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
      | Brainy | violeta `#6d3fc4` | violeta `#b48cff` |
    - Tipo, descripción, tecnologías y enlaces (documentación `../<proyecto>/`, web y código).
    - Los contadores, los filtros y las estadísticas se calculan solos con JavaScript.
+   - Copia 3 o 4 capturas suyas (a 640 px) a `biblioteca/assets/mosaic/<proyecto>-<nombre>.webp` y
+     añádelas al mosaico del inicio (`[data-mosaic]`), intercaladas con las de los demás proyectos.
 6. Prueba en local sirviendo la raíz del repo (`python3 -m http.server`) y abre
    `/biblioteca/`: la ficha abre la documentación, «Volver» regresa y no hay errores.
 7. Añade el proyecto a la tabla «Proyectos» del `README.md` (commit `Readme N`).
