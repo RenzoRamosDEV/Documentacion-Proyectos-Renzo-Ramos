@@ -6,18 +6,18 @@ Renzo Ramos construye aplicaciones completas, de la interfaz al backend, y herra
 
 ## Proyectos
 
-- [AgentBoard](https://biblioteca-renzo-ramos.vercel.app/agentboard/): app de escritorio (Tauri 2, Rust, React) con el coste y la actividad de tus agentes de código (Claude Code, Codex, Copilot, Cursor, Gemini y OpenCode), en local, con caché SQLite y un servidor MCP de 22 herramientas.
-- [Booqi](https://biblioteca-renzo-ramos.vercel.app/booqi/): reserva de entradas para eventos con cuatro microservicios Spring Boot (Java 17), MySQL y un frontend React 19; pagos simulados, entradas en PDF con QR y panel de administración. Trabajo de fin de grado.
-- [Pokédex Retro](https://biblioteca-renzo-ramos.vercel.app/pokedex-retro/): la Pokédex de PokéAPI con estética Game Boy, un chat con Claude u OpenAI con tu propia clave (12 herramientas, agente con subagentes y skills) y un servidor MCP; JavaScript sin frameworks ni build.
-- [Brainy](https://biblioteca-renzo-ramos.vercel.app/brainy/): web gratuita y en español para aprender jugando (React, TypeScript, Tailwind, Supabase): explicaciones visuales, quizzes, taller de ortografía con dictado, puntos diarios, ranking y una colección de Pokémon.
+- [AgentBoard](https://docs.portafolio-renzoramos.com/agentboard/): app de escritorio (Tauri 2, Rust, React) con el coste y la actividad de tus agentes de código (Claude Code, Codex, Copilot, Cursor, Gemini y OpenCode), en local, con caché SQLite y un servidor MCP de 22 herramientas.
+- [Booqi](https://docs.portafolio-renzoramos.com/booqi/): reserva de entradas para eventos con cuatro microservicios Spring Boot (Java 17), MySQL y un frontend React 19; pagos simulados, entradas en PDF con QR y panel de administración. Trabajo de fin de grado.
+- [Pokédex Retro](https://docs.portafolio-renzoramos.com/pokedex-retro/): la Pokédex de PokéAPI con estética Game Boy, un chat con Claude u OpenAI con tu propia clave (12 herramientas, agente con subagentes y skills) y un servidor MCP; JavaScript sin frameworks ni build.
+- [Brainy](https://docs.portafolio-renzoramos.com/brainy/): web gratuita y en español para aprender jugando (React, TypeScript, Tailwind, Supabase): explicaciones visuales, quizzes, taller de ortografía con dictado, puntos diarios, ranking y una colección de Pokémon.
 
 ## Documentación en Markdown
 
-- [Todo el contenido](https://biblioteca-renzo-ramos.vercel.app/biblioteca/llms-full.txt): las cinco páginas completas en Markdown.
-- [AgentBoard.md](https://biblioteca-renzo-ramos.vercel.app/biblioteca/md/agentboard.md)
-- [Booqi.md](https://biblioteca-renzo-ramos.vercel.app/biblioteca/md/booqi.md)
-- [Pokédex Retro.md](https://biblioteca-renzo-ramos.vercel.app/biblioteca/md/pokedex-retro.md)
-- [Brainy.md](https://biblioteca-renzo-ramos.vercel.app/biblioteca/md/brainy.md)
+- [Todo el contenido](https://docs.portafolio-renzoramos.com/biblioteca/llms-full.txt): las cinco páginas completas en Markdown.
+- [AgentBoard.md](https://docs.portafolio-renzoramos.com/biblioteca/md/agentboard.md)
+- [Booqi.md](https://docs.portafolio-renzoramos.com/biblioteca/md/booqi.md)
+- [Pokédex Retro.md](https://docs.portafolio-renzoramos.com/biblioteca/md/pokedex-retro.md)
+- [Brainy.md](https://docs.portafolio-renzoramos.com/biblioteca/md/brainy.md)
 
 ## Autor
 
