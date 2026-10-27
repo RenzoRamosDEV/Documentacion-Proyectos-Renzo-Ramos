@@ -23,6 +23,47 @@ const plain = (html) =>
 
 const library = read('biblioteca/index.html')
 const readme = read('README.md')
+const SITE = 'https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/'
+const PERSON_ID = `${SITE}#renzo`
+
+// Entidad «Renzo Ramos»: la misma en todas las páginas, visible y en JSON-LD
+function checkEntity(path, html, { profile = false } = {}) {
+  const body = (html.match(/<body[\s\S]*<\/body>/) || [''])[0]
+  if (!plain(body).includes('renzo ramos')) errors.push(`${path}: «Renzo Ramos» debe aparecer en texto visible (no solo en meta)`)
+  const title = (html.match(/<title>([^<]*)<\/title>/) || [, ''])[1]
+  if (!title.includes('Renzo Ramos')) errors.push(`${path}: el <title> debe llevar «Renzo Ramos»`)
+  if (title.length > 65) errors.push(`${path}: el <title> tiene ${title.length} caracteres (máximo 65)`)
+  const description = (html.match(/name="description"\s*content="([^"]*)"/) || [, ''])[1]
+  if (!description.includes('Renzo Ramos')) errors.push(`${path}: la meta description debe llevar «Renzo Ramos»`)
+  if (description.length > 155) errors.push(`${path}: la meta description tiene ${description.length} caracteres (máximo 155)`)
+  if (!html.includes('<link rel="canonical" href="https://')) errors.push(`${path}: falta el <link rel="canonical"> absoluto`)
+  const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+  if (!scripts.length) return errors.push(`${path}: falta el JSON-LD`)
+  let graph = []
+  for (const m of scripts) {
+    try {
+      const data = JSON.parse(m[1])
+      graph = graph.concat(data['@graph'] || [data])
+    } catch (e) {
+      errors.push(`${path}: el JSON-LD no es JSON válido (${e.message})`)
+    }
+  }
+  const person = graph.find((n) => n['@type'] === 'Person')
+  if (!person) errors.push(`${path}: el JSON-LD no tiene un nodo Person`)
+  else {
+    if (person['@id'] !== PERSON_ID) errors.push(`${path}: el Person debe tener @id ${PERSON_ID} (tiene ${person['@id']})`)
+    if (person.name !== 'Renzo Ramos') errors.push(`${path}: el Person debe llamarse «Renzo Ramos»`)
+    for (const key of ['alternateName', 'jobTitle', 'url', 'sameAs', 'knowsAbout']) if (!person[key]) errors.push(`${path}: al Person le falta ${key}`)
+  }
+  if (profile && !graph.some((n) => n['@type'] === 'ProfilePage' && n.mainEntity && n.mainEntity['@id'] === PERSON_ID)) errors.push(`${path}: falta el ProfilePage cuyo mainEntity es el Person`)
+  if (/content="[^"]*no(index|ai)/i.test(html)) errors.push(`${path}: no se bloquea a ningún bot (noindex/noai)`)
+}
+checkEntity('biblioteca/index.html', library, { profile: true })
+if (!exists('biblioteca/llms.txt')) errors.push('falta biblioteca/llms.txt')
+if (!library.includes('rel="sitemap"')) errors.push('biblioteca/index.html: falta <link rel="sitemap">')
+if (!library.includes('rel="manifest"')) errors.push('biblioteca/index.html: falta <link rel="manifest">')
+if (!exists('biblioteca/site.webmanifest')) errors.push('falta biblioteca/site.webmanifest')
+if (!/<section id="autor"/.test(library)) errors.push('biblioteca/index.html: falta la sección «Sobre el autor» (id="autor")')
 
 const versions = [...new Set([...library.matchAll(/\?v=(\d+)"/g)].map((m) => m[1]))]
 if (versions.length !== 1) errors.push(`biblioteca/index.html: todos los ?v= deben ser iguales (hay ${versions.join(', ') || 'ninguno'})`)
@@ -110,6 +151,23 @@ for (const part of cards) {
   if (nav && /Documentación<\/a>|>Biblioteca<\/a>/.test(nav[0])) errors.push(`${docPath}: la barra del proyecto no lleva «Documentación» ni «Biblioteca» (eso va en la franja)`)
 
   if (!readme.includes(`/${project}/)`)) errors.push(`README.md: la tabla «Proyectos» no incluye ${project}`)
+
+  checkEntity(docPath, doc)
+  if (!doc.includes(`rel="alternate" type="text/markdown" href="${SITE}biblioteca/md/${project}.md"`)) errors.push(`${docPath}: falta <link rel="alternate" type="text/markdown"> a biblioteca/md/${project}.md`)
+  if (!doc.includes('class="doc-hero__author"')) errors.push(`${docPath}: falta la línea «Documentación de …, un proyecto de Renzo Ramos» bajo el h1`)
+  if (!doc.includes('Biblioteca de Renzo Ramos')) errors.push(`${docPath}: la franja debe decir «Biblioteca de Renzo Ramos»`)
+  if (!/<section id="otros-proyectos"/.test(doc)) errors.push(`${docPath}: falta el bloque «Otros proyectos de Renzo Ramos»`)
+  if (!/<link rel="preload" href="[^"]+\.woff2" as="font" type="font\/woff2" crossorigin/.test(doc)) errors.push(`${docPath}: falta el preload de su fuente principal`)
+  const projectName = (part.match(/book__link" href="[^"]*">([^<]*)<\/a>/) || [, ''])[1]
+  if (!new RegExp(`book__read"[^>]*>\\s*Documentación de ${projectName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(part)) errors.push(`${where}: el enlace a la documentación debe decir «Documentación de ${projectName}»`)
+}
+
+const projects = cards.map((part) => (part.match(/href="\.\.\/([a-z0-9-]+)\/"/) || [])[1]).filter(Boolean)
+for (const project of projects) {
+  const doc = read(`${project}/index.html`)
+  for (const other of projects) {
+    if (other !== project && !doc.includes(`href="../${other}/"`)) errors.push(`${project}/index.html: «Otros proyectos» debe enlazar a ../${other}/`)
+  }
 }
 
 for (const file of readdirSync(join(root, 'biblioteca/assets/mosaic'))) {
