@@ -103,6 +103,25 @@
   letter-spacing: -0.035em;
 }
 
+.doc-hero__author {
+  color: var(--fg-muted);
+  font-size: 1rem;
+}
+
+.doc-hero__author a {
+  color: var(--brand-ink);
+  font-weight: 600;
+}
+
+.doc-section--related h4 a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.doc-section--related h4 a:hover {
+  color: var(--brand-ink);
+}
+
 .doc-hero__lead {
   color: var(--fg-muted);
   font-size: 1.125rem;
