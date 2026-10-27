@@ -84,12 +84,56 @@
     })
   }
 
+  var MOSAIC_MIN = 15
+
+  function shuffle(list) {
+    for (var i = list.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1))
+      var tmp = list[i]
+      list[i] = list[j]
+      list[j] = tmp
+    }
+    return list
+  }
+
+  function mosaicOrder() {
+    // Una cola barajada por proyecto; se intercalan en orden aleatorio para que no se junten capturas del mismo proyecto
+    var queues = books
+      .map(function (book) {
+        return shuffle(
+          (book.getAttribute('data-mosaic') || '').split(',').map(function (name) {
+            return name.trim()
+          }).filter(Boolean),
+        )
+      })
+      .filter(function (queue) {
+        return queue.length > 0
+      })
+    var order = []
+    while (queues.some(function (queue) { return queue.length > 0 })) {
+      shuffle(queues).forEach(function (queue) {
+        if (queue.length) order.push(queue.shift())
+      })
+    }
+    return order
+  }
+
   function renderMosaic() {
     var grid = document.querySelector('[data-mosaic]')
     if (!grid) return
-    // Se duplica para que el desplazamiento vertical no tenga final
-    Array.prototype.slice.call(grid.children).forEach(function (img) {
-      grid.appendChild(img.cloneNode())
+    var order = mosaicOrder()
+    if (!order.length) return
+    // Media rejilla con al menos MOSAIC_MIN imágenes y la otra media idéntica: el desplazamiento empalma sin salto
+    var half = []
+    while (half.length < MOSAIC_MIN) half = half.concat(order)
+    half.concat(half).forEach(function (name) {
+      var img = document.createElement('img')
+      img.src = 'assets/mosaic/' + name + '.webp'
+      img.alt = ''
+      img.width = 640
+      img.height = 400
+      img.decoding = 'async'
+      grid.appendChild(img)
     })
   }
 
@@ -100,7 +144,10 @@
     books.forEach(function (book) {
       var kind = book.getAttribute('data-kind')
       perKind[kind] = (perKind[kind] || 0) + 1
-      sections += Number(book.getAttribute('data-sections')) || 0
+      var ownSections = Number(book.getAttribute('data-sections')) || 0
+      var sectionsText = book.querySelector('[data-sections-text]')
+      if (sectionsText) sectionsText.textContent = ownSections + ' ' + plural(ownSections, 'sección', 'secciones')
+      sections += ownSections
       captures += Number(book.getAttribute('data-captures')) || 0
     })
     var techs = techsOf(books)
