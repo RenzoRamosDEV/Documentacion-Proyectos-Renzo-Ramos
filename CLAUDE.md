@@ -1,7 +1,7 @@
 # Documentación de los proyectos de Renzo Ramos
 
 Este repo es la biblioteca de documentación de mis proyectos. Se publica en
-https://biblioteca-renzo-ramos.vercel.app/
+https://docs.portafolio-renzoramos.com/
 
 Lee este fichero entero antes de tocar nada. Lo importante, en orden:
 
@@ -127,17 +127,21 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 
 ## 5. Publicación (GitHub Pages)
 
-- **La dirección oficial es Vercel:** https://biblioteca-renzo-ramos.vercel.app (proyecto
-  `biblioteca-renzo-ramos`, conectado al repo: cada push a `main` despliega solo con el build de
-  `vercel.json`). Todas las URLs absolutas del sitio (canonical, JSON-LD, sitemap, `llms.txt`,
+- **La dirección oficial es https://docs.portafolio-renzoramos.com**, un subdominio del
+  portafolio que sirve Vercel (proyecto `biblioteca-renzo-ramos`, conectado al repo: cada push a
+  `main` despliega solo con el build de `vercel.json`; el DNS es un CNAME en Cloudflare, sin
+  proxy). La dirección `biblioteca-renzo-ramos.vercel.app` redirige (301) a la oficial mediante
+  la primera regla de `redirects` de `vercel.json`. Todas las URLs absolutas del sitio (canonical, JSON-LD, sitemap, `llms.txt`,
   Markdown, README) usan esa dirección; nunca la de GitHub Pages.
 - GitHub Pages (https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/) sigue
   publicándose con `.github/workflows/pages.yml` como **espejo**: mismo contenido y sus páginas
   llevan `canonical` a Vercel, así que para Google no compite. El workflow ejecuta antes la
   comprobación de la sección 6: si falla, no se publica nada.
 - Si algún día cambia el dominio, cámbialo en un solo sitio por archivo: es la constante `SITE` de
-  los tres scripts de `.github/scripts/` y el prefijo de las URLs absolutas de las cinco páginas,
-  `biblioteca/llms.txt`, `README.md` y este fichero (`grep -r` del dominio viejo y sustitución).
+  los tres scripts de `.github/scripts/`, la redirección de `vercel.json` y el prefijo de las URLs
+  absolutas de las cinco páginas, `biblioteca/llms.txt`, `README.md` y este fichero (`grep -r` del
+  dominio viejo y sustitución). Después hay que cambiarlo también donde se enlaza desde fuera: el
+  portafolio (`src/data/projects.js` y el conocimiento del chatbot) y los README de los proyectos.
 - Se publican todas las carpetas visibles de la raíz, así que una carpeta de proyecto nueva sale
   sola, sin tocar el workflow. `CLAUDE.md`, `README.md` y las carpetas ocultas no se publican.
 - Los estilos y scripts de `biblioteca/index.html` llevan `?v=<N>` (por ejemplo
