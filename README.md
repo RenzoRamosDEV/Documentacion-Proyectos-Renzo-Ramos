@@ -40,6 +40,15 @@ marca dónde estás y una franja arriba para volver a la biblioteca.
 | <img src="biblioteca/assets/thumbs/pokedex-retro-dark-640.webp" alt="Documentación de Pokédex Retro" width="220"> | **[Pokédex Retro](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/pokedex-retro/)** | La Pokédex de PokéAPI con estética Game Boy, un chat con Claude u OpenAI y un servidor MCP. |
 | <img src="biblioteca/assets/thumbs/brainy-dark-640.webp" alt="Documentación de Brainy" width="220"> | **[Brainy](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/brainy/)** | Web gratuita y en español para aprender jugando: explicaciones, quizzes, taller de ortografía, puntos y PokeBrainy. |
 
+## Para buscadores e IAs
+
+- [`llms.txt`](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/llms.txt):
+  el índice de la biblioteca para asistentes de IA, con un enlace y una línea por proyecto.
+- [`llms-full.txt`](https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/biblioteca/llms-full.txt)
+  y `md/<proyecto>.md`: las cinco páginas completas en Markdown, generadas en cada publicación.
+- `sitemap.xml` con la fecha del último cambio de cada página, y JSON-LD en todas ellas con el
+  mismo autor: Renzo Ramos.
+
 ## Autor
 
 Hecho por **Renzo Ramos** · [GitHub](https://github.com/RenzoRamosDEV) ·
