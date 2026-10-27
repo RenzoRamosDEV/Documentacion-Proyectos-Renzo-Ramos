@@ -9,6 +9,8 @@ Lee este fichero entero antes de tocar nada. Lo importante, en orden:
    biblioteca sale de ella y se calcula solo.
 2. **Cada commit toca una sola carpeta y se llama `<Nombre> <N>`** (sección 3).
 3. **Nada se sube sin pasar la comprobación automática** (sección 6) y la lista final (sección 9).
+4. **Toda documentación nueva lleva el mismo SEO que las demás** (sección 7, paso 4): nombre,
+   JSON-LD con tu `Person`, Markdown alternativo y enlaces cruzados.
 
 ## 1. Estructura
 
@@ -154,7 +156,7 @@ que la biblioteca está en orden y, si no, dice exactamente qué falla:
   proyecto no lleva «Documentación» ni «Biblioteca».
 - `README.md` tiene el proyecto en su tabla, todos los `?v=` son iguales y el contenedor del
   mosaico no lleva `<img>` en el HTML.
-- **Entidad «Renzo Ramos»** (sección 7, paso 4): en las cinco páginas, el nombre en texto visible,
+- **SEO y entidad «Renzo Ramos», igual en todas las páginas** (sección 7, paso 4): en las cinco páginas, el nombre en texto visible,
   en el `<title>` (≤ 65 caracteres) y en la meta description (≤ 155), `canonical` absoluto, JSON-LD
   válido con el mismo nodo `Person` (`@id …/#renzo`, con `alternateName`, `jobTitle`, `url`,
   `sameAs` y `knowsAbout`); la biblioteca con su `ProfilePage`, `llms.txt`, manifest, `rel="sitemap"`
@@ -186,7 +188,11 @@ del mosaico): compáralas con lo que ves en el inicio. **Pásala antes de cada c
    - Los enlaces del contenido a la web o a la demo del proyecto apuntan a su web publicada.
    - Si el repo del proyecto es privado, no enlaces al código ni publiques claves, URLs internas
      ni datos personales.
-4. **Entidad y SEO** (todo esto lo exige la comprobación de la sección 6; copia de otro proyecto):
+4. **SEO y entidad, siguiendo el mismo patrón que los demás proyectos.** Cada documentación nueva
+   lleva exactamente el mismo SEO que las que ya existen: abre `agentboard/index.html` (o cualquier
+   otra), copia su `<head>` y sus bloques de autor y cámbiales solo el nombre, la URL, la
+   descripción y los datos del proyecto. Nunca se mete una documentación sin esto; la comprobación
+   de la sección 6 la rechaza. El patrón es:
    - `<title>`: `<Proyecto> · Documentación · Renzo Ramos` (≤ 65 caracteres). Meta description
      ≤ 155 caracteres, que empiece por el nombre del proyecto y lleve «Renzo Ramos»; la misma en
      `og:description`. `og:title` «Documentación de <Proyecto> · Renzo Ramos».
@@ -261,5 +267,7 @@ del mosaico): compáralas con lo que ves en el inicio. **Pásala antes de cada c
       `biblioteca/index.html` al número del commit `Biblioteca N`.
 - [ ] Cada commit toca una sola carpeta y se llama `<Nombre> <N>` con el número siguiente.
 - [ ] Orden de commits: proyecto → `Biblioteca` → `Readme`; nada de coautores.
+- [ ] Si metí o cambié una documentación, tiene el SEO del patrón (sección 7, paso 4) y la
+      comprobación no se queja de ella.
 - [ ] Subida: rama con el `<Nombre>` y avance rápido a `main`; después, despliegue en verde y
       páginas con 200.
