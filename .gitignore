@@ -3,3 +3,5 @@
 
 # Salida del workflow de Pages y de los scripts (nunca se sube)
 _site/
+.vercel
+.env*
