@@ -171,6 +171,7 @@
                 <p class="doc-toc__title">Por dentro</p>
                 <ol>
                   <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#stack">Stack tecnológico</a></li>
                   <li><a href="#en-vivo">Actualización en vivo</a></li>
                   <li><a href="#cache">Caché y datos</a></li>
                   <li><a href="#rendimiento">Rendimiento</a></li>
@@ -1012,6 +1013,74 @@
               <code>get_breakdown</code>, <code>get_session_detail</code>, <code>list_prices</code>,
               <code>set_settings</code>, <code>export_data</code> y <code>rebuild_cache</code>.
             </p>
+          </section>
+
+          <section id="stack" class="doc-section" aria-labelledby="stack-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="stack-t">Stack tecnológico</h2>
+            <p class="doc-lead">Todas las herramientas del proyecto, agrupadas por capa.</p>
+            <h3>Backend (Rust)</h3>
+            <ul class="chips" role="list">
+              <li>Rust <span>2021</span></li>
+              <li>Tauri <span>2.11</span></li>
+              <li>tauri-plugin-notification</li>
+              <li>rusqlite <span>0.32</span></li>
+              <li>serde · serde_json</li>
+              <li>chrono <span>0.4</span></li>
+              <li>chrono-tz</li>
+              <li>iana-time-zone</li>
+              <li>notify <span>6.1</span></li>
+              <li>tracing · tracing-subscriber</li>
+              <li>anyhow</li>
+              <li>dirs</li>
+            </ul>
+            <h3>Interfaz</h3>
+            <ul class="chips" role="list">
+              <li>React <span>19.3</span></li>
+              <li>TypeScript <span>7.0</span></li>
+              <li>Vite <span>8.3</span></li>
+              <li>@tauri-apps/api <span>2.11</span></li>
+              <li>Sora · IBM Plex Sans · IBM Plex Mono</li>
+              <li>Idiomas es · en · pt · fr</li>
+            </ul>
+            <h3>Datos e integración</h3>
+            <ul class="chips" role="list">
+              <li>SQLite <span>WAL</span></li>
+              <li>Model Context Protocol (stdio · JSON-RPC 2.0)</li>
+              <li>Logs JSONL de Claude Code · Codex · Copilot · Cursor · Gemini</li>
+              <li>Base SQLite de OpenCode</li>
+              <li>inotify · FSEvents · ReadDirectoryChangesW</li>
+            </ul>
+            <h3>Pruebas y calidad</h3>
+            <ul class="chips" role="list">
+              <li>Vitest <span>5.0</span></li>
+              <li>cargo test (golden files y fixtures)</li>
+              <li>Criterion <span>0.8</span></li>
+              <li>cargo fmt</li>
+              <li>Clippy</li>
+              <li>tsc</li>
+              <li>Python <span>3</span></li>
+              <li>unittest</li>
+              <li>Chromium headless (perf-ui)</li>
+            </ul>
+            <h3>CI/CD y distribución</h3>
+            <ul class="chips" role="list">
+              <li>GitHub Actions (Linux · Windows · macOS)</li>
+              <li>tauri-action</li>
+              <li>Swatinem/rust-cache</li>
+              <li>AppImage · .deb · .rpm</li>
+              <li>.msi · .exe (NSIS)</li>
+              <li>.dmg universal</li>
+              <li>WebKitGTK <span>4.1</span></li>
+            </ul>
+            <h3>Método y entorno</h3>
+            <ul class="chips" role="list">
+              <li>OpenSpec</li>
+              <li>Conventional Commits</li>
+              <li>TDD</li>
+              <li>distrobox · toolbox</li>
+              <li>Claude Design</li>
+            </ul>
           </section>
 
           <section id="en-vivo" class="doc-section" aria-labelledby="en-vivo-t">
