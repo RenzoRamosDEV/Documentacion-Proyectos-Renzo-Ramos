@@ -1,7 +1,7 @@
 # Documentación de los proyectos de Renzo Ramos
 
 Este repo es la biblioteca de documentación de mis proyectos. Se publica en
-https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/
+https://biblioteca-renzo-ramos.vercel.app/
 
 Lee este fichero entero antes de tocar nada. Lo importante, en orden:
 
@@ -30,7 +30,11 @@ Lee este fichero entero antes de tocar nada. Lo importante, en orden:
 - `biblioteca/llms.txt`: el índice para IAs (llmstxt.org), escrito a mano; `biblioteca/site.webmanifest`.
 - `README.md`: la presentación del repo en GitHub, con la tabla «Proyectos».
 - `CLAUDE.md`: estas instrucciones.
-- `.gitignore`: lo que nunca se sube (por ejemplo `.serena/`).
+- `.gitignore`: lo que nunca se sube (por ejemplo `.serena/`, `_site/`, `.vercel/`).
+- `vercel.json`: la configuración de Vercel (build con `.github/scripts/build-site.mjs`, salida
+  `_site/`, redirección de la raíz a `biblioteca/`).
+- `.github/scripts/build-site.mjs`: monta el sitio publicable en `_site/` (carpetas, portada,
+  `sitemap.xml` y el Markdown). Lo usan Vercel y el workflow de GitHub Pages: es el único build.
 
 ## 2. La ficha de cada proyecto es la única fuente de datos
 
@@ -89,6 +93,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
      | `CLAUDE.md` | `Claude` |
      | `.gitignore` | `Git` |
      | `README.md` | `Readme` |
+     | `vercel.json` | `Vercel` |
 
    - `<N>` es un contador propio de cada nombre: empieza en `0` y sube de uno en uno.
    - Ejemplos: `Biblioteca 0`, `AgentBoard 0`, `Biblioteca 1`, `Claude 0`, `GitHub 0`, `Git 0`,
@@ -99,7 +104,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
    git log --all --format=%s | grep -E '^AgentBoard [0-9]+$' | awk '{print $2}' | sort -n | tail -1
    ```
 3. **Un commit por carpeta y por cambio.** Cada commit solo toca lo de su `<Nombre>`: la carpeta
-   de su proyecto, `biblioteca/`, `.github/`, `CLAUDE.md`, `.gitignore` o `README.md`. Nunca se
+   de su proyecto, `biblioteca/`, `.github/`, `CLAUDE.md`, `.gitignore`, `README.md` o `vercel.json`. Nunca se
    mezclan en un mismo commit.
 4. **Todo el cambio de una carpeta va en un solo commit.** Si mientras se trabaja salen varios
    commits de la misma carpeta, se juntan en uno antes de subir.
@@ -112,7 +117,7 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 ## 4. Ramas y subida
 
 - Se trabaja en una rama con el `<Nombre>` del cambio: `AgentBoard`, `Booqi`, `Biblioteca`,
-  `GitHub`, `Claude`, `Git`, `Readme`…
+  `GitHub`, `Claude`, `Git`, `Readme`, `Vercel`…
 - Antes de subir, comprueba que cada commit solo toca lo suyo:
   ```bash
   git diff-tree --no-commit-id --name-only -r <commit> | cut -d/ -f1 | sort -u
@@ -122,9 +127,17 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
 
 ## 5. Publicación (GitHub Pages)
 
-- Cada push a `main` publica el sitio con `.github/workflows/pages.yml` (Pages en modo
-  «GitHub Actions»). El workflow ejecuta antes la comprobación de la sección 6: si falla, no se
-  publica nada.
+- **La dirección oficial es Vercel:** https://biblioteca-renzo-ramos.vercel.app (proyecto
+  `biblioteca-renzo-ramos`, conectado al repo: cada push a `main` despliega solo con el build de
+  `vercel.json`). Todas las URLs absolutas del sitio (canonical, JSON-LD, sitemap, `llms.txt`,
+  Markdown, README) usan esa dirección; nunca la de GitHub Pages.
+- GitHub Pages (https://renzoramosdev.github.io/Documentacion-Proyectos-Renzo-Ramos/) sigue
+  publicándose con `.github/workflows/pages.yml` como **espejo**: mismo contenido y sus páginas
+  llevan `canonical` a Vercel, así que para Google no compite. El workflow ejecuta antes la
+  comprobación de la sección 6: si falla, no se publica nada.
+- Si algún día cambia el dominio, cámbialo en un solo sitio por archivo: es la constante `SITE` de
+  los tres scripts de `.github/scripts/` y el prefijo de las URLs absolutas de las cinco páginas,
+  `biblioteca/llms.txt`, `README.md` y este fichero (`grep -r` del dominio viejo y sustitución).
 - Se publican todas las carpetas visibles de la raíz, así que una carpeta de proyecto nueva sale
   sola, sin tocar el workflow. `CLAUDE.md`, `README.md` y las carpetas ocultas no se publican.
 - Los estilos y scripts de `biblioteca/index.html` llevan `?v=<N>` (por ejemplo
