@@ -22,6 +22,10 @@ Lee este fichero entero antes de tocar nada. Lo importante, en orden:
   enlaza a `../<proyecto>/`.
 - `.github/workflows/pages.yml`: comprueba la biblioteca y publica el sitio en GitHub Pages.
 - `.github/scripts/comprobar-biblioteca.mjs`: la comprobación automática (sección 6).
+- `.github/scripts/build-llms.mjs`: genera en el workflow `biblioteca/llms-full.txt` y
+  `biblioteca/md/<proyecto>.md` (las páginas en Markdown, para buscadores e IAs). No se suben al
+  repo: salen de los `index.html` en cada publicación.
+- `biblioteca/llms.txt`: el índice para IAs (llmstxt.org), escrito a mano; `biblioteca/site.webmanifest`.
 - `README.md`: la presentación del repo en GitHub, con la tabla «Proyectos».
 - `CLAUDE.md`: estas instrucciones.
 - `.gitignore`: lo que nunca se sube (por ejemplo `.serena/`).
@@ -125,8 +129,12 @@ Estas reglas mandan sobre cualquier otra convención (no se usa Conventional Com
   `css/biblioteca.css?v=10`) para que el navegador no use una versión vieja de su caché. Cada vez
   que cambies un CSS o JS de la biblioteca, pon en todos ellos el `N` del commit `Biblioteca N`
   que lo sube.
-- La raíz del sitio no tiene página propia: el workflow genera un `index.html` que redirige a
-  `biblioteca/`.
+- La raíz del sitio no tiene página propia: el workflow genera un `index.html` con `noindex` que
+  redirige a `biblioteca/`. Es el único `noindex` del sitio: no se bloquea a ningún bot (ni
+  `noindex`, ni `noai`, ni robots).
+- El workflow genera también `sitemap.xml` (una URL por carpeta, con `lastmod` del último commit
+  de esa carpeta: por eso hace checkout con `fetch-depth: 0`), `biblioteca/llms-full.txt` y
+  `biblioteca/md/<proyecto>.md` con `.github/scripts/build-llms.mjs`.
 - Después de subir, comprueba que el despliegue terminó bien (`gh run list --workflow pages.yml`)
   y que las páginas responden 200.
 
@@ -146,6 +154,13 @@ que la biblioteca está en orden y, si no, dice exactamente qué falla:
   proyecto no lleva «Documentación» ni «Biblioteca».
 - `README.md` tiene el proyecto en su tabla, todos los `?v=` son iguales y el contenedor del
   mosaico no lleva `<img>` en el HTML.
+- **Entidad «Renzo Ramos»** (sección 7, paso 4): en las cinco páginas, el nombre en texto visible,
+  en el `<title>` (≤ 65 caracteres) y en la meta description (≤ 155), `canonical` absoluto, JSON-LD
+  válido con el mismo nodo `Person` (`@id …/#renzo`, con `alternateName`, `jobTitle`, `url`,
+  `sameAs` y `knowsAbout`); la biblioteca con su `ProfilePage`, `llms.txt`, manifest, `rel="sitemap"`
+  y la sección «Sobre el autor»; cada documentación con la línea de autor bajo el h1, la franja
+  «Biblioteca de Renzo Ramos», el `<link rel="alternate" type="text/markdown">`, el preload de
+  su fuente y el bloque «Otros proyectos de Renzo Ramos» enlazando a todos los demás.
 
 Al terminar imprime las cifras del marcador (proyectos, secciones, capturas, tecnologías y capturas
 del mosaico): compáralas con lo que ves en el inicio. **Pásala antes de cada commit de
@@ -171,17 +186,37 @@ del mosaico): compáralas con lo que ves en el inicio. **Pásala antes de cada c
    - Los enlaces del contenido a la web o a la demo del proyecto apuntan a su web publicada.
    - Si el repo del proyecto es privado, no enlaces al código ni publiques claves, URLs internas
      ni datos personales.
-4. **Sección «Stack tecnológico»** (`id="stack"`, en el índice justo después de «Arquitectura») con
+4. **Entidad y SEO** (todo esto lo exige la comprobación de la sección 6; copia de otro proyecto):
+   - `<title>`: `<Proyecto> · Documentación · Renzo Ramos` (≤ 65 caracteres). Meta description
+     ≤ 155 caracteres, que empiece por el nombre del proyecto y lleve «Renzo Ramos»; la misma en
+     `og:description`. `og:title` «Documentación de <Proyecto> · Renzo Ramos».
+   - `canonical` y `og:url` absolutos a `https://…/<proyecto>/`.
+   - `<link rel="alternate" type="text/markdown" href="https://…/biblioteca/md/<proyecto>.md">`
+     y `<link rel="preload" … as="font" type="font/woff2" crossorigin>` de su fuente de texto.
+   - JSON-LD (`@graph`): el nodo `Person` **idéntico** al de las demás páginas (cópialo tal cual),
+     el `WebSite`, un `SoftwareApplication` del proyecto, un `TechArticle` de la documentación
+     (autor y `about` por `@id`) y un `BreadcrumbList` Biblioteca › Proyecto.
+   - Bajo el h1: `<p class="doc-hero__author">Documentación de <Proyecto>, un proyecto de
+     <a href="https://portafolio-renzoramos.com/" rel="author">Renzo Ramos</a>.</p>`.
+   - Al final del contenido, el bloque `<section id="otros-proyectos" class="doc-section
+     doc-section--related">` «Otros proyectos de Renzo Ramos» con un enlace a **cada** uno de los
+     demás proyectos (`../<otro>/`, texto «Documentación de <Otro>» y su descripción de una línea),
+     a la biblioteca y al portafolio, GitHub y LinkedIn. Y añade este proyecto al bloque de los
+     demás (eso toca sus carpetas: un commit `<Otro> N` por cada una).
+   - La primera captura de la documentación va sin `loading="lazy"`; el resto, con él. Alt
+     descriptivo en todas las capturas; `alt=""` solo en imágenes decorativas dentro de
+     `aria-hidden`.
+5. **Sección «Stack tecnológico»** (`id="stack"`, en el índice justo después de «Arquitectura») con
    **todas** las herramientas del proyecto en listas `.chips` agrupadas por capa (backend, frontend,
    datos, pruebas y calidad, CI y método…). Sácalas de sus manifiestos (`package.json`,
    `Cargo.toml`, `pom.xml`…), de sus workflows y de su infraestructura, no solo de su README; con
    versión cuando la haya (`<li>Vite <span>8.3</span></li>`).
-5. **Miniaturas** de esa copia en claro y en oscuro (1280×800, en WebP a 1280 y 640 px de ancho):
+6. **Miniaturas** de esa copia en claro y en oscuro (1280×800, en WebP a 1280 y 640 px de ancho):
    `biblioteca/assets/thumbs/<proyecto>-light-{640,1280}.webp` y `…-dark-…`.
-6. **Capturas para el mosaico del inicio:** copia 3 o 4 capturas suyas (las de 640 px) a
+7. **Capturas para el mosaico del inicio:** copia 3 o 4 capturas suyas (las de 640 px) a
    `biblioteca/assets/mosaic/<proyecto>-<nombre>.webp`. No hace falta tocar el mosaico: se monta
    solo desde `data-mosaic`.
-7. **Ficha en el estante** de `biblioteca/index.html`, copiando la de otro proyecto y rellenando
+8. **Ficha en el estante** de `biblioteca/index.html`, copiando la de otro proyecto y rellenando
    todos los atributos de la sección 2 (`data-kind`, `data-sections`, `data-captures`,
    `data-techs`, `data-mosaic`, `data-keywords`) y, dentro:
    - `--accent-light` y `--accent-dark`: el color que **domina** su documentación en cada tema
@@ -195,15 +230,19 @@ del mosaico): compáralas con lo que ves en el inicio. **Pásala antes de cada c
      | Pokédex Retro | rojo `#cc2200` | verde Game Boy `#00aa44` |
      | Brainy | violeta `#6d3fc4` | violeta `#b48cff` |
 
-   - Tipo, `<span data-sections-text>N secciones</span>`, descripción y enlaces (documentación
-     `../<proyecto>/`, web y código).
+   - Tipo, `<span data-sections-text>N secciones</span>`, descripción y enlaces: el de la
+     documentación con texto «Documentación de <Proyecto>» (nunca «Ver más»), y web y código sin
+     `nofollow`.
    - La ficha **no muestra tags de tecnologías**: van en `data-techs` (sección 2).
-8. **README:** añade el proyecto a la tabla «Proyectos» del `README.md`.
-9. **Comprueba:** `node .github/scripts/comprobar-biblioteca.mjs` sin errores. Después prueba en
+9. **README y llms.txt:** añade el proyecto a la tabla «Proyectos» del `README.md` y a la lista de
+   `biblioteca/llms.txt` (con su `.md`). Si cambia lo que sabes hacer, actualiza `knowsAbout` del
+   `Person` en las cinco páginas a la vez.
+10. **Comprueba:** `node .github/scripts/comprobar-biblioteca.mjs` sin errores. Después prueba en
    local sirviendo la raíz del repo (`python3 -m http.server`) y abre `/biblioteca/`: el marcador
    suma el proyecto nuevo, sus capturas salen en el mosaico (recarga: el orden cambia), la ficha
    abre la documentación, «Biblioteca» de la franja regresa y no hay errores en la consola.
-10. **Commits** `<Proyecto> N`, `Biblioteca N` y `Readme N`, en ese orden, y súbelo (sección 4).
+11. **Commits** `<Proyecto> N`, los `<Otro> N` de los bloques «Otros proyectos», `Biblioteca N` y
+    `Readme N`, en ese orden, y súbelo (sección 4).
 
 ## 8. Actualizar un proyecto que ya está
 
