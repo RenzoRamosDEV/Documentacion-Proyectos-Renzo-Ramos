@@ -27,9 +27,9 @@
   function techsOf(list) {
     var seen = []
     list.forEach(function (book) {
-      Array.prototype.forEach.call(book.querySelectorAll('.chips li'), function (chip) {
-        var name = chip.textContent.trim()
-        if (seen.indexOf(name) === -1) seen.push(name)
+      ;(book.getAttribute('data-techs') || '').split(',').forEach(function (name) {
+        name = name.trim()
+        if (name && seen.indexOf(name) === -1) seen.push(name)
       })
     })
     return seen
@@ -74,6 +74,8 @@
   function renderMarquee(techs) {
     var track = document.querySelector('[data-marquee]')
     if (!track || techs.length === 0) return
+    // La velocidad se mantiene constante aunque crezca la lista
+    track.style.animationDuration = Math.max(40, techs.length * 2.8) + 's'
     // Dos copias seguidas: la animación se desplaza media pista y empalma sin salto
     techs.concat(techs).forEach(function (name) {
       var chip = document.createElement('span')
@@ -135,7 +137,8 @@
     var inFilter = activeFilter === 'todos' || book.getAttribute('data-kind') === activeFilter
     if (!inFilter) return false
     if (!query) return true
-    return normalize(book.textContent + ' ' + (book.getAttribute('data-keywords') || '')).indexOf(query) !== -1
+    var haystack = book.textContent + ' ' + (book.getAttribute('data-keywords') || '') + ' ' + (book.getAttribute('data-techs') || '')
+    return normalize(haystack).indexOf(query) !== -1
   }
 
   function describe(count) {
