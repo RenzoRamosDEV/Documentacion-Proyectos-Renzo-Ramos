@@ -35,11 +35,11 @@
     />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
     <link rel="apple-touch-icon" href="assets/icon-192.png" />
-    <link rel="stylesheet" href="css/tokens.css?v=12" />
-    <link rel="stylesheet" href="css/base.css?v=12" />
-    <link rel="stylesheet" href="css/biblioteca.css?v=12" />
-    <script defer src="js/base.js?v=12"></script>
-    <script defer src="js/biblioteca.js?v=12"></script>
+    <link rel="stylesheet" href="css/tokens.css?v=13" />
+    <link rel="stylesheet" href="css/base.css?v=13" />
+    <link rel="stylesheet" href="css/biblioteca.css?v=13" />
+    <script defer src="js/base.js?v=13"></script>
+    <script defer src="js/biblioteca.js?v=13"></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true" focusable="false">
@@ -153,45 +153,62 @@
 
           <div class="hero__visual" aria-hidden="true">
             <div class="hero-shot">
-              <img
-                class="hero-shot__img hero-shot__img--light"
-                src="assets/thumbs/agentboard-light-640.webp"
-                srcset="assets/thumbs/agentboard-light-640.webp 640w, assets/thumbs/agentboard-light-1280.webp 1280w"
-                sizes="(min-width: 60rem) 34rem, calc(100vw - 2rem)"
-                width="1280"
-                height="800"
-                decoding="async"
-                alt=""
-              />
-              <img
-                class="hero-shot__img hero-shot__img--dark"
-                src="assets/thumbs/agentboard-dark-640.webp"
-                srcset="assets/thumbs/agentboard-dark-640.webp 640w, assets/thumbs/agentboard-dark-1280.webp 1280w"
-                sizes="(min-width: 60rem) 34rem, calc(100vw - 2rem)"
-                width="1280"
-                height="800"
-                decoding="async"
-                alt=""
-              />
+              <svg class="doc-sketch" viewBox="0 0 640 400" role="presentation">
+                <rect class="ds-bar" x="0" y="0" width="640" height="22" />
+                <rect class="ds-bar-text" x="16" y="8" width="70" height="6" rx="3" />
+                <rect class="ds-bar-text" x="560" y="8" width="64" height="6" rx="3" />
+                <rect class="ds-header" x="0" y="22" width="640" height="34" />
+                <rect class="ds-logo" x="16" y="31" width="16" height="16" rx="4" />
+                <rect class="ds-strong" x="40" y="35" width="72" height="8" rx="4" />
+                <rect class="ds-pill" x="532" y="31" width="92" height="16" rx="8" />
+                <rect class="ds-pill-soft" x="44" y="80" width="120" height="12" rx="6" />
+                <rect class="ds-title" x="44" y="104" width="330" height="26" rx="6" />
+                <rect class="ds-title ds-title--accent" x="44" y="138" width="230" height="26" rx="6" />
+                <rect class="ds-line" x="44" y="180" width="380" height="7" rx="3.5" />
+                <rect class="ds-line" x="44" y="194" width="340" height="7" rx="3.5" />
+                <rect class="ds-chip" x="44" y="214" width="56" height="14" rx="7" />
+                <rect class="ds-chip" x="106" y="214" width="66" height="14" rx="7" />
+                <rect class="ds-chip" x="178" y="214" width="50" height="14" rx="7" />
+                <line class="ds-rule" x1="0" y1="248" x2="640" y2="248" />
+                <rect class="ds-toc-title" x="44" y="268" width="60" height="6" rx="3" />
+                <rect class="ds-toc ds-toc--active" x="40" y="282" width="110" height="14" rx="5" />
+                <rect class="ds-toc" x="44" y="304" width="90" height="6" rx="3" />
+                <rect class="ds-toc" x="44" y="318" width="100" height="6" rx="3" />
+                <rect class="ds-toc" x="44" y="332" width="80" height="6" rx="3" />
+                <rect class="ds-toc-title" x="44" y="352" width="54" height="6" rx="3" />
+                <rect class="ds-toc" x="44" y="366" width="96" height="6" rx="3" />
+                <rect class="ds-toc" x="44" y="380" width="70" height="6" rx="3" />
+                <rect class="ds-pill-soft" x="190" y="268" width="60" height="6" rx="3" />
+                <rect class="ds-strong" x="190" y="282" width="180" height="14" rx="5" />
+                <rect class="ds-line" x="190" y="306" width="400" height="6" rx="3" />
+                <rect class="ds-line" x="190" y="318" width="370" height="6" rx="3" />
+                <rect class="ds-shot" x="190" y="334" width="400" height="66" rx="8" />
+                <rect class="ds-shot-inner" x="202" y="346" width="120" height="8" rx="4" />
+                <rect class="ds-shot-inner" x="202" y="360" width="180" height="6" rx="3" />
+              </svg>
             </div>
             <div class="hero__decor">
               <div class="shelf-card">
                 <div class="shelf-card__band">
                   <span class="shelf-card__brand">
                     <svg class="icon" width="18" height="18"><use href="#i-list" /></svg>
-                    En el estante
+                    Cada documentación
                   </span>
-                  <span class="shelf-card__badge"><span data-stat="books">0</span> libros</span>
                 </div>
-                <ul class="shelf-card__list" data-shelf-preview role="list"></ul>
+                <ul class="shelf-card__list" role="list">
+                  <li>Índice que te sigue</li>
+                  <li>Del uso al código</li>
+                  <li>Capturas de la app</li>
+                  <li>En claro y en oscuro</li>
+                </ul>
               </div>
               <div class="float-card float-card--top">
-                <svg class="icon" width="18" height="18"><use href="#i-layers" /></svg>
-                <span><strong data-stat="sections">0</strong> <span data-stat-label="sections">secciones</span></span>
+                <svg class="icon" width="18" height="18"><use href="#i-list" /></svg>
+                <span><strong data-stat="books">0</strong> <span data-stat-label="books">proyectos documentados</span></span>
               </div>
               <div class="float-card float-card--side">
-                <svg class="icon" width="18" height="18"><use href="#i-contrast" /></svg>
-                En claro y en oscuro
+                <svg class="icon" width="18" height="18"><use href="#i-layers" /></svg>
+                <span><strong data-stat="sections">0</strong> <span data-stat-label="sections">secciones</span></span>
               </div>
             </div>
           </div>
