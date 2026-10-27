@@ -23,7 +23,7 @@ const plain = (html) =>
 
 const library = read('biblioteca/index.html')
 const readme = read('README.md')
-const SITE = 'https://biblioteca-renzo-ramos.vercel.app/'
+const SITE = 'https://docs.portafolio-renzoramos.com/'
 const PERSON_ID = `${SITE}#renzo`
 
 // Entidad «Renzo Ramos»: la misma en todas las páginas, visible y en JSON-LD

@@ -10,7 +10,7 @@ import { join } from 'node:path'
 
 const root = process.cwd()
 const out = join(root, '_site')
-const SITE = (process.env.SITE_URL || 'https://biblioteca-renzo-ramos.vercel.app').replace(/\/$/, '')
+const SITE = (process.env.SITE_URL || 'https://docs.portafolio-renzoramos.com').replace(/\/$/, '')
 
 rmSync(out, { recursive: true, force: true })
 mkdirSync(out)
