@@ -93,5 +93,5 @@ documentación.
 
 ## Autor
 
-Hecho por **Renzo Ramos** · [GitHub](https://github.com/RenzoRamosDEV) ·
+Hecho por **Renzo Ramos** · [Web](https://portafolio-renzoramos.com/) · [GitHub](https://github.com/RenzoRamosDEV) ·
 [LinkedIn](https://www.linkedin.com/in/renzoinv04/)
