@@ -162,6 +162,7 @@
                 <p class="doc-toc__title">Por dentro</p>
                 <ol>
                   <li><a href="#arquitectura">Arquitectura</a></li>
+                  <li><a href="#stack">Stack tecnológico</a></li>
                   <li><a href="#servicios">Microservicios y API</a></li>
                   <li><a href="#flujo">Flujo de una compra</a></li>
                   <li><a href="#errores">Errores y validación</a></li>
@@ -661,6 +662,87 @@ make up                            # construye y levanta el stack</code></pre>
             </ul>
           </section>
 
+          <section id="stack" class="doc-section" aria-labelledby="stack-t">
+            <p class="eyebrow">Por dentro</p>
+            <h2 id="stack-t">Stack tecnológico</h2>
+            <p class="doc-lead">Todas las herramientas del proyecto, agrupadas por capa. Las versiones son las del repositorio.</p>
+            <h3>Backend</h3>
+            <ul class="chips" role="list">
+              <li>Java <span>17</span></li>
+              <li>Spring Boot <span>4.0.3</span></li>
+              <li>Spring Web (MVC)</li>
+              <li>Spring Data JPA · Hibernate</li>
+              <li>Spring Validation</li>
+              <li>Spring Boot Actuator</li>
+              <li>Spring Security Crypto (BCrypt)</li>
+              <li>MapStruct <span>1.6.3</span></li>
+              <li>Lombok</li>
+              <li>springdoc-openapi <span>3.0.3</span></li>
+              <li>Swagger UI</li>
+              <li>MySQL Connector/J</li>
+              <li>H2 <span>tests</span></li>
+              <li>Maven <span>3.9.12</span></li>
+              <li>RFC 9457 Problem Details</li>
+            </ul>
+            <h3>Frontend</h3>
+            <ul class="chips" role="list">
+              <li>React <span>19.3.1</span></li>
+              <li>TypeScript <span>6.0.3</span></li>
+              <li>Vite <span>8.3.5</span></li>
+              <li>Tailwind CSS <span>4.3.3</span></li>
+              <li>React Router <span>7.18.4</span></li>
+              <li>TanStack Query <span>5.104.5</span></li>
+              <li>Axios <span>1.20.0</span></li>
+              <li>React Hook Form <span>7.91.0</span></li>
+              <li>Zod <span>4.6.7</span></li>
+              <li>Zustand <span>5.0.16</span></li>
+              <li>Motion <span>14.6.0</span></li>
+              <li>Lucide <span>1.61.0</span></li>
+              <li>pdf-lib <span>1.17.1</span></li>
+              <li>qrcode <span>1.5.4</span></li>
+              <li>Inter · Space Grotesk</li>
+            </ul>
+            <h3>Infraestructura</h3>
+            <ul class="chips" role="list">
+              <li>Docker Compose v2</li>
+              <li>Podman (rootless)</li>
+              <li>nginx alpine (proxy /api/v1)</li>
+              <li>MySQL <span>8.0</span></li>
+              <li>eclipse-temurin 17 (JRE alpine)</li>
+              <li>maven:3.9 (build)</li>
+              <li>node:22-alpine</li>
+              <li>Makefile</li>
+              <li>GitHub Pages (demo)</li>
+            </ul>
+            <h3>Pruebas y calidad</h3>
+            <ul class="chips" role="list">
+              <li>JUnit 5</li>
+              <li>Mockito</li>
+              <li>@WebMvcTest · @DataJpaTest</li>
+              <li>PIT <span>1.17.0</span></li>
+              <li>Checkstyle <span>12.3.1</span></li>
+              <li>Spotless</li>
+              <li>google-java-format <span>1.35.0</span></li>
+              <li>Vitest <span>5.0</span></li>
+              <li>Testing Library (dom · react · user-event · jest-dom)</li>
+              <li>jsdom <span>30</span></li>
+              <li>Playwright <span>1.64</span></li>
+              <li>Stryker <span>10.1.1</span></li>
+              <li>ESLint <span>10</span></li>
+              <li>typescript-eslint · react-hooks · react-refresh</li>
+              <li>Prettier <span>3.9.10</span></li>
+              <li>node --test</li>
+            </ul>
+            <h3>CI y método</h3>
+            <ul class="chips" role="list">
+              <li>GitHub Actions (backend · frontend · compose · Pages)</li>
+              <li>OpenSpec (19 capacidades)</li>
+              <li>ADRs (MADR)</li>
+              <li>Conventional Commits</li>
+              <li>TDD</li>
+            </ul>
+          </section>
+
           <section id="servicios" class="doc-section" aria-labelledby="servicios-t">
             <p class="eyebrow">Por dentro</p>
             <h2 id="servicios-t">Microservicios y API</h2>
@@ -899,23 +981,6 @@ make up                            # construye y levanta el stack</code></pre>
           <section id="frontend" class="doc-section" aria-labelledby="frontend-t">
             <p class="eyebrow">Por dentro</p>
             <h2 id="frontend-t">Frontend por dentro</h2>
-            <h3>Tecnologías</h3>
-            <ul class="chips" role="list">
-              <li>React <span>19.3.1</span></li>
-              <li>TypeScript <span>6.0.3</span></li>
-              <li>Vite <span>8.3.5</span></li>
-              <li>Tailwind CSS <span>4.3.3</span></li>
-              <li>motion <span>14.6.0</span></li>
-              <li>React Router <span>7.18.4</span></li>
-              <li>TanStack Query <span>5.104.5</span></li>
-              <li>Axios <span>1.20.0</span></li>
-              <li>React Hook Form <span>7.91.0</span></li>
-              <li>Zod <span>4.6.7</span></li>
-              <li>Zustand <span>5.0.16</span></li>
-              <li>Lucide <span>1.61.0</span></li>
-              <li>pdf-lib <span>1.17.1</span></li>
-              <li>qrcode <span>1.5.4</span></li>
-            </ul>
             <h3>Estructura</h3>
             <dl>
               <dt><code>src/app</code></dt>
