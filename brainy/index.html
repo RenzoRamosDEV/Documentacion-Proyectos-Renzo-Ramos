@@ -306,7 +306,7 @@
               </li>
               <li class="card">
                 <h4>Aprender, luego practicar</h4>
-                <p>Cada tema tiene una explicación visual animada y niveles de 10 preguntas.</p>
+                <p>Cada tema tiene una explicación visual animada y niveles de práctica, casi todos de 10 preguntas.</p>
               </li>
               <li class="card">
                 <h4>Puntos con sentido</h4>
@@ -529,7 +529,7 @@
           <section id="quiz" class="doc-section" aria-labelledby="quiz-t">
             <p class="eyebrow">La app</p>
             <h2 id="quiz-t">El quiz</h2>
-            <p>Cada nivel es una partida de 10 preguntas elegidas del banco del nivel.</p>
+            <p>Cada nivel es una partida con preguntas de su banco: en casi todos, 10 elegidas entre las de ese nivel; en las lecciones 3 a 12 de Lengua, sus 6 preguntas.</p>
             <figure class="shot">
               <div class="shot__frame shot__frame--light">
                 <img
@@ -575,7 +575,7 @@
               <figcaption>Una pregunta del quiz.</figcaption>
             </figure>
             <ul>
-              <li>Un panel muestra «Pregunta k de 10», los puntos y la racha de aciertos seguidos.</li>
+              <li>Un panel muestra «Pregunta k de N», los puntos y la racha de aciertos seguidos.</li>
               <li>Las preguntas y sus opciones se barajan cada vez, y se priorizan las que aún no has visto.</li>
               <li>Durante una partida con puntos no hay barra de navegación: se juega hasta el final.</li>
               <li>Las preguntas no se pueden seleccionar ni copiar.</li>
@@ -678,7 +678,7 @@
               <figcaption>La página «¿Cómo gano puntos?».</figcaption>
             </figure>
             <ul>
-              <li><strong>10 puntos por acierto</strong>: un nivel perfecto da 100.</li>
+              <li><strong>10 puntos por acierto</strong>: un nivel perfecto de 10 preguntas da 100.</li>
               <li><strong>Una vez al día por nivel.</strong> Repetirlo el mismo día es práctica: 0 puntos, pero puedes mejorar tus estrellas. A medianoche (hora de Madrid) vuelve a dar puntos.</li>
               <li><strong>Empezar cuenta como jugado</strong>: si lo dejas a medias, conservas lo ganado.</li>
               <li><strong>Tope de 1.000 puntos al día</strong> con cuenta: «Hoy ya llegaste al máximo de 1.000 puntos. ¡Mañana más!».</li>
@@ -846,15 +846,20 @@
               Taller y un índice. Para cambiar preguntas basta con editar el JSON; no hace falta tocar
               código.
             </p>
-            <pre><code>asignatura
-└── lessons
-    └── topics          (con su explicación paso a paso)
-        └── levels      (un nivel = un quiz de 10 preguntas)
-            └── questions   (id, type, prompt, explanation)</code></pre>
+            <pre><code>asignatura                (id, name y lang si está en inglés)
+├── terms                 (los trimestres: id y name)
+└── lessons               (cada una dice su trimestre en term)
+    └── topics            (con su explicación paso a paso)
+        └── levels        (sessionSize: preguntas por partida)
+            └── questions (id, type, prompt, explanation
+                           y los campos de su tipo)</code></pre>
             <ul>
               <li>Una asignatura con <code>"available": false</code> se muestra como «Próximamente».</li>
+              <li>Los trimestres van en <code>terms</code> y cada lección dice el suyo con <code>"term"</code>. Una lección sin trimestre, o con uno que no existe, va al primero; un trimestre sin lecciones se muestra como «Próximamente»; y una asignatura sin <code>terms</code> enseña sus lecciones directamente.</li>
+              <li>Una lección puede llevar un <code>summary</code> con las etiquetas de su tarjeta; si no, la tarjeta muestra los nombres de sus temas.</li>
+              <li><code>sessionSize</code> dice cuántas preguntas salen en cada partida, elegidas del banco del nivel y empezando por las que aún no has visto. Sin él se juegan todas las preguntas del nivel.</li>
               <li>Un fichero con <code>"lang": "en"</code> marca su contenido en inglés para los lectores de pantalla.</li>
-              <li>Cada explicación tiene de 1 a 12 pasos, cada uno con su texto y un visual. Si algo no es válido, la explicación se ignora, en vez de romper la página.</li>
+              <li>Cada explicación tiene de 1 a 14 pasos, cada uno con su texto y un visual. Si algo no es válido, la explicación se ignora, en vez de romper la página.</li>
               <li>Las preguntas no válidas se omiten; los tipos de pregunta son un registro al que se pueden añadir tipos nuevos sin tocar el motor del quiz.</li>
               <li>El <code>id</code> de un nivel o de una palabra publicados nunca se cambia, porque el progreso lo usa. Cada nivel nuevo se da de alta también en el catálogo de la base de datos, y un test comprueba que coinciden.</li>
               <li>Hay tests del propio contenido: por ejemplo, que las audiciones en inglés empiecen por «Listen.» o que las sílabas marcadas coincidan con la tónica.</li>
