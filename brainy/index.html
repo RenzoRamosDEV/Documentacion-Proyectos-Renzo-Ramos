@@ -945,7 +945,9 @@
             </ul>
             <h3>Rendimiento</h3>
             <ul>
-              <li>Cada pantalla se descarga al abrirla. Antes, todo iba en un único archivo de 556 KB.</li>
+              <li>Cada pantalla se descarga al abrirla. El código inicial pesa 542 KB (168 KB comprimido): los diagramas y los tipos de pregunta solo se cargan en las pantallas que los usan.</li>
+              <li>El inicio usa un resumen de 68 KB generado al compilar, en vez de los 3,6 MB de todas las asignaturas, y empieza a descargarse a la vez que se comprueba la sesión.</li>
+              <li>Cada fichero de contenido se pide una sola vez y se guarda en memoria 10 minutos: volver a una pantalla no repite descargas ni muestra «Cargando…».</li>
               <li>Tras publicar una versión nueva, si falla la carga de un fragmento antiguo, la página se recarga sola una vez.</li>
             </ul>
             <h3>SEO</h3>
@@ -961,7 +963,7 @@
             <p class="eyebrow">Por dentro</p>
             <h2 id="calidad-t">Pruebas y calidad</h2>
             <ul>
-              <li><strong>Unos 9.000 tests</strong> con Vitest y Testing Library, en 149 ficheros, junto al código que prueban.</li>
+              <li><strong>Unos 9.300 tests</strong> con Vitest y Testing Library, en 158 ficheros, junto al código que prueban.</li>
               <li><strong>Golden files</strong> de los diagramas, del contenido y de algunas pantallas, que nunca se regeneran solos.</li>
               <li><strong>Tests del contenido</strong>: bancos de preguntas, lecciones y que el catálogo de niveles coincida con la base de datos.</li>
               <li><strong>Pruebas de mutación</strong> con Stryker sobre lo que se cambia, con un objetivo de más del 95 %.</li>
